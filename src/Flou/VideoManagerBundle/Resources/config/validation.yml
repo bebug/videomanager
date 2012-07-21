@@ -1,0 +1,7 @@
+Flou\VideoManagerBundle\Entity\Video:
+    properties:
+        file:
+            - File:
+                maxSize: 409600k
+                mimeTypes: [video/mp4, video/x-m4v, video/x-flv, video/webm, video/x-flv]
+                mimeTypesMessage: Please upload a valid video-format

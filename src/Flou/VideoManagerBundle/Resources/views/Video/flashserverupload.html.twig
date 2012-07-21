@@ -1,0 +1,130 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+{% block specjavascripts %}
+<link href="{{ asset('bundles/flouvideomanager/swfupload/css/default.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/swfupload.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/js/swfupload.queue.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/js/fileprogress.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/js/handlers.js') }}"></script>
+
+<script type="text/javascript">
+
+	function uploadSuccesss3(file, serverData) {
+		try {
+			var progress = new FileProgress(file, this.customSettings.progressTarget);
+			progress.setComplete();
+			// hahahaah
+			
+			var locstart = serverData.indexOf("<Location>");
+			var locend = serverData.indexOf("</Location>");
+			var loc = serverData.substring(locstart+10,locend);
+			
+			var keystart = serverData.indexOf("<Key>");
+			var keyend = serverData.indexOf("</Key>");
+			var key = serverData.substring(keystart+5,keyend);
+			
+			var bucketstart = serverData.indexOf("<Bucket>");
+			var bucketend = serverData.indexOf("</Bucket>");
+			var bucket = serverData.substring(bucketstart+8,bucketend);
+			
+			var get = '?location=' + escape(loc) + '&key=' + escape(key) + '&bucket=' + escape(bucket);
+			
+			progress.setStatus(serverData);
+			progress.toggleCancel(false);
+			location.href = "{{ uploadinfo.returnafters3 }}"+get;
+	
+		} catch (ex) {
+			this.debug(ex);
+		}
+	}
+
+	var swfu;
+
+	window.onload = function() {
+		var settings = {
+			flash_url : "{{ asset('bundles/flouvideomanager/swfupload/swfupload.swf') }}",
+
+			upload_url: "{{ uploadinfo.action }}",
+			{% if s3upload %}
+			post_params: {'AWSAccessKeyId':'{{ uploadinfo.s3params.AWSAccessKeyId }}',
+							'key':'{{ uploadinfo.s3params.key }}',
+							'acl':'{{ uploadinfo.s3params.acl }}',
+							'policy':'{{ uploadinfo.s3params.policy }}',
+							'signature':'{{ uploadinfo.s3params.signature }}',
+							'success_action_status':'{{ uploadinfo.s3params.success_action_status }}',
+							'Content-Type':'{{ attribute(uploadinfo.s3params, "Content-Type") }}',
+							'Content-Disposition':'{{ attribute(uploadinfo.s3params, "Content-Disposition") }}',
+							'uid':'{{ uploadinfo.s3params.uid }}'},
+			{% else %}
+			post_params: {'{{ form._token.vars.id }}':'{{ form._token.vars.value }}',},
+			{% endif %}
+			file_post_name: 'file',
+			file_size_limit : "401 MB",
+			file_types : "*.mp4;*.m4v;*.f4v;*.webm;*.flv",
+			file_types_description : "All Files",
+			file_upload_limit : 1,
+			file_queue_limit : 1,
+			custom_settings : {
+				progressTarget : "fsUploadProgress",
+				cancelButtonId : "btnCancel"
+			},
+
+			debug: false,
+
+			// Button settings
+			button_image_url: "{{ asset('bundles/flouvideomanager/swfupload/images/ButtonUpload.png') }}",
+			button_width: "100",
+			button_height: "33",
+			button_placeholder_id: "spanButtonPlaceHolder",
+			//button_text: '<span class="theFont">Hello</span>',
+			button_text_style: ".theFont { font-size: 16; }",
+			button_text_left_padding: 12,
+			button_text_top_padding: 3,
+
+			// The event handler functions are defined in handlers.js
+
+			file_queued_handler : fileQueued,
+			file_queue_error_handler : fileQueueError,
+			file_dialog_complete_handler : fileDialogComplete,
+			upload_start_handler : uploadStart,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccesss3,
+			upload_complete_handler : uploadComplete,
+			queue_complete_handler : queueComplete	// Queue plugin event
+		};
+
+		swfu = new SWFUpload(settings);
+     };
+</script>
+
+<!-- <script type="text/javascript" src="../../../bundles/flouvideomanager/js/swfupload.cookies.js"></script> -->
+
+{% endblock %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Videoupload</h2>
+<hr/>
+<form id="form1" action="index.php" method="post" enctype="multipart/form-data">
+<div class="fieldset flash" id="fsUploadProgress">
+	<!--<span class="legend">Upload Queue</span> -->
+</div>
+<div id="divStatus" style="display:none;">0 Files Uploaded</div>
+<div>
+	<span id="spanButtonPlaceHolder"></span>
+	<input id="btnCancel" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px; display:none; " />
+</div>
+</form>
+{% endblock %}
+
+{% block help %}
+<p>Je nach Uploadgeschwindigkeit, welche sich erheblich von der Downloadgeschwindigkeit unterscheiden kann, kann das Hochladen mehrere Stunden dauern.</p>
+<p>Um ein Video hochzuladen wählen Sie dieses zuerst aus und klicken anschließend auf "Upload".</p>
+<p>Wenn Sie <strong>Probleme mit dem Upload</strong> haben versuchen Sie die traditionelle <a href="{{ path('video_serverupload') }}?noflash=true">Upload-Methode</a>.</p>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'FlouVideoManagerBundle::layout.html.twig' %}
+
+{% block topmenu %}
+<ul id="topmenulist">
+	<li><a href="{{ path('user_info') }}"><span class="label"><strong>Konto</strong></span></a></li>
+	<li><a href="{{ path('channel_edit') }}"><span class="label">Kanal</span></a></li>
+	<li><a href="{{ path('video_list') }}"><span class="label">Videos</span></a></li>
+	<li><a href="{{ path('page_list') }}"><span class="label">Seiten</span></a></li>
+	<li><a href="{{ helpchannel }}" target="_blank"><span class="label">Hilfe</span></a></li>
+	{% if is_granted('ROLE_ADMIN') %}
+	<li><a href="{{ path('admin_getuser') }}"><span class="label">Administration</span></a></li>
+	{% endif %}
+	<li><a href="{{ path('fos_user_security_logout') }}"><span class="label">Abmelden</span></a></li>
+</ul>
+{% endblock %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="#"><span class="label">Hallo</span></a></li>
+	<li><a href="#"><span class="label">Hallo</span></a></li>
+	<li><a href="#"><span class="label">Hallo</span></a></li>
+</ul>
+{% endblock %}
+
+{% block precontent %}
+<span class="infobutton"></span>
+<div class="infotext">{% block help %}{% endblock %}</div>
+{% block content %}
+{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$(document).ready(function()
+{
+  $(".infotext").hide();
+  $(".infobutton").click(function()
+  {
+    $(this).next(".infotext").slideToggle(600);
+  });
+});
+</script>
+{% block specjavascripts %}{% endblock %}
+{% endblock %}

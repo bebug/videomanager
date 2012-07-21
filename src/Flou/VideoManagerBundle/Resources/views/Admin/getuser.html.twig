@@ -1,0 +1,18 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('admin_update') }}"><span class="label">Update</span></a></li>
+	<li><a href="{{ path('admin_getuser') }}"><span class="label">Benutzerrolle</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Benutzerrolle annehmen</h2>
+<hr/>
+<ul>
+{% for user in users %}
+<li><a href="{{ path('user_info') }}?_switch_user={{ user.username }}" >{{ user.username }}</a> ► {{ user.email }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

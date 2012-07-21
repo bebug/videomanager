@@ -1,0 +1,73 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Videoupload</h2>
+<hr/>
+{% if s3upload %}
+<form action="{{ uploadinfo.action }}" method="post" enctype="multipart/form-data">
+
+	{% if uploadinfo.s3params %}
+        	<input type="hidden" name="AWSAccessKeyId" value="{{ uploadinfo.s3params.AWSAccessKeyId }}">
+        	<input type="hidden" name="key" value="{{ uploadinfo.s3params.key }}">
+        	<input type="hidden" name="acl" value="{{ uploadinfo.s3params.acl }}">
+        	<input type="hidden" name="policy" value="{{ uploadinfo.s3params.policy }}">
+        	<input type="hidden" name="signature" value="{{ uploadinfo.s3params.signature }}">
+        	<input type="hidden" name="success_action_redirect" value="{{ uploadinfo.s3params.success_action_redirect }}">
+        	{#<input type="hidden" name="success_action_status" value="{{ uploadinfo.s3params.success_action_status }}"> only for flash#}
+        	<input type="hidden" name="Content-Type" value="{{ attribute(uploadinfo.s3params, "Content-Type") }}">
+        	<input type="hidden" name="Content-Disposition" value="{{ attribute(uploadinfo.s3params, "Content-Disposition") }}">
+        	<input type="hidden" name="uid" value="{{ uploadinfo.s3params.uid }}">
+	{% endif %}
+	<div style="font-size:0.8em; margin-bottom:8px;">
+	<strong>mp4</strong>, <strong>m4v</strong>, <strong>f4v</strong>, <strong>webm</strong> und <strong>flv</strong> mit 400 MB.
+	</div>
+	<input id="file" name="file" type="file" accept="video/*" onchange="check_file()">
+    <input id="submit" type="submit" value="Upload" />
+</form>
+{% else %}
+<form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" />
+</form>
+{% endif %}
+
+{% endblock %}
+
+{% block help %}
+<p>Dies ist die traditionelle Uploadmethode über eine Form. Sie können den Fortschritt des Uploads unten an ihrem Browserfenster beobachten. Eine weitaus komfortablere Lösung bietet unser <a href="{{ path('video_serverupload') }}">Flash-Upload</a>. Der Flash-Upload ist die empfohlene Methode um Videos hochzuladen. Sie sollten ihn bevorzugt verwenden.</p>
+<p>Je nach Uploadgeschwindigkeit, welche sich erheblich von der Downloadgeschwindigkeit unterscheiden kann, kann das Hochladen mehrere Stunden dauern.</p>
+<p>Um ein Video hochzuladen wählen Sie dieses zuerst aus und klicken anschließend auf "Upload".</p>
+{% endblock %}
+
+{% block specjavascripts %}
+<script type="text/javascript">
+function check_file(){
+                str=document.getElementById('file').value.toUpperCase();
+        suffix1=".MP4";
+        suffix2=".M4V";
+        suffix3=".F4V";
+        suffix4=".WEBM";
+        suffix5=".FLV";
+        if(!(str.indexOf(suffix1, str.length - suffix1.length) !== -1||
+             str.indexOf(suffix2, str.length - suffix2.length) !== -1||
+             str.indexOf(suffix3, str.length - suffix3.length) !== -1||
+             str.indexOf(suffix4, str.length - suffix4.length) !== -1||
+             str.indexOf(suffix5, str.length - suffix5.length) !== -1))
+        {
+            document.getElementById('file').value='';
+            document.getElementById("submit").disabled = true;
+        }
+        else
+        {
+        	document.getElementById("submit").disabled = false;
+        }
+    }
+</script>
+{% endblock %}

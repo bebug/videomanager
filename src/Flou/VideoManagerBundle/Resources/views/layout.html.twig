@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}DIF Videomanager{% endblock %}
+
+{% block stylesheets %}
+	{% stylesheets
+	    '@FlouVideoManagerBundle/Resources/public/css/reset.css'
+	    '@FlouVideoManagerBundle/Resources/public/css/videomanager.css'
+	%}
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+	{% endstylesheets %}
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script> -->
+{% endblock %}
+
+{% block body %}
+<div id="wrapper">
+		<div id="header" class="center">{% block header %}<img src="{{ asset('bundles/flouvideomanager/images/smalmovielogo.png') }}">  <span><h1 style="display:inline;">Videomanager</h1></span>{% endblock %}</div>
+	<div id="topmenu" class="center clearfix">
+		{% block topmenu %}
+		{% endblock %}
+		<div class="clear"></div>
+	</div>
+
+	<div id="innerwrapper" class="center rounded-corners">
+		
+		
+		<div id="contentwrapper">
+		<div id="content">
+			{% if app.session.hasFlash('notice') %}
+			    <div class="flash-notice">
+			        {{ app.session.flash('notice') }}
+			    </div>
+			{% endif %}
+			{% block precontent %}
+			{% endblock %}
+		</div>
+		</div>
+		
+		<div id="sidemenu">
+			{% block sidemenu %}
+			{% endblock %}
+			<div class="clear"></div>
+		</div>
+		
+		
+		<div class="clear"></div>
+		
+		
+	</div>
+	
+</div>
+{% endblock %}

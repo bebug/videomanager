@@ -1,0 +1,77 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('channel_edit') }}"><span class="label">Einstellungen</span></a></li>
+	<li><a href="{{ path('channel_head') }}"><span class="label">Kopfbereich</span></a></li>
+	<li><a href="{{ path('channel_menu') }}"><span class="label">Menübereich</span></a></li>
+	<li><a href="{{ path('design_color') }}"><span class="label">Farben</span></a></li>
+	<li><a href="{{ path('design_template') }}"><span class="label">Template</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Farben</h2>
+<hr/>
+<form action="" method="post" {{ form_enctype(form) }}>
+    <div class="formwrapper">
+	<fieldset>
+	<legend>Container</legend>
+	{{ form_row(form.color1) }}
+	{{ form_row(form.color2) }}
+	{{ form_row(form.color3) }}
+	{{ form_row(form.hovercolor1) }}
+	{{ form_row(form.hovercolor2) }}
+	{{ form_row(form.hovercolor3) }}
+	</fieldset>
+	
+	<fieldset>
+	<legend>Schrift</legend>
+	{{ form_row(form.headingfont) }}
+	{{ form_row(form.headingcolor) }}
+	{{ form_row(form.font) }}
+	{{ form_row(form.fontcolor1) }}
+	{{ form_row(form.fontcolor2) }}
+	{{ form_row(form.fontcolor3) }}
+	{{ form_row(form.hoverfontcolor1) }}
+	{{ form_row(form.hoverfontcolor2) }}
+	{{ form_row(form.hoverfontcolor3) }}
+	{{ form_row(form.linkcolor1) }}
+	{{ form_row(form.linkcolor2) }}
+	{{ form_row(form.linkcolor3) }}
+	{{ form_row(form.hoverlinkcolor1) }}
+	{{ form_row(form.hoverlinkcolor2) }}
+	{{ form_row(form.hoverlinkcolor3) }}
+	</fieldset>
+	
+    {{ form_widget(form) }}
+
+    <input class="greenbutton" type="submit" />
+    </div>
+</form>
+{% endblock %}
+
+{% block help %}
+<p>In diesem Menü können Sie die Farben der Designs anpassen. Achten Sie darauf, dass nicht alle Einstellungen in allen Designs Veränderungen verursachen. Nicht alle Designs benötigen den vollen Umfang an Farben.</p>
+<p>Die hier ausgewählte <strong>Schriftart</strong> wird für Ihre gesamte Seite übernommen. Falls Sie an einzelnen Stellen eine andere Schriftart bevorzugen, können Sie das direkt in den jeweiligen Seiten einstellen, oder Sie manipulieren über ein Stylesheet im <a href="{{ path('design_template') }}">HTML-Header</a> die Schriftart.</p>
+<p>Die Farben werden als RGB-Werte im HEX-Format gespeichert.
+{% endblock %}
+
+{% block specjavascripts %}
+<link rel="stylesheet" href="{{ asset('bundles/flouvideomanager/colorpicker/css/colorpicker.css') }}" type="text/css" />
+<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/colorpicker/js/colorpicker.js') }}"></script>
+<script type="text/javascript">
+$(' #{{ form.color1.vars.id }}, #{{ form.color2.vars.id }}, #{{ form.headingcolor.vars.id }}, #{{ form.color3.vars.id }}, #{{ form.hovercolor1.vars.id }}, #{{ form.hovercolor2.vars.id }}, #{{ form.hovercolor3.vars.id }}, #{{ form.fontcolor1.vars.id }}, #{{ form.fontcolor2.vars.id }}, #{{ form.fontcolor3.vars.id }}, #{{ form.hoverfontcolor1.vars.id }}, #{{ form.hoverfontcolor2.vars.id }}, #{{ form.hoverfontcolor3.vars.id }}, #{{ form.hoverlinkcolor1.vars.id }}, #{{ form.hoverlinkcolor2.vars.id }}, #{{ form.hoverlinkcolor3.vars.id }}, #{{ form.linkcolor1.vars.id }}, #{{ form.linkcolor2.vars.id }}, #{{ form.linkcolor3.vars.id }}').ColorPicker({
+	onSubmit: function(hsb, hex, rgb, el) {
+		$(el).val(hex);
+		$(el).ColorPickerHide();
+	},
+	onBeforeShow: function () {
+		$(this).ColorPickerSetColor(this.value);
+	}
+})
+.bind('keyup', function(){
+	$(this).ColorPickerSetColor(this.value);
+});
+</script>
+{% endblock %}

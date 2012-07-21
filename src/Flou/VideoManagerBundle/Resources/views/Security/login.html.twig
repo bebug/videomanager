@@ -1,0 +1,29 @@
+{% extends "FlouVideoManagerBundle::layout.html.twig" %}
+
+
+{% block precontent %}
+<h2>Login</h2>
+<hr/>
+{% if error %}
+    <div class="error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <div class="formlabel"><label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label></div>
+    <div class="formitem"><input type="text" id="username" name="_username" value="{{ last_username }}" class="formwidth" /></div>
+    <div class="clear"></div>
+    <div class="formlabel"><label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label></div>
+    <div class="formitem"><input type="password" id="password" name="_password" class="formwidth"/></div>
+	<div class="clear"></div>
+	
+    <div class="formlabel"><input type="checkbox" id="remember_me" name="_remember_me" value="on" /></div>
+    <div class="formitem boxlabel"><label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label></div>
+
+    <div class="clear"></div>
+    
+    <input type="submit" id="_submit" name="_submit" class="greenbutton floatright" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+    <div class="clear"></div>
+</form>
+{% endblock precontent %}

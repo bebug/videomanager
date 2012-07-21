@@ -1,0 +1,48 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('channel_edit') }}"><span class="label">Einstellungen</span></a></li>
+	<li><a href="{{ path('channel_head') }}"><span class="label">Kopfbereich</span></a></li>
+	<li><a href="{{ path('channel_menu') }}"><span class="label">Menübereich</span></a></li>
+	<li><a href="{{ path('design_color') }}"><span class="label">Farben</span></a></li>
+	<li><a href="{{ path('design_template') }}"><span class="label">Template</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Kannal-Einstellungen</h2>
+<hr/>
+<form action="" method="post" {{ form_enctype(form) }}>
+
+	<div class="formwrapper">
+	<fieldset>
+	<legend>Optionen</legend>
+	{{ form_row(form.socialnetworks) }}
+	{{ form_row(form.showplaylist) }}
+	</fieldset>
+	<fieldset>
+	<legend>Startseite</legend>
+	{{ form_row(form.defaultpage) }}
+	</fieldset>
+	
+	<fieldset>
+	<legend>Sprachen</legend>
+		{{ form_row(form.language_de) }}
+		{{ form_row(form.language_en) }}
+		{{ form_row(form.language_fr) }}
+	</fieldset>
+	
+    {{ form_widget(form) }}
+
+    <input class="greenbutton" type="submit" />
+    </div>
+</form>
+{% endblock %}
+
+{% block help %}
+<p>In diesem Menü können Sie die Eigenschaften Ihres Kanals bearbeiten.</p>
+<p>In den <strong>Optionen</strong> können Sie allgemeine Einstellungen vornehmen.</p>
+<p>Die verfügbaren <strong>Sprachen</strong> können beliebig ausgewählt werden, um Ihre Seite an Besucher anderer Länder anzupassen.</p>
+<p>Die <strong>Startseite</strong> ist die Seite, die Ihre Besucher zuerst zu Gesicht bekommen, wenn sie Ihre Seite besuchen.</p>
+{% endblock %}

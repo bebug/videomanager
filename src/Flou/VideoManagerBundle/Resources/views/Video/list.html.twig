@@ -1,0 +1,59 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Videoliste</h2>
+<hr/>
+
+
+
+
+{% for video in videos %}
+	<div class="pagelistitem">
+	<div class="pageimage">
+		<img class="pageimage" src="../../../uploads/videos/{{ channel.id }}/{{ video.id }}.png" alt="picture"/>
+	</div>
+	{% if not video.enabled %}
+		<div class="pageimageoverlay"></div>
+	{% endif %}
+	<div class="innerpagelistitem">
+		
+		<div class="title">{{ video.title.titlede }}</div>
+		<div class="description">{{ video.duration }} 
+		{% if video.enabled %}
+			Sichtbar
+		{% else %}
+			Unsichtbar
+		{% endif %}
+		</div>
+	</div>
+	<a href="{{ path('video_embed') }}?video={{ video.id }}"><span class="embedbutton">Embed</span></a>
+	<a href="{{ path('video_edit', { 'videoid': video.id }) }}"><span class="editbutton">Ändern</span></a>
+	<a href="javascript:decision('Seite wirklich löschen?','{{ path('video_delete', { 'videoid': video.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+	</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block help %}
+<p>In dieser Liste werden alle von Ihnen hochgeladenen Videos aufgelistet. Die Auflistung erfolgt in der Reihenfolge in der Sie die Videos hochgeladen haben.</p>
+<p>Unter den Namen der Videos wird die Sichtbarkeit angezeigt. Sie können so leicht erkennen welche Videos von Ihren Besuchern gesehen werden können.</p>
+<p>Um ein Video zu löschen oder zu bearbeiten klicken Sie auf die entsprechenden Icons.</p>
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}

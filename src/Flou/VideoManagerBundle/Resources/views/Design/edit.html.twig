@@ -1,0 +1,19 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('channel_edit') }}"><span class="label">Farben</span></a></li>
+	<li><a href="{{ path('channel_head') }}"><span class="label">Kopfbereich</span></a></li>
+	<li><a href="{{ path('channel_menu') }}"><span class="label">Menübereich</span></a></li>
+	<li><a href="{{ path('design_color') }}"><span class="label">Farben</span></a></li>
+	<li><a href="{{ path('design_template') }}"><span class="label">Template</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+
+    <input type="submit" />
+</form>
+{% endblock %}

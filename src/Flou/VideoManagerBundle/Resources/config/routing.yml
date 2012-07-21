@@ -1,0 +1,103 @@
+
+root:
+    pattern: /../
+
+page_list:
+    pattern:  /page/list/
+    defaults: { _controller: FlouVideoManagerBundle:Page:list }
+    
+admin_update:
+    pattern:  /admin/update/
+    defaults: { _controller: FlouVideoManagerBundle:Admin:update }
+    
+admin_getuser:
+    pattern:  /admin/getuser/
+    defaults: { _controller: FlouVideoManagerBundle:Admin:getuser }
+    
+page_edit:
+    pattern:  /page/edit/{pageid}
+    defaults: { _controller: FlouVideoManagerBundle:Page:edit }
+    
+page_new:
+    pattern:  /page/new/
+    defaults: { _controller: FlouVideoManagerBundle:Page:new }
+    
+page_delete:
+    pattern:  /page/delete/{pageid}
+    defaults: { _controller: FlouVideoManagerBundle:Page:delete }
+
+video_delete:
+    pattern:  /video/delete/{videoid}
+    defaults: { _controller: FlouVideoManagerBundle:Video:delete }
+
+user_info:
+    pattern:  /user/info/
+    defaults: { _controller: FlouVideoManagerBundle:User:Info }
+   
+channel_edit:
+    pattern:  /channel/edit/
+    defaults: { _controller: FlouVideoManagerBundle:Channel:edit }
+    
+channel_head:
+    pattern:  /channel/head/
+    defaults: { _controller: FlouVideoManagerBundle:Channel:head }
+    
+channel_menu:
+    pattern:  /channel/menu/
+    defaults: { _controller: FlouVideoManagerBundle:Channel:menu }
+    
+design_edit:
+    pattern:  /design/edit/
+    defaults: { _controller: FlouVideoManagerBundle:Design:edit }
+    
+design_color:
+    pattern:  /design/color/
+    defaults: { _controller: FlouVideoManagerBundle:Design:color }
+    
+design_template:
+    pattern:  /design/template/
+    defaults: { _controller: FlouVideoManagerBundle:Design:template }
+    
+video_serverupload:
+    pattern:  /video/serverupload/
+    defaults: { _controller: FlouVideoManagerBundle:Video:serverupload }
+    
+video_embed:
+    pattern:  /video/embed/
+    defaults: { _controller: FlouVideoManagerBundle:Video:embed }
+    
+video_s3return:
+    pattern:  /video/s3return/
+    defaults: { _controller: FlouVideoManagerBundle:Video:s3return }
+    
+video_list:
+    pattern:  /video/list/
+    defaults: { _controller: FlouVideoManagerBundle:Video:list }
+
+video_edit:
+    pattern:  /video/edit/{videoid}
+    defaults: { _controller: FlouVideoManagerBundle:Video:edit }
+    
+videoplayer_video:
+    pattern:  /videoplayer/video/{id}
+    defaults: { _controller: FlouVideoManagerBundle:Videoplayer:video }
+    
+videoplayer_channel:
+    pattern:  /videoplayer/channel/{id}
+    defaults: { _controller: FlouVideoManagerBundle:Videoplayer:channel }
+    
+tv_page:
+    pattern:  /tv/page/{page}
+    defaults: { _controller: FlouVideoManagerBundle:Tv:page }
+    
+tv_video:
+    pattern:  /tv/video/{video}
+    defaults: { _controller: FlouVideoManagerBundle:Tv:video }
+    
+tv_playlist:
+    pattern:  /tv/playlist/
+    defaults: { _controller: FlouVideoManagerBundle:Tv:playlist }
+    
+tv_default:
+    pattern:  /{language}
+    defaults: { _controller: FlouVideoManagerBundle:Tv:default, language:de }

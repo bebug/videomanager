@@ -1,0 +1,23 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('user_info') }}"><span class="label">Kontoinformationen</span></a></li>
+	<li><a href="{{ path('fos_user_change_password') }}"><span class="label">Passwort ändern</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Benutzerinformationen</h2>
+<hr/>
+<p>{{ user.username }}</p>
+<p>{{ user.email }}</p>
+{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+<p><a href="{{ path('user_info') }}?_switch_user=_exit">Benutzerrolle verlassen</a></p>
+{% endif %}
+{% endblock %}
+
+{% block help %}
+<p>Hier stehen allgemeine Informationen über Ihren Kanal und Ihr Konto.</p>
+{% endblock %}

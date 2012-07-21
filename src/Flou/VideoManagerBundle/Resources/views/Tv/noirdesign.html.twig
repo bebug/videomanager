@@ -1,0 +1,229 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="">
+
+  <meta name="viewport" content="width=device-width">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/flouvideomanager/css/noirstyle.css') }}"/>
+  <link rel="stylesheet" type="text/css" media="print" href="{{ asset('bundles/flouvideomanager/css/noirstyleprint.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oswald">
+  
+  <!--User Design -->
+  <style type="text/css" media="screen">
+  html, body {
+  	{% if design.color1 != '' %}background-color:#{{ design.color1 }};{% endif %}
+  }
+  
+  .header, #outercontentwrapper{
+  	{% if design.fontcolor1 != '' %}color:#{{ design.fontcolor1 }};{% endif %}
+  	{% if design.font != '' %}font-family:{{ design.font }};{% endif %}
+  }
+  
+  .header a, .header a:hover, #outercontentwrapper a, #outercontentwrapper a:hover{
+  	{% if design.linkcolor1 != '' %}color:#{{ design.linkcolor1 }};{% endif %}
+  }
+  
+  #outercontentwrapper a:hover, .header a:hover{
+    {% if design.hoverlinkcolor1 != '' %}
+    	color:#{{ design.hoverlinkcolor1 }};
+    	text-decoration:none;
+    {% endif %}
+  }
+  
+  #outerribbon{
+  	{% autoescape false %}
+  	{% if design.color3 != '' %}
+  	{{ gradient({'0%':['#',darken(design.color3, 70)]|join,'10%':['#',design.color3]|join,'100%':['#',design.color3]|join}) }}
+  	{% endif %}
+  	{% endautoescape %}
+  }
+  
+  .outertopmenu, footer{
+	{% autoescape false %}
+	{% if design.color2 != '' %}
+	border-top:1px solid #{{ lighten(design.color2, 70) }};
+	{{ gradient({'0%':['#',lighten(design.color2, 10)]|join, '100%':['#',darken(design.color2, 25)]|join}) }}
+	{% endif %}
+  	{% endautoescape %}
+  	{% if design.fontcolor2 != '' %}color:#{{ design.fontcolor2 }};{% endif %}
+  }
+  
+  .outertopmenu, #footermenu, #copyright{
+    {% if design.fontcolor2 != '' %}color:#{{ design.fontcolor2 }};{% endif %}
+  }
+  
+  {% if design.hovercolor2 != '' %}
+  .menu1singleitem:hover, .menu1groupitem:hover{
+	background-color:#{{ design.hovercolor2 }};
+  }
+  
+  .menu1groupitem{
+  	{% if design.linkcolor2 != '' %}color:#{{ design.linkcolor2 }};{% endif %}
+  }
+  
+  .menu1grouplist{
+  {% autoescape false %}
+  	{{ gradient({'0%':['#',design.hovercolor2]|join, '100%':['#',darken(design.hovercolor2, 30)]|join}) }}
+  	{% endautoescape %}
+  }
+  {% endif %}
+  
+  #menu1 a, #menu1 a:hover, #menu4 a, #menu4 a:hover, .outertopmenu a, #copyright a, #copyright a:hover{
+    {% if design.linkcolor2 != '' %}color:#{{ design.linkcolor2 }};{% endif %}
+  }
+  
+  #menu1 a:hover, #menu4 a:hover, .menu1groupitem:hover, #copyright a:hover{
+    {% if design.hoverlinkcolor2 != '' %}
+      color:#{{ design.hoverlinkcolor2 }};
+      text-decoration:none;
+    {% endif %}
+  }
+  
+  .menu3head{
+    {% if design.headingcolor != '' %}border-bottom:2px solid #{{ design.headingcolor }};{% endif %}
+  }
+  
+  .content_right, .content_left{
+  	{% if design.hovercolor1 != '' %}background-color:#{{ design.hovercolor1 }};{% endif %}
+  	{% if design.hovercolor1 != '' and design.hovercolor1 != design.color1  %}border:1px solid #{{ darken(design.hovercolor1, 30) }};{% endif %}
+  	{% if not info.menu3 %}width:auto; float:none;{% endif %}
+  }
+  
+  h1, h2, h3, h4, h5, h6{
+  	{% if design.headingcolor != '' %}color:#{{ design.headingcolor }};{% endif %}
+  	{% if design.headingfont != '' %}font-family:{{ design.headingfont }};{% endif %}
+  }
+  
+  </style>
+  
+
+  {% block htmlhead %}
+  {% endblock %}
+  <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance.
+       Create your own custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="{{ asset('bundles/flouvideomanager/js/libs/modernizr-2.5.3.min.js') }}"></script>
+</head>
+<body>
+<div id="wrap">
+
+		{% if info.menu1 %}
+		<div class="outertopmenu">
+			<div class="innertopmenu center clearfix">
+			{% block menu1 %}
+ 			{% endblock %}
+			</div>
+		</div>
+		{% endif %}
+
+	<header class="center">
+	{% block header %}
+ 	{% endblock %}
+	</header>
+	<div id="main">
+ 		
+ 		{% if info.menu2 %}
+		<div class="outertopmenu">
+			<div class="innertopmenu center clearfix">
+			{% block menu2 %}
+ 			{% endblock %}
+			</div>
+		</div>
+		{% endif %}
+		
+		{% if playlist is defined or video is defined %}
+		<div id="outerribbon">
+			<div id="innerribbon" class="center clearfix">
+				<div id="outervideowrapper" class="precenter">
+					<div id="innervideowrapper" class="center" style="width:880px">
+						{% set playerwidth = 880 %}
+						{% set playerheight = 495 %}
+						{% block video %}
+ 						{% endblock %}
+ 					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		
+		<div id="outercontentwrapper">
+			<div id="innercontentwrapper" class="center cleafix">
+				<div class="content_left" class="clearfix">
+					{% block page %}
+ 					{% endblock %}
+ 					{% block playlist %}
+	 				{% endblock %}
+	 				{% block videoinfo %}
+ 					{% endblock %}
+ 				</div>
+ 				{% if channel.socialnetworks %}
+				<div class="content_right" class="clearfix">
+				
+				{% block share %}
+				{% endblock %}
+				
+				</div>
+				{% endif %}
+				{% if info.menu3 %}
+				<div class="content_right" class="clearfix">
+					
+					<div class="menublock">
+					{% block menu3 %}
+	 				{% endblock %}
+	 				</div>
+	 				
+	 			</div>
+	 			{% endif %}
+	 			
+	 			{% if channel.menu != '' %}
+				<div class="content_right" class="clearfix">
+					{% block menucontent %}
+	 				{% endblock %}
+				</div>
+	 			{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+<div id="footermenu" class="center clearfix">
+{% block menu4 %}
+{% endblock %}
+{% if channel.language_de or channel.language_en or channel.language_fr %}
+{% block language %}
+{% endblock %}
+{% endif %} 
+</div>
+<div id="copyright">
+{% block login %}{% endblock %}Copyright &copy; 2012 DIF. All rights reserved. Templatedesign by F.Buchner
+</div>
+</footer>
+
+  <!-- JavaScript at the bottom for fast page loading -->
+  {% block scripts %}
+  {% endblock %}
+
+  
+    <script type="text/javascript">
+	$(document).ready(function()
+	{
+	  var footersize = $("footer").height();
+	  var el=$('footer');
+	  el.css('margin-top', (-footersize-1)+'px');
+	  var el2=$('#main');
+	  el2.css('padding-bottom', (footersize+1)+'px');
+	});
+	</script>
+	  <!-- end scripts -->
+</body>
+</html>

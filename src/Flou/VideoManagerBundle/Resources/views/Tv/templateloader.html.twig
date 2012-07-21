@@ -1,0 +1,237 @@
+{% embed info.usertemplate %}
+
+	{# VIDEOINFO #########################################}
+	{% block videoinfo %}
+	{% if video is defined %}
+		<div id="videoinfo">
+		<div class="videoinfo_title"><h2>{{ video.title }}</h2></div>
+		<div class="videoinfo_date">{{ video.date }}</div>
+		{% autoescape false %}
+		<div class="videoinfo_description">{{ video.description }}</div>
+		{% endautoescape %}
+		</div>
+	{% endif %}
+ 	{% endblock %}
+
+ 	{# PAGE #########################################}
+	{% block page %}
+	{% if page is defined %}
+	<div id="page">
+		{% autoescape false %}
+		{{ page.description }}
+		{% endautoescape %}
+	</div>
+	{% endif %}
+	{% endblock %}
+	
+	{# HEADER #########################################}
+	{% block header %}
+	{% if channel.header %}
+		
+		{% autoescape false %}
+		<div class="header">
+		{{ channel.header }}
+		</div>
+		{% endautoescape %}
+	{% endif %}
+	{% endblock %}
+    
+    {# HTMLHEAD #########################################}
+    {% block htmlhead %}
+    <title>{{ info.title }}</title>
+    {% if design.head %}
+		{% autoescape false %}
+		{{ design.head }}
+		{% endautoescape %}
+	{% endif %}
+  	{% endblock %}
+    
+    {# MENUMACRO #########################################}
+    {% macro menucreation(number, menugroups, menuitems) %}
+    <div id="menu{{ number }}">
+    
+    <ul class="menu{{ number }}list">
+    
+    {% for page in menuitems %}
+    	{% if page.position == number and page.menugroup == "" %}
+    	<li class="menu{{ number }}singleitem"><a href="{% if page.hyperlink %}{{ page.hyperlink }}{% else %}{{ path('tv_page', { 'page': page.id }) }}{% endif %}"><span id="menu{{ number }}signleitemspan">{{ page.title }}</span></a></li>
+    	{% endif %}
+    {% endfor %}
+    
+    {% for key,value in menugroups[number] %}
+    	<li class="menu{{ number }}groupitem">
+    		<div class="menu{{ number }}head">{{ key }}</div>
+	    	<ul class="menu{{ number }}grouplist">
+	    	{% for page in value %}
+		    	{% if page.position == number %}
+				<li class="menu{{ number }}grouplistitem"><a href="{% if page.hyperlink %}{{ page.hyperlink }}{% else %}{{ path('tv_page', { 'page': page.id }) }}{% endif %}"><span id="menu{{ number }}grouplistitemspan">{{ page.title }}</span></a></li>
+				{% endif %}
+			{% endfor %}
+	    	</ul>
+    	</li>
+    {% endfor %}
+    </ul>
+    
+	</div>
+    {% endmacro %}
+    
+    {# MENU1 #########################################}
+    {% block menu1 %}
+	{% if info.menu1 %}
+    {{ _self.menucreation(1, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# MENU3 #########################################}
+ 	{% block menu2 %}
+	{% if info.menu2 %}
+    {{ _self.menucreation(2, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# MENU3 #########################################}
+ 	{% block menu3 %}
+ 	{% if info.menu3 %}
+    {{ _self.menucreation(3, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+	{# MENU4 #########################################}
+ 	{% block menu4 %}
+ 	{% if info.menu4 %}
+    {{ _self.menucreation(4, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# MENUCONTENT #########################################}
+ 	{% block menucontent %}
+ 	{% if channel.menu %}
+ 		<div class="menucontent">
+ 		{% autoescape false %}
+ 		{{ channel.menu }}
+ 		{% endautoescape %}
+ 		</div>
+ 	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# LANGUAGE ############################################}
+ 	{% block language %}
+ 	<form id="langright">
+ 		{% if channel.language_de %}
+ 		<a href="{{ path('tv_default', { 'language':'de'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_de_min.png') }}"></a>
+ 		{% endif %}
+ 		{% if channel.language_en %}
+ 		<a href="{{ path('tv_default', { 'language':'en'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_en_min.png') }}"></a>
+ 		{% endif %}
+ 		{% if channel.language_fr %}
+ 		<a href="{{ path('tv_default', { 'language':'fr'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_fr_min.png') }}"></a>
+ 		{% endif %}
+    </form>
+ 	{% endblock %}
+
+    {# LOGIN ######################################}
+ 	{% block login %}
+ 		<div class="userlogin"><a href="{{ editorlocation }}" target="_blank">Login</a></div>
+ 	{% endblock %}
+ 	
+ 	{# PLAYLIST #########################################}
+ 	{% block playlist %}
+ 	{% if playlist is defined %}
+ 	<div id="playlist clearfix">
+ 	 	{% set videopos = 0 %}
+ 		{% for video in playlist %}
+ 		<div class="playlistitem clearfix">
+ 			<div class="playlistitem_text">
+ 				<div class="playlistitem_title"><a href="{{ path('tv_video', { 'video': video.id }) }}">{{ video.title }}</a>
+ 				</div>
+ 				<div class="playlistitem_date">{{ video.date }}
+ 				</div>
+ 				{% autoescape false %}
+ 				<div class="playlistitem_description">{{ video.shortdescription }}
+ 				{% endautoescape %}
+ 				</div>
+ 			</div>
+ 			<div class="playlistitem_picture">
+ 				<img src="{{ asset('uploads/videos/'~channel.id~'/'~video.id~'.png') }}" class="playlistimage">
+ 				<div class="playlistitem_duration">{{ video.duration }}</div>
+ 				<div class="playlistitem_button" onclick="setvideo({{ videopos }});"></div>
+ 			</div>
+ 		</div>
+ 		{% set videopos = videopos+1 %}
+ 		{% endfor %}
+ 	</div>
+ 	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# SOCIALPLUGINS #########################################}
+ 	{% block socialplugins %}
+ 	<div class="socialplugins">
+		<div style="float:left">
+			<iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21&amp;appId=245864165482300" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:21px; " allowTransparency="true"></iframe>	
+			<script src="//connect.facebook.net/en_US/all.js"></script>
+		</div>
+		<div style="float:left">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="de">Twittern</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+		<div style="float:left">
+			<g:plusone size="medium" href="<?php echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>"></g:plusone>
+			<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+		</div>
+	</div>
+ 	{% endblock %}
+ 	
+ 	{# SHARE ##############################################}
+ 	{% block share %}
+ 	{% if channel.socialnetworks %}
+ 	<div id="share">
+ 	<!-- AddThis Button BEGIN -->
+	<div class="addthis_toolbox addthis_default_style ">
+	<a class="addthis_button_preferred_1"></a>
+	<a class="addthis_button_preferred_2"></a>
+	<a class="addthis_button_preferred_3"></a>
+	<a class="addthis_button_preferred_4"></a>
+	<a class="addthis_button_preferred_6"></a>
+	<a class="addthis_button_preferred_7"></a>
+	<a class="addthis_button_compact"></a>
+	<a class="addthis_counter addthis_bubble_style"></a>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fe6e6ff3ff86f21"></script>
+	<!-- AddThis Button END -->
+	</div>
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# VIDEO #########################################}
+ 	{% block video %}
+ 	{% if playlist is defined or video is defined %}
+ 		{% if not playerwidth is defined %}
+ 			{% set playerwidth = 880 %}
+ 		{% endif %}
+ 		{% if not playerheight is defined %}
+ 			{% set playerheight = 495 %}
+ 		{% endif %}
+ 		
+ 		<div class="clearfix">
+ 		<iframe allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" id="videoframe" src="{% if playlist is defined %}
+{{ hostlocation }}{{ path('videoplayer_channel', { 'id': channel.id }) }}
+ 		{% elseif video is defined %}
+{{ hostlocation }}{{ path('videoplayer_video', { 'id': video.id }) }}
+ 		{% endif %}" width="{{ playerwidth }}px" height="{{ playerheight }}px" frameBorder="0" style="border:none; position:relative; float:left"></iframe>
+ 		</div>
+ 	{% endif %}
+ 	{% endblock %}
+    
+    {# SCRIPTS #########################################}
+    {% block scripts %}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{ asset('bundles/flouvideomanager/js/libs/jquery-1.7.1.min.js') }}"><\/script>')</script>
+	<script>
+	function setvideo(number)
+	{
+		document.getElementById('videoframe').contentWindow.setvideo(number);
+	}
+	</script>
+    {% endblock %}
+    
+{% endembed %}

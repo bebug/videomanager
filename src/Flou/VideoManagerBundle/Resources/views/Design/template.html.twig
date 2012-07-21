@@ -1,0 +1,39 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('channel_edit') }}"><span class="label">Einstellungen</span></a></li>
+	<li><a href="{{ path('channel_head') }}"><span class="label">Kopfbereich</span></a></li>
+	<li><a href="{{ path('channel_menu') }}"><span class="label">Menübereich</span></a></li>
+	<li><a href="{{ path('design_color') }}"><span class="label">Farben</span></a></li>
+	<li><a href="{{ path('design_template') }}"><span class="label">Template</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Template</h2>
+<hr/>
+<form action="" method="post" {{ form_enctype(form) }}>
+    <div class="formwrapper">
+	<fieldset>
+	<legend>HTML-Head</legend>
+	{{ form_widget(form.head) }}
+	</fieldset>
+	
+	<fieldset>
+	<legend>Template</legend>
+	{{ form_row(form.template) }}
+	{{ form_widget(form.usertemplate) }}
+	</fieldset>
+	
+    {{ form_widget(form) }}
+
+    <input class="greenbutton" type="submit" />
+    </div>
+</form>
+{% endblock %}
+
+{% block help %}
+<p>In dem Feld <strong>HTML-Head</strong> können Sie zusätzliche Stylesheets oder Javascripte in Ihre Seite einbinden. So können Sie ein bestehendes Design noch stärker nach Ihren Wünschen individualisieren.</p>
+<p>Sie können wahlweise ein vordefiniertes <strong>Design</strong> verwenden oder ein eigenes erstellen. Hierführ müssen Sie die Option <strong>User-Template</strong> auswählen.</p>
+{% endblock %}

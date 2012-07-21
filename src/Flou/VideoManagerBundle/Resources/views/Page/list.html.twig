@@ -1,0 +1,53 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('page_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('page_new') }}"><span class="label">Neue Seite</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Seitenliste</h2>
+<hr/>
+
+{% for page in pages %}
+	<div class="pagelistitem">
+	
+	<div class="innerpagelistitem">
+		<div class="title">
+		{% if page.hyperlink != '' %}
+			<span class="hyperlinkbutton"></span><a href="{{ page.hyperlink }}" target="_blank">{{ page.title.titlede }}</a>
+		{% else %}
+			<a href="{{ path('tv_page', { 'page': page.id }) }}" target="_blank">{{ page.title.titlede }}</a>
+		{% endif %}
+		</div>
+		<div class="description">
+			<div class="descriptionitem">Pos: {{ page.pageposition.position }}</div>
+			<div class="descriptionitem">Rank: {{ page.orderrank }}</div>
+			<div class="descriptionitem">Group: {{ page.group.titlede }}</div>
+		</div>
+	</div>
+	<a href="{{ path('page_edit', { 'pageid': page.id }) }}"><span class="editbutton">Ändern</span></a>
+	<a href="javascript:decision('Seite wirklich löschen?','{{ path('page_delete', { 'pageid': page.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+	</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}
+
+{% block help %}
+<p>In dieser Liste werden alle von Ihnen entworfenen Seiten aufgelistet.</p>
+<p>Seiten sind ein wichtiger Bestandteil, wenn Sie Ihren Besuchern zusätzliche <strong>Infomrationen</strong> zur Verfügung stellen wollen.</p>
+<p>Sie können beliebige Seiten erstellen. Achten Sie jedoch darauf, dass Sie eine Seite mit Ihrem <strong>Impressum</strong> immer auf dem aktuellen Stand halten. Dies ist in Deutschland verpflichtend.</p>
+{% endblock %}
