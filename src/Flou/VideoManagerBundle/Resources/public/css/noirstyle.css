@@ -253,9 +253,9 @@ p{
 	margin-bottom:0.3em;
 }
 
-#wrap {min-height: 100%;}
+#wrap {min-height: 100%; min-width:960px;}
 
-#main {overflow:auto;
+#main { overflow:visible;
 padding-bottom: 60px;}  /* must be same height as the footer */
 
 header {
@@ -265,6 +265,7 @@ text-align:center;
 footer {position: relative;
 margin-top: -60px; /* negative value of footer height */
 /*height: 59px;*/
+min-width:960px;
 clear:both;
 overflow:hidden;
 } 
@@ -537,7 +538,7 @@ position:relative;
 	position:relative;
 	clear:right;
 	float:right;
-	width:21%;
+	width:200px;
 	margin-bottom:5px;
 	padding:15px;
 	
@@ -549,7 +550,7 @@ position:relative;
 .content_left{
 	position:relative;
 	float:left;
-	width:71%;
+	width:680px;
 	margin-bottom:5px;
 	padding:15px;
 	

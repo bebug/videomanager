@@ -116,6 +116,8 @@
 <body>
 <div id="wrap">
 
+		
+
 		{% if info.menu1 %}
 		<div class="outertopmenu">
 			<div class="innertopmenu center clearfix">
@@ -202,10 +204,12 @@
 {% if channel.language_de or channel.language_en or channel.language_fr %}
 {% block language %}
 {% endblock %}
+
 {% endif %} 
+<div class="logincontainer">{% block login %}{% endblock %}</div>
 </div>
 <div id="copyright">
-{% block login %}{% endblock %}Copyright &copy; 2012 DIF. All rights reserved. Templatedesign by F.Buchner
+Copyright &copy; 2012 DIF. All rights reserved. Templatedesign by F.Buchner
 </div>
 </footer>
 

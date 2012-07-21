@@ -3,12 +3,8 @@
 {% block title %}DIF Videomanager{% endblock %}
 
 {% block stylesheets %}
-	{% stylesheets
-	    '@FlouVideoManagerBundle/Resources/public/css/reset.css'
-	    '@FlouVideoManagerBundle/Resources/public/css/videomanager.css'
-	%}
-	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
-	{% endstylesheets %}
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/flouvideomanager/css/reset.css') }}"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/flouvideomanager/css/videomanager.css') }}"/>
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script> -->
