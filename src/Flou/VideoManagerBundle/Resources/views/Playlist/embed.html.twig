@@ -1,0 +1,43 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
+</ul>
+{% endblock %}
+
+{% block specjavascripts %}
+<script type="text/javascript">
+function generatecode(){
+	var str = '<iframe id="videoframe" width="'+$("#playerwidth").val()+'px" height="'+$("#playerheight").val()+'px" frameBorder="0" src="{{ hostlocation }}{{ path('videoplayer_playlist', { 'id': playlist }) }}" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+	$("#playercode").val(str);
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>Playlist einbetten</h2>
+<hr/>
+<div class="formwrapper">
+<fieldset>
+	<legend>Optionen</legend>
+	<div><label for="playerwidth">Breite</label><input type="text" id="playerwidth" name="playerwidth" maxlength="5" value="800"/></div>
+	<div><label for="playerheight">Höhe</label><input type="text" id="playerheight" name="playerheight" maxlength="5" value="450"/></div>
+	<input class="greenbutton" type="submit" onclick="generatecode();"/>
+</fieldset>
+<fieldset>
+	<legend>Code</legend>
+	<div><textarea id="playercode" name="playercode" cols="50" rows="5"></textarea></div>
+</fieldset>
+</div>
+{% endblock %}
+
+{% block help %}
+<p>Hier können Sie sich einen Code generieren lassen mit dem Sie Ihre Playlist in anderen Seiten einbetten können.</p>
+{% endblock %}

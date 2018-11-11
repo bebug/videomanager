@@ -1,0 +1,32 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block specjavascripts %}
+{% endblock %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('gallery_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('gallery_new') }}"><span class="label">Neue Galerie</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Zip-Archiv hochladen</h2>
+<hr/>
+<form action="" method="post" {{ form_enctype(form) }}>
+<div class="formwrapper">
+	<fieldset>
+	<legend>Datei</legend>
+	{{ form_row(form.file) }}
+	</fieldset>
+<div class="clear"></div>
+{{ form_widget(form) }}
+
+<input class="greenbutton" type="submit" onsubmit="alert('hallo')"/>
+</div>
+</form>
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Seite können Sie archivierte Bilder hochladen. Die Bilder dürfen in keiner Ordnerstruktur sein. Die Datei darf maximal 50 MB groß sein. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de/tv/page/37">Hilfe</a>.</p>
+{% endblock %}

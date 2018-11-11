@@ -1,0 +1,12 @@
+<div class="vertplaylistwidget_wrapper">
+<ul class="vertplaylistwidget_ul">
+{% for item in playlists %}
+<li class="vertplaylistwidget_li">
+<a href="{{ path('tv_playlist', { 'playlistid': item.id }) }}">
+<img class="vertplaylistwidget_image" src="{{ asset('uploads/playlists/'~channelid~'/'~item.id~'_tiny.jpg') }}"/>
+<span class="vertplaylistwidget_text">{{ item.title }}</span>
+</a>
+</li>
+{% endfor %}
+</ul>
+</div>

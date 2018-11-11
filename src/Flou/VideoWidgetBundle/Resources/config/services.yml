@@ -1,0 +1,7 @@
+parameters:
+#    flou_video_widget.example.class: Flou\VideoWidgetBundle\Example
+
+services:
+#    flou_video_widget.example:
+#        class: %flou_video_widget.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

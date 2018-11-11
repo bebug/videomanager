@@ -4,6 +4,11 @@
 <ul id="sidemenulist">
 	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
 	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
 </ul>
 {% endblock %}
 
@@ -34,5 +39,5 @@ function generatecode(){
 {% endblock %}
 
 {% block help %}
-<p>Hier können Sie sich einen Code generieren lassen mit dem Sie Ihr Video in anderen Seiten einbetten können.</p>
+<p>Hier können Sie sich einen Code generieren lassen mit dem Sie Ihr Video in anderen Seiten einbetten können. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
 {% endblock %}

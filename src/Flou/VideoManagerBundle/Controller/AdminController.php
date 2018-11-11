@@ -2,12 +2,10 @@
 
 namespace Flou\VideoManagerBundle\Controller;
 
+use Flou\VideoManagerBundle\Form\Type\AdminCommentType;
+
 use Flou\VideoManagerBundle\FlouVideoManagerBundle;
-use Flou\VideoManagerBundle\Entity\Channel;
-use Flou\VideoManagerBundle\Entity\Description;
-use Flou\VideoManagerBundle\Form\Type\ChannelType;
-use Flou\VideoManagerBundle\Form\Type\ChannelHeadType;
-use Flou\VideoManagerBundle\Form\Type\ChannelMenuType;
+use Flou\VideoManagerBundle\Entity\AdminComment;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,22 +23,52 @@ class AdminController extends Controller
     	$messages = null;
     	
     	$em = $this->getDoctrine()->getEntityManager();
-    	$videos = $em->getRepository('FlouVideoManagerBundle:Video')->findAll();
+    	$galleries = $em->getRepository('FlouVideoManagerBundle:Gallery')->findAll();
     	
-    	foreach($videos as $video)
-    	{
-    		if($video->getShortdescription() == null)
-    		{
-    			$messages[] = 'video '.$video->getId().' has no shortdescription!';
-    			$video->setShortdescription(new Description());
-    			
-    			$em->persist($video);
-    			$em->persist($video->getShortdescription());
-    			$em->flush();
-    			
-    			$messages[] = 'created description for video '.$video->getId();
+    	//$iter = 0;
+    	$needle = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+    	$galid = $this->getRequest()->get('galid');
+    	
+    	//foreach($galleries as $gallery)
+    	//{
+    		$messages[] = 'gallery: '.$galid;
+    		
+    		$query = $em
+    		->createQuery('
+    				SELECT p
+    				FROM FlouVideoManagerBundle:Photo p
+    				JOIN p.gallery g
+    				JOIN p.title t
+    				WHERE g.id = :id
+    				ORDER BY t.title_de ASC'
+    		)->setParameter('id', $galid);
+    		$photos = $query->getResult();
+    		
+    		$iter = 0;
+    		foreach($photos as $photo){
+    			$iter += 10;
+    			$messages[] = '--'.$photo->getTitle()->getTitleDe();
+    			$title = $photo->getTitle()->getTitleDe();
+    			//$title = 'MUNICH INTERNATIONAL BUSINESS SCHOOL';
+    			//$title = \substr($title, 0, -4);
+    			$title = \str_replace($needle, "", $title);
+    			//$title->setTitleDe(\str_replace($needle, "", $title->getTitleDe()));
+    			if($title[0] == '_'){
+    				$title = \substr($title, 1);
+    			}
+    			if($title[strlen($title)-1] == '_'){
+    				$title = \substr($title, 0, strlen($title)-1);
+    			}
+    			$title = \str_replace("_", " ", $title);
+    			$title = 'MUNICH FABRIC START';
+    			$messages[] = '-->'.$title;
+    			$photo->getTitle()->setTitleDe($title);
+    			$photo->setOrderrank($iter);
+    			//$em->persist($photo);
     		}
-    	}
+    		$em->flush();
+    		
+    	//}
     	
     	if(count($messages) < 1)
     	{
@@ -63,5 +91,40 @@ class AdminController extends Controller
     	$data['users'] = $em->getRepository("FlouVideoManagerBundle:User")->findAll();
     	
     	return $this->render('FlouVideoManagerBundle:Admin:getuser.html.twig', $data);
+    }
+    
+    public function commentAction(Request $request)
+    {
+    	// get em
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	// get user
+    	$user =  $em->getRepository('FlouVideoManagerBundle:User')->findOneById($this->get('security.context')->getToken()->getUser()->getId());
+    	$channel = $user->getChannel();
+    	
+    	$adminmessage = new AdminComment();
+    	$form = $this->createForm(new AdminCommentType(), $adminmessage);
+    	
+    	if ($request->getMethod() == 'POST') {
+    		$form->bindRequest($request);
+    	
+    		if ($form->isValid()) {
+    			
+    			$myFile = $this->get('kernel')->getRootDir().'/logs/admin.log';
+    			$fh = fopen($myFile, 'a');
+    			fwrite($fh, date(DATE_RFC822)."\t".$adminmessage->getName().": ".$adminmessage->getMessage()."\n");
+    			fclose($fh);
+    			
+    			return $this->redirect($this->generateUrl('admin_getuser'));
+    		}
+    	}
+   
+ 		return $this->render('FlouVideoManagerBundle:Admin:comment.html.twig', array(
+ 				'form' => $form->createView(),
+ 		));
+    	
+    }
+    
+    public function createuserAction(){
     }
 }

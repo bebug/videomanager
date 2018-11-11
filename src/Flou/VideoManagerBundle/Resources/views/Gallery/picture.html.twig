@@ -1,0 +1,41 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('gallery_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('gallery_new') }}"><span class="label">Neue Galerie</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Vorschaubild ändern</h2>
+<hr/>
+
+<form action="" method="post" {{ form_enctype(form) }}>
+
+	<div class="formwrapper">
+	<fieldset>
+	<legend>Aktuelles Bild</legend>
+	<div style="text-align:center;">
+	<img src="{{ asset('uploads/galleries/' ~ channelid ~ '/' ~ galleryid ~ '_big.jpg')}}?dummy={{ random() }}" alt="picture"/>
+	</div>
+	</fieldset>
+	<div class="clear"></div>
+	<fieldset>
+	<legend>Neues Bild (16:5)</legend>
+	{{ form_widget(form) }}
+	</fieldset>
+	<div class="clear"></div>
+	
+    <input class="greenbutton" type="submit" />
+    </div>
+</form>
+
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Seite können Sie das Vorschaubild für Ihre Gallerie bearbeiten. Nachdem Sie das Bild geänder haben könnte es einige Zeit dauern bis das neue Bild angezeigt wird. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
+{% endblock %}
+
+{% block specjavascripts %}
+{% endblock %}

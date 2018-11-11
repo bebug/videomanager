@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Page
 {
+	const VIDEO = -1;
+	const GALLERY = -10;
+	const PHOTO = -20;
+	const OTHER = -100;
+	const ALL = -101;
+	
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

@@ -33,6 +33,28 @@ class VideoRepository extends EntityRepository
 		return ($query->getResult());
 	}
 	
+	public function findUnitedListByPlaylistId($id, $language = 'de')
+	{
+		$query = $this->getEntityManager()
+		->createQuery('
+				SELECT	v.id,
+				v.uploadtime as date,
+				v.duration,
+				v.http,
+				sd.description_'.$language.' as shortdescription,
+				t.title_'.$language.' as title
+				FROM FlouVideoManagerBundle:Playlist p
+				JOIN p.videos v
+				JOIN v.title t
+				JOIN v.shortdescription sd
+				WHERE p.id = :id
+				AND v.enabled = true
+				AND t.title_'.$language.' <> \'\''
+		)->setParameter('id', $id);
+	
+		return ($query->getResult());
+	}
+	
 	public function findUnitedPlayinfoListByChannelId($id, $language = 'de')
 	{
 		$query = $this->getEntityManager()
@@ -48,6 +70,32 @@ class VideoRepository extends EntityRepository
 				FROM FlouVideoManagerBundle:Video v
 				JOIN v.title t
 				WHERE v.channel = :id
+				AND v.enabled = true
+				AND t.title_'.$language.' <> \'\''
+		)->setParameter('id', $id);
+	
+		return ($query->getResult());
+	}
+	
+	public function findUnitedPlayinfoListByPlaylistId($id, $language = 'de')
+	{
+		$query = $this->getEntityManager()
+		->createQuery('
+				SELECT	v.id,
+				c.id as channel,
+				v.uploadtime as date,
+				pt.title_'.$language.' as playlisttitle,
+				v.duration,
+				v.http,
+				v.rtmp,
+				v.s3key,
+				t.title_'.$language.' as title
+				FROM FlouVideoManagerBundle:Playlist p
+				JOIN p.videos v
+				JOIN v.title t
+				JOIN v.channel c
+				JOIN p.title pt
+				WHERE p.id = :id
 				AND v.enabled = true
 				AND t.title_'.$language.' <> \'\''
 		)->setParameter('id', $id);
@@ -97,4 +145,5 @@ class VideoRepository extends EntityRepository
 	
 		return ($query->getSingleResult());
 	}
+
 }

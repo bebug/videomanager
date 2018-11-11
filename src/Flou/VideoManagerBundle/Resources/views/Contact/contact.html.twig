@@ -1,0 +1,9 @@
+<h2>Kontaktformular</h2>
+{% if not done %}
+<form action="" method="post" {{ form_enctype(form) }}>
+    	{{ form_widget(form) }}
+    <input type="submit" />
+</form>
+{% else %}
+<p>Vielen Dank! Wir werden Ihre Anfrage so schnell wie möglich bearbeiten.</p>
+{% endif %}

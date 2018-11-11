@@ -36,10 +36,13 @@ class DesignRepository extends EntityRepository
 				d.hoverlinkcolor2,
 				d.hoverlinkcolor3,
 				d.head,
+				d.fontsize,
 				t.id as template,
 				f.name as font,
+				f.importtag as fontimport,
 				d.headingcolor,
-				hf.name as headingfont
+				hf.name as headingfont,
+				hf.importtag as headingfontimport
 				
 				
 				FROM FlouVideoManagerBundle:Design d
@@ -49,7 +52,6 @@ class DesignRepository extends EntityRepository
 				JOIN d.template t
 				WHERE c.id = :id'
 		)->setParameter('id', $id);
-	
 		return ($query->getSingleResult());
 	}
 }

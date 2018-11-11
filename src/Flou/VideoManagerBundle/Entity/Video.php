@@ -96,8 +96,23 @@ class Video
      * @ORM\OneToOne(targetEntity="Title")
      */
     private $title;
-       
-
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Playlist", mappedBy="videos")
+     **/
+    private $playlists;
+    
+    function __toString()
+    {
+    	if($this->getTitle()->getTitleDe() == '')
+    	{
+    		return ' ';
+    	}
+    	else
+    	{
+    		return $this->getTitle()->getTitleDe();
+    	}
+    }
 
     /**
      * Get id
@@ -316,7 +331,7 @@ class Video
      */
     public function setRtmp($rtmp)
     {
-        $this->rtmp = $rtmp;
+        $this->rtmp = str_replace(' ', '%20', $rtmp);;
     }
 
     /**
@@ -336,7 +351,7 @@ class Video
      */
     public function setHttp($http)
     {
-        $this->http = $http;
+        $this->http = str_replace(' ', '%20', $http);
     }
 
     /**
@@ -407,5 +422,39 @@ class Video
     public function getShortdescription()
     {
         return $this->shortdescription;
+    }
+    public function __construct()
+    {
+        $this->playlists = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add playlists
+     *
+     * @param Flou\VideoManagerBundle\Entity\Playlist $playlists
+     */
+    public function addPlaylist(\Flou\VideoManagerBundle\Entity\Playlist $playlists)
+    {
+        $this->playlists[] = $playlists;
+    }
+
+    /**
+     * Get playlists
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPlaylists()
+    {
+        return $this->playlists;
+    }
+
+    /**
+     * Remove playlists
+     *
+     * @param Flou\VideoManagerBundle\Entity\Playlist $playlists
+     */
+    public function removePlaylist(\Flou\VideoManagerBundle\Entity\Playlist $playlists)
+    {
+        $this->playlists->removeElement($playlists);
     }
 }

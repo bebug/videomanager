@@ -1,150 +1,37 @@
 {% embed info.usertemplate %}
 
-	{# VIDEOINFO #########################################}
-	{% block videoinfo %}
-	{% if video is defined %}
-		<div id="videoinfo">
-		<div class="videoinfo_title"><h2>{{ video.title }}</h2></div>
-		<div class="videoinfo_date">{{ video.date }}</div>
-		{% autoescape false %}
-		<div class="videoinfo_description">{{ video.description }}</div>
-		{% endautoescape %}
-		</div>
-	{% endif %}
- 	{% endblock %}
-
- 	{# PAGE #########################################}
-	{% block page %}
-	{% if page is defined %}
-	<div id="page">
+ 	{# FACEBOOKID ##############################################}
+ 	{% block facebookid %}
+	{% if channel.fbid is defined %}
+ 	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/de_DE/all.js#xfbml=1&appId={{ channel.fbid }}";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+ 	{% endif %}
+	{% endblock %}
+ 	
+ 	{# CONTENT #########################################}
+	{% block content %}
+	{% if trigger.page %}
+	<div id="page" class="hyphenate">
 		{% autoescape false %}
 		{{ page.description }}
 		{% endautoescape %}
 	</div>
 	{% endif %}
-	{% endblock %}
-	
-	{# HEADER #########################################}
-	{% block header %}
-	{% if channel.header %}
-		
-		{% autoescape false %}
-		<div class="header">
-		{{ channel.header }}
-		</div>
-		{% endautoescape %}
-	{% endif %}
-	{% endblock %}
-    
-    {# HTMLHEAD #########################################}
-    {% block htmlhead %}
-    <title>{{ info.title }}</title>
-    {% if design.head %}
-		{% autoescape false %}
-		{{ design.head }}
-		{% endautoescape %}
-	{% endif %}
-  	{% endblock %}
-    
-    {# MENUMACRO #########################################}
-    {% macro menucreation(number, menugroups, menuitems) %}
-    <div id="menu{{ number }}">
-    
-    <ul class="menu{{ number }}list">
-    
-    {% for page in menuitems %}
-    	{% if page.position == number and page.menugroup == "" %}
-    	<li class="menu{{ number }}singleitem"><a href="{% if page.hyperlink %}{{ page.hyperlink }}{% else %}{{ path('tv_page', { 'page': page.id }) }}{% endif %}"><span id="menu{{ number }}signleitemspan">{{ page.title }}</span></a></li>
-    	{% endif %}
-    {% endfor %}
-    
-    {% for key,value in menugroups[number] %}
-    	<li class="menu{{ number }}groupitem">
-    		<div class="menu{{ number }}head">{{ key }}</div>
-	    	<ul class="menu{{ number }}grouplist">
-	    	{% for page in value %}
-		    	{% if page.position == number %}
-				<li class="menu{{ number }}grouplistitem"><a href="{% if page.hyperlink %}{{ page.hyperlink }}{% else %}{{ path('tv_page', { 'page': page.id }) }}{% endif %}"><span id="menu{{ number }}grouplistitemspan">{{ page.title }}</span></a></li>
-				{% endif %}
-			{% endfor %}
-	    	</ul>
-    	</li>
-    {% endfor %}
-    </ul>
-    
-	</div>
-    {% endmacro %}
-    
-    {# MENU1 #########################################}
-    {% block menu1 %}
-	{% if info.menu1 %}
-    {{ _self.menucreation(1, menugroups, menuitems) }}
-	{% endif %}
- 	{% endblock %}
- 	
- 	{# MENU3 #########################################}
- 	{% block menu2 %}
-	{% if info.menu2 %}
-    {{ _self.menucreation(2, menugroups, menuitems) }}
-	{% endif %}
- 	{% endblock %}
- 	
- 	{# MENU3 #########################################}
- 	{% block menu3 %}
- 	{% if info.menu3 %}
-    {{ _self.menucreation(3, menugroups, menuitems) }}
-	{% endif %}
- 	{% endblock %}
- 	
-	{# MENU4 #########################################}
- 	{% block menu4 %}
- 	{% if info.menu4 %}
-    {{ _self.menucreation(4, menugroups, menuitems) }}
-	{% endif %}
- 	{% endblock %}
- 	
- 	{# MENUCONTENT #########################################}
- 	{% block menucontent %}
- 	{% if channel.menu %}
- 		<div class="menucontent">
- 		{% autoescape false %}
- 		{{ channel.menu }}
- 		{% endautoescape %}
- 		</div>
- 	{% endif %}
- 	{% endblock %}
- 	
- 	{# LANGUAGE ############################################}
- 	{% block language %}
- 	<form id="langright">
- 		{% if channel.language_de %}
- 		<a href="{{ path('tv_default', { 'language':'de'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_de_min.png') }}"></a>
- 		{% endif %}
- 		{% if channel.language_en %}
- 		<a href="{{ path('tv_default', { 'language':'en'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_en_min.png') }}"></a>
- 		{% endif %}
- 		{% if channel.language_fr %}
- 		<a href="{{ path('tv_default', { 'language':'fr'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_fr_min.png') }}"></a>
- 		{% endif %}
-    </form>
- 	{% endblock %}
-
-    {# LOGIN ######################################}
- 	{% block login %}
- 		<div class="userlogin"><a href="{{ editorlocation }}" target="_blank">Login</a></div>
- 	{% endblock %}
- 	
- 	{# PLAYLIST #########################################}
- 	{% block playlist %}
- 	{% if playlist is defined %}
+	{% if trigger.playlist %}
  	<div id="playlist clearfix">
  	 	{% set videopos = 0 %}
- 		{% for video in playlist %}
+ 		{% for video in playlist.videos %}
  		<div class="playlistitem clearfix">
  			<div class="playlistitem_text">
  				<div class="playlistitem_title"><a href="{{ path('tv_video', { 'video': video.id }) }}">{{ video.title }}</a>
  				</div>
- 				<div class="playlistitem_date">{{ video.date }}
+ 				<div class="playlistitem_date">{{ video.date|date() }}
  				</div>
  				{% autoescape false %}
  				<div class="playlistitem_description">{{ video.shortdescription }}
@@ -152,7 +39,7 @@
  				</div>
  			</div>
  			<div class="playlistitem_picture">
- 				<img src="{{ asset('uploads/videos/'~channel.id~'/'~video.id~'.png') }}" class="playlistimage">
+ 				<img src="{{ asset('uploads/videos/'~channel.id~'/'~video.id~'_tiny.jpg') }}" class="playlistimage">
  				<div class="playlistitem_duration">{{ video.duration }}</div>
  				<div class="playlistitem_button" onclick="setvideo({{ videopos }});"></div>
  			</div>
@@ -161,50 +48,207 @@
  		{% endfor %}
  	</div>
  	{% endif %}
- 	{% endblock %}
- 	
- 	{# SOCIALPLUGINS #########################################}
- 	{% block socialplugins %}
- 	<div class="socialplugins">
-		<div style="float:left">
-			<iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21&amp;appId=245864165482300" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:130px; height:21px; " allowTransparency="true"></iframe>	
-			<script src="//connect.facebook.net/en_US/all.js"></script>
+ 	{% if trigger.video %}
+		<div id="videoinfo">
+		<div class="videoinfo_title"><h2>{{ video.title }}</h2></div>
+		<div class="videoinfo_date">{{ video.date|date() }}</div>
+		{% autoescape false %}
+		<div class="videoinfo_description">{{ video.description }}</div>
+		{% endautoescape %}
 		</div>
-		<div style="float:left">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="de">Twittern</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		</div>
-		<div style="float:left">
-			<g:plusone size="medium" href="<?php echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>"></g:plusone>
-			<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-		</div>
-	</div>
- 	{% endblock %}
- 	
- 	{# SHARE ##############################################}
- 	{% block share %}
- 	{% if channel.socialnetworks %}
- 	<div id="share">
- 	<!-- AddThis Button BEGIN -->
-	<div class="addthis_toolbox addthis_default_style ">
-	<a class="addthis_button_preferred_1"></a>
-	<a class="addthis_button_preferred_2"></a>
-	<a class="addthis_button_preferred_3"></a>
-	<a class="addthis_button_preferred_4"></a>
-	<a class="addthis_button_preferred_6"></a>
-	<a class="addthis_button_preferred_7"></a>
-	<a class="addthis_button_compact"></a>
-	<a class="addthis_counter addthis_bubble_style"></a>
-	</div>
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fe6e6ff3ff86f21"></script>
-	<!-- AddThis Button END -->
-	</div>
 	{% endif %}
+	{% if trigger.contact %}
+	{% autoescape false %}
+	{{ contact }}
+	{% endautoescape %}
+	{% endif %}
+	{% endblock %}
+    
+    {# HTMLHEAD #########################################}
+    {% block htmlhead %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/flouvideomanager/css/template.css') }}"/>
+    {% if channel.use_hyphernate %}
+    <script src="{{ asset('bundles/flouvideoasset/hyphenator/Hyphenator.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        	Hyphenator.config({
+        		displaytogglebox : true,
+        		minwordlength : 4
+        	});
+        	Hyphenator.run();
+    </script>
+    {% endif %}
+    <title>{{ info.title }} - {{ channel.channelname }}</title>
+    	{% autoescape false %}
+    	{{ design.fontimport }}
+		{{ design.headingfontimport }}
+		{% endautoescape %}
+    {% if design.head %}
+		{% autoescape false %}
+		{{ design.head }}
+		{% endautoescape %}
+	{% endif %}
+	
+	{% if channel.piwikid != 0 %}
+	<!-- Piwik --> 
+	<script type="text/javascript">
+	var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.dif-webtv.de/" : "http://piwik.dif-webtv.de/");
+	document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script type="text/javascript">
+	try {
+	var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", {{ channel.piwikid }});
+	piwikTracker.trackPageView();
+	piwikTracker.enableLinkTracking();
+	} catch( err ) {}
+	</script><noscript><p><img src="http://piwik.dif-webtv.de/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+	<!-- End Piwik Tracking Code -->
+	{% endif %}
+  	{% endblock %}
+    
+    {# MENUMACRO #########################################}
+    {% macro menucreation(number, menugroups, menuitems) %}
+    <div id="menu{{ number }}" class="clearfix">
+    
+    <ul class="menu{{ number }}list">
+    
+    {# for page in menuitems %}
+    	{% if page.position == number and page.menugroup == "" %}
+    	<li class="menu{{ number }}groupitem">
+    		<div class="menu{{ number }}head">
+    			<a href="{% if page.hyperlink %}{{ page.hyperlink }}{% else %}{{ path('tv_page', { 'page': page.id }) }}{% endif %}"><span id="menu{{ number }}singleitemspan">{{ page.title }}</span></a>
+    		</div>
+    	</li>
+    	{% endif %}
+    {% endfor #}
+    
+    {% for key,value in menugroups[number] %}
+    	<li class="menu{{ number }}groupitem">
+    	{% if value._link %}
+    		<div class="menu{{ number }}head">
+    			<a href="{% if value.link.hyperlink %}{{ value.link.hyperlink }}{% else %}{{ path('tv_page', { 'page': value.link.id }) }}{% endif %}"><span class="menu{{ number }}singleitemspan">{{ value.link.title }}</span></a>
+    		</div>
+    	{% else %}
+    		<div class="menu{{ number }}head">
+    			<span class="menu{{ number }}singleitemspan">{{ key }}</span>
+    		</div>
+    	{% endif %}
+    		
+    	{% if value._items %}
+	    	<ul class="menu{{ number }}grouplist">
+	    	{% for page in value.items %}
+				<li class="menu{{ number }}grouplistitem"><a href="{% if page.hyperlink %}{{ page.hyperlink }}{% else %}{{ path('tv_page', { 'page': page.id }) }}{% endif %}"><span class="menu{{ number }}grouplistitemspan">{{ page.title }}</span></a></li>
+			{% endfor %}
+	    	</ul>
+	    {% endif %}
+    	</li>
+    {% endfor %}
+    </ul>
+    
+	</div>
+    {% endmacro %}
+    
+
+    
+    {# MENU1 #########################################}
+    {% block menu1 %}
+	{% if trigger.menu1 %}
+    {{ _self.menucreation(1, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# MENU2 #########################################}
+ 	{% block menu2 %}
+	{% if trigger.menu2 %}
+    {{ _self.menucreation(2, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# MENU3 #########################################}
+ 	{% block menu3 %}
+ 	{% if trigger.menu3 %}
+    {{ _self.menucreation(3, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+	{# MENU4 #########################################}
+ 	{% block menu4 %}
+ 	{% if trigger.menu4 %}
+    {{ _self.menucreation(4, menugroups, menuitems) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{% block copyright %}
+ 	<div id="copyright">
+Copyright &copy; 2012 {{ channel.channelname }}. All rights reserved. Hosting by <img style="margin-top:-1px;" src="{{ asset('bundles/flouvideomanager/images/logosmal.png') }}"/><a href="http://www.dif-webtv.de" target="_blank"> DIF-WebTV</a>
+</div>
+{% endblock %}
+ 	
+ 	{# WIDGETMACRO #########################################}
+    {% macro widgetcreation(number, widgetgroups) %}
+    {% autoescape false %}
+    {% for widget in widgetgroups[number] %}
+    <div class="widget{{ number }} clearfix">
+    <div class="{{ widget.type }}">
+    	{% if widget.name != '' %}
+    	<div class="widget{{ number }}head">
+    		{{ widget.name }}
+    	</div>
+    	{% endif %}
+    	<div class="widget{{ number }}content">
+    		{{ widget.content  }}
+    	</div>
+    
+    </div>
+    </div>
+    {% endfor %}
+	{% endautoescape %}
+    {% endmacro %}
+    
+    {# WIDGET1 #########################################}
+    {% block widget1 %}
+	{% if trigger.widget1 %}
+    {{ _self.widgetcreation(1, widgetgroups) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# WIDGET2 #########################################}
+    {% block widget2 %}
+	{% if trigger.widget2 %}
+    {{ _self.widgetcreation(2, widgetgroups) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# WIDGET3 #########################################}
+    {% block widget3 %}
+	{% if trigger.widget3 %}
+    {{ _self.widgetcreation(3, widgetgroups) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# WIDGET4 #########################################}
+    {% block widget4 %}
+	{% if trigger.widget4 %}
+    {{ _self.widgetcreation(4, widgetgroups) }}
+	{% endif %}
+ 	{% endblock %}
+ 	
+ 	{# LANGUAGE ############################################}
+ 	{% block language %}
+ 	<form id="langright">
+ 		{% if trigger.language_de %}
+ 		<a href="{{ path('tv_default', { 'language':'de'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_de_min.png') }}"></a>
+ 		{% endif %}
+ 		{% if trigger.language_en %}
+ 		<a href="{{ path('tv_default', { 'language':'en'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_en_min.png') }}"></a>
+ 		{% endif %}
+ 		{% if trigger.language_fr %}
+ 		<a href="{{ path('tv_default', { 'language':'fr'}) }}"><img src="{{ asset('bundles/flouvideomanager/images/flag_fr_min.png') }}"></a>
+ 		{% endif %}
+    </form>
  	{% endblock %}
  	
  	{# VIDEO #########################################}
  	{% block video %}
- 	{% if playlist is defined or video is defined %}
+ 	{% if trigger.playlist or trigger.video %}
  		{% if not playerwidth is defined %}
  			{% set playerwidth = 880 %}
  		{% endif %}
@@ -214,9 +258,13 @@
  		
  		<div class="clearfix">
  		<iframe allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" id="videoframe" src="{% if playlist is defined %}
-{{ hostlocation }}{{ path('videoplayer_channel', { 'id': channel.id }) }}
+	 		{% if info.playlist != 0 %}
+http://{{ hostlocation }}{{ path('videoplayer_playlist', { 'id': info.playlist, 'html5': channel.use_html5 }) }}
+	 		{% else %}
+http://{{ hostlocation }}{{ path('videoplayer_channel', { 'id': channel.id, 'html5': channel.use_html5 }) }}
+	 		{% endif %}
  		{% elseif video is defined %}
-{{ hostlocation }}{{ path('videoplayer_video', { 'id': video.id }) }}
+http://{{ hostlocation }}{{ path('videoplayer_video', { 'id': video.id, 'html5': channel.use_html5 }) }}
  		{% endif %}" width="{{ playerwidth }}px" height="{{ playerheight }}px" frameBorder="0" style="border:none; position:relative; float:left"></iframe>
  		</div>
  	{% endif %}
@@ -226,6 +274,13 @@
     {% block scripts %}
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="{{ asset('bundles/flouvideomanager/js/libs/jquery-1.7.1.min.js') }}"><\/script>')</script>
+	<script src="{{ asset('bundles/flouvideoasset/kwicks/jquery.easing.1.3.js') }}"></script>
+	<script src="{{ asset('bundles/flouvideoasset/kwicks/jquery.kwicks-1.5.1.pack.js') }}"></script>
+	<script src="{{ asset('bundles/flouvideoasset/kwicks/jquery.start.js') }}"></script>
+	
+	
+
+	
 	<script>
 	function setvideo(number)
 	{

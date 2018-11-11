@@ -3,7 +3,7 @@
 namespace Flou\VideoManagerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -14,7 +14,7 @@ class DesignColorType extends AbstractType
 	{
 	}
 	
-	public function buildForm(FormBuilder $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->add('font', 'entity', array(
 				'label'     => 'Schriftart',
@@ -109,6 +109,9 @@ class DesignColorType extends AbstractType
 				'label'     => 'Hover-Linkfarbe 3',
 				'max_length' => 6,
 				'required'  => false,));
+		$builder->add('fontsize', 'integer', array(
+				'label'     => 'Schriftgröße',
+				'required'  => true,));
 	}
 	
 	public function getDefaultOptions(array $options)

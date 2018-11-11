@@ -1,0 +1,54 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('gallery_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('gallery_new') }}"><span class="label">Neue Galerie</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Galerien</h2>
+<hr/>
+<form action="" method="post">
+<div class="formwrapper">
+{% for gallery in galleries %}
+
+	<div class="pagelistitem">
+	<div class="pageimage">
+		<img class="pageimage" src="{{ asset('uploads/playlists/' ~ gallery.channel.id ~ '/' ~ gallery.id ~ '_tiny.jpg')}}" alt="picture"/>
+	</div>
+	<div class="innerpagelistitem">
+		<div class="title">
+			{{ gallery.title.titlede }}
+		</div>
+		<div class="description">
+		<a href="{{ path('page_new', { 'hyperlink': path('tv_gallery', { 'galleryid': gallery.id }), 'titlede': gallery.title.titlede, 'titleen': gallery.title.titleen, 'titlefr': gallery.title.titlefr }) }}">Hyperlink erstellen</a><br/>
+		</div>
+	</div>
+	<a href="{{ path('gallery_picture', { 'galleryid': gallery.id }) }}"><span class="imagebutton">Bild</span></a>
+	<a href="{{ path('gallery_photolist', { 'galleryid': gallery.id }) }}"><span class="listbutton">Fotos</span></a>
+	<a href="{{ path('gallery_edit', { 'galleryid': gallery.id }) }}"><span class="editbutton">Ändern</span></a>
+	<a href="javascript:decision('Gallerie wirklich löschen?','{{ path('gallery_delete', { 'galleryid': gallery.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+	</div>
+{% endfor %}
+
+</div>
+</form>
+
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Seite werden alle von Ihnen erstellten Galerien aufgelistet.</p>
+{% endblock %}

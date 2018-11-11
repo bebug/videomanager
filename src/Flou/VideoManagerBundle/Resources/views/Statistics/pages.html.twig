@@ -1,0 +1,20 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('statistics_map') }}"><span class="label">Karte</span></a></li>
+	<li><a href="{{ path('statistics_timegraph') }}"><span class="label">Historie</span></a></li>
+	<li><a href="{{ path('statistics_source') }}"><span class="label">Besucherquellen</span></a></li>
+	<li><a href="{{ path('statistics_pages') }}"><span class="label">Seiten</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Seiten</h2>
+<hr/>
+<div id="widgetIframe"><iframe width="100%" height="600" src="http://piwik.dif-webtv.de/index.php?module=Widgetize&action=iframe&moduleToWidgetize=Actions&actionToWidgetize=getPageTitles&idSite={{ piwikid }}&period=month&date=today&disableLink=1&widget=1" scrolling="yes" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
+{% endblock %}
+
+{% block help %}
+<p>In dieser Liste werden Statisticen über Ihren Sender veranschaulicht.</p>
+{% endblock %}

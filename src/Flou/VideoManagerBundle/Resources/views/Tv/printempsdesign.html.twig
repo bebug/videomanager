@@ -1,0 +1,239 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ info.language }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="description" content="">
+
+  <meta name="viewport" content="width=device-width">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/flouvideomanager/css/printempsstyle.css') }}"/>
+  <link rel="stylesheet" type="text/css" media="print" href="{{ asset('bundles/flouvideomanager/css/printempsstyleprint.css') }}"/>
+  
+  <!--User Design -->
+  <style type="text/css" media="screen">
+  {% autoescape false %}
+  
+  html, body{
+  font-size:{{ design.fontsize }}px;
+  }
+  
+  {# COLOR1 #}
+  {% if design.color1 != '' %}
+  	html, body, .innerwrapper{
+  		background-color:#{{ design.color1 }};
+  	}
+  {% endif %}
+  {% if design.color1 != '' and design.hovercolor1 != '' %}
+  	html, body{
+  		{{ gradient({'0%':['#',design.color1]|join, '50%':['#',design.hovercolor1]|join, '100%':['#',design.color1]|join}) }}
+  	}
+  {% endif %}
+  
+  {# COLOR2 #}
+  {% if design.color2 != '' %}
+  	#menu1, .contentwrapper{
+  		background-color:#{{ design.color2 }};
+  	}
+  {% endif %}
+  
+  {# COLOR3 #}
+  {% if design.color3 != '' %}
+  	#menu2, .footer{
+  		background-color:#{{ design.color3 }};
+  	}
+  {% endif %}
+  
+  {# HOVERCOLOR1 #}
+  {% if design.hovercolor1 != '' %}
+  .widget3{
+	border-bottom-color:#{{ design.hovercolor1 }};
+}
+  {% endif %}
+  
+  {# HOVERCOLOR2 #}
+  {% if design.hovercolor2 != '' %}
+  .menu1singleitem:hover, .menu1groupitem:hover, .menu1grouplist{
+	background-color:#{{ design.hovercolor2 }};
+	}
+  {% endif %}
+  
+  {# HOVERCOLOR3 #}
+  {% if design.hovercolor3 != '' %}
+  .menu2singleitem:hover, .menu2groupitem:hover, .menu2grouplist{
+	background-color:#{{ design.hovercolor3 }};
+	}
+  {% endif %}
+  
+  {# HEADINGCOLOR #}
+  {% if design.headingcolor != '' %}
+  h1,h2,h3,h4,h5,h6{
+  	color:#{{ design.headingcolor }};
+  }
+  {% endif %}
+  
+  {# HEADINGFONT #}
+  {% if design.headingfont != '' %}
+  h1, h2, h3, h4, h5, h6, .widget3head, .playlistitem_title, .menu4head{
+  	font-family:{{ design.headingfont }};
+  }
+  {% endif %}
+  
+  {# FONT #}
+  {% if design.font != '' %}
+  .mainwrapper{
+  	font-family:{{ design.font }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR1 #}
+  {% if design.fontcolor1 != '' %}
+  .mainwrapper{
+  	color:#{{ design.fontcolor1 }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR2 #}
+  {% if design.fontcolor2 != '' %}
+    .contentwrapper{
+  	color:#{{ design.fontcolor2 }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR3 #}
+  {% if design.fontcolor3 != '' %}
+    .footer{
+  	color:#{{ design.fontcolor3 }};
+  }
+  {% endif %}
+  
+  {# HOVERFONTCOLOR1 #}
+  {% if design.hoverfontcolor1 != '' %}
+  {% endif %}
+  
+  {# HOVERFONTCOLOR2 #}
+  {% if design.hoverfontcolor2 != '' %}
+  {% endif %}
+  
+  {# HOVERFONTCOLOR3 #}
+  {% if design.hoverfontcolor3 != '' %}
+  {% endif %}
+  
+  {# LINKCOLOR1 #}
+  {% if design.linkcolor1 != '' %}
+  .innerwrapper a{
+	color:#{{ design.linkcolor1 }};
+}
+  {% endif %}
+  
+  {# LINKCOLOR2 #}
+  {% if design.linkcolor2 != '' %}
+  #menu1 a, .contentwrapper a, .menu1groupitem{
+	color:#{{ design.linkcolor2 }};
+	}
+  {% endif %}
+  
+  {# LINKCOLOR3 #}
+  {% if design.linkcolor3 != '' %}
+    #menu2 a, .menu2groupitem, .footer a{
+	color:#{{ design.linkcolor3 }};
+	}
+  {% endif %}
+  
+  {# HOVERLINKCOLOR1 #}
+  {% if design.hoverlinkcolor1 != '' %}
+  .innerwrapper a:hover{
+	color:#{{ design.hoverlinkcolor1 }};
+}
+  {% endif %}
+  
+  {# HOVERLINKCOLOR2 #}
+  {% if design.hoverlinkcolor2 != '' %}
+  	.menu1groupitem:hover .menu1head a span{
+  	color:#{{ design.hoverlinkcolor2 }};
+  	}
+  
+    #menu1 a:hover, .contentwrapper a:hover{
+	color:#{{ design.hoverlinkcolor2 }};
+	}
+	.menu1groupitem:hover{
+	color:#{{ design.hoverlinkcolor2 }};
+	}
+  {% endif %}
+  
+  {# HOVERLINKCOLOR3 #}
+  {% if design.hoverlinkcolor3 != '' %}
+      #menu2 a:hover, .menu2groupitem:hover, .footer a:hover{
+	color:#{{ design.hoverlinkcolor3 }};
+	}
+	
+	.menu2groupitem:hover .menu2head a span{
+  	color:#{{ design.hoverlinkcolor3 }};
+  	}
+  {% endif %}
+  
+  {% endautoescape %}
+  </style>
+  
+
+  {% block htmlhead %}
+  {% endblock %}
+  <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance.
+       Create your own custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="{{ asset('bundles/flouvideomanager/js/libs/modernizr-2.5.3.min.js') }}"></script>
+</head>
+<body>
+{% block facebookid %}
+{% endblock %}
+<div class="mainwrapper">
+<div class="innerwrapper clearfix">
+	<div class="header">
+	</div>
+	{% block widget1 %}
+	{% endblock %}
+	{% block menu1 %}
+	{% endblock %}
+	{% block menu2 %}
+	{% endblock %}
+	{% block widget2 %}
+	{% endblock %}
+
+	{% set playerwidth = 960 %}
+	{% set playerheight = 540 %}
+	{% block video %}
+	{% endblock %}
+	<div class="contentwrapper clearfix">
+	
+	{% block content %}
+	{% endblock %}
+
+	</div>
+	<div class="leftmenu">
+	{% block widget3 %}
+	{% endblock %}
+	</div>
+	{% block widget4 %}
+	{% endblock %}
+	<div class="footer">
+	{% if channel.language_de or channel.language_en or channel.language_fr %}
+		{% block language %}
+		{% endblock %}
+	{% endif %} 
+	{% block menu4 %}
+	{% endblock %}
+	{% block copyright %}
+	{% endblock %}
+	</div>
+</div>
+</div>
+{% block scripts %}
+  {% endblock %}
+</body>
+</html>

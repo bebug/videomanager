@@ -1,0 +1,14 @@
+<div class="horiplaylistwidget_wrapper clearfix">
+<ul class="horiplaylistwidget_ul">
+{% for item in playlists %}
+<li class="horiplaylistwidget_li">
+<a href="{{ path('tv_playlist', { 'playlistid': item.id }) }}">
+<div>
+<img class="horiplaylistwidget_image" src="{{ asset('uploads/playlists/'~channelid~'/'~item.id~'_big.jpg') }}"/>
+<span class="horiplaylistwidget_text">{{ item.title }}</span>
+</div>
+</a>
+</li>
+{% endfor %}
+</ul>
+</div>

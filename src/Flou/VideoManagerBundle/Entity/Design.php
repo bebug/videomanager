@@ -141,6 +141,11 @@ class Design
      * @ORM\Column(type="text", nullable=true)
      */
     private $usertemplate;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $fontsize;
 
     public function __construct()
     {    	 
@@ -671,5 +676,25 @@ class Design
     public function getHead()
     {
         return $this->head;
+    }
+
+    /**
+     * Set fontsize
+     *
+     * @param integer $fontsize
+     */
+    public function setFontsize($fontsize)
+    {
+        $this->fontsize = $fontsize;
+    }
+
+    /**
+     * Get fontsize
+     *
+     * @return integer 
+     */
+    public function getFontsize()
+    {
+        return $this->fontsize;
     }
 }

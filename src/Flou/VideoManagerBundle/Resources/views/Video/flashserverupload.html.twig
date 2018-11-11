@@ -1,10 +1,10 @@
 {% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
 {% block specjavascripts %}
-<link href="{{ asset('bundles/flouvideomanager/swfupload/css/default.css') }}" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/swfupload.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/js/swfupload.queue.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/js/fileprogress.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/swfupload/js/handlers.js') }}"></script>
+<link href="{{ asset('bundles/flouvideoasset/swfupload/css/default.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/swfupload/swfupload.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/swfupload/js/swfupload.queue.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/swfupload/js/fileprogress.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/swfupload/js/handlers.js') }}"></script>
 
 <script type="text/javascript">
 
@@ -12,19 +12,21 @@
 		try {
 			var progress = new FileProgress(file, this.customSettings.progressTarget);
 			progress.setComplete();
-			// hahahaah
 			
-			var locstart = serverData.indexOf("<Location>");
-			var locend = serverData.indexOf("</Location>");
-			var loc = serverData.substring(locstart+10,locend);
+			// doesnt work anymore. dont know why. amazon doesnt send xml response
+			//var locstart = serverData.indexOf("<Location>");
+			//var locend = serverData.indexOf("</Location>");
+			//var loc = serverData.substring(locstart+10,locend);
+			//var keystart = serverData.indexOf("<Key>");
+			//var keyend = serverData.indexOf("</Key>");
+			//var key = serverData.substring(keystart+5,keyend);
+			//var bucketstart = serverData.indexOf("<Bucket>");
+			//var bucketend = serverData.indexOf("</Bucket>");
+			//var bucket = serverData.substring(bucketstart+8,bucketend);
 			
-			var keystart = serverData.indexOf("<Key>");
-			var keyend = serverData.indexOf("</Key>");
-			var key = serverData.substring(keystart+5,keyend);
-			
-			var bucketstart = serverData.indexOf("<Bucket>");
-			var bucketend = serverData.indexOf("</Bucket>");
-			var bucket = serverData.substring(bucketstart+8,bucketend);
+			var bucket = '{{ uploadinfo.bucket }}';
+			var key = '{{ uploadinfo.prefix }}/'+file.name;
+			var loc = 'notneeded';
 			
 			var get = '?location=' + escape(loc) + '&key=' + escape(key) + '&bucket=' + escape(bucket);
 			
@@ -41,7 +43,7 @@
 
 	window.onload = function() {
 		var settings = {
-			flash_url : "{{ asset('bundles/flouvideomanager/swfupload/swfupload.swf') }}",
+			flash_url : "{{ asset('bundles/flouvideoasset/swfupload/swfupload.swf') }}",
 
 			upload_url: "{{ uploadinfo.action }}",
 			{% if s3upload %}
@@ -58,6 +60,7 @@
 			post_params: {'{{ form._token.vars.id }}':'{{ form._token.vars.value }}',},
 			{% endif %}
 			file_post_name: 'file',
+			http_success : [200, 201, 202],
 			file_size_limit : "401 MB",
 			file_types : "*.mp4;*.m4v;*.f4v;*.webm;*.flv",
 			file_types_description : "All Files",
@@ -71,7 +74,7 @@
 			debug: false,
 
 			// Button settings
-			button_image_url: "{{ asset('bundles/flouvideomanager/swfupload/images/ButtonUpload.png') }}",
+			button_image_url: "{{ asset('bundles/flouvideoasset/swfupload/images/ButtonUpload.png') }}",
 			button_width: "100",
 			button_height: "33",
 			button_placeholder_id: "spanButtonPlaceHolder",
@@ -97,7 +100,7 @@
      };
 </script>
 
-<!-- <script type="text/javascript" src="../../../bundles/flouvideomanager/js/swfupload.cookies.js"></script> -->
+<!-- <script type="text/javascript" src="../../../bundles/flouvideoasset/js/swfupload.cookies.js"></script> -->
 
 {% endblock %}
 
@@ -105,6 +108,7 @@
 <ul id="sidemenulist">
 	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
 	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
 </ul>
 {% endblock %}
 
@@ -118,13 +122,15 @@
 <div id="divStatus" style="display:none;">0 Files Uploaded</div>
 <div>
 	<span id="spanButtonPlaceHolder"></span>
+	{% if app.user.channel.videos|length < app.user.channel.maxvideos %}
 	<input id="btnCancel" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px; display:none; " />
-</div>
+	{% endif %}
+	</div>
 </form>
 {% endblock %}
 
 {% block help %}
 <p>Je nach Uploadgeschwindigkeit, welche sich erheblich von der Downloadgeschwindigkeit unterscheiden kann, kann das Hochladen mehrere Stunden dauern.</p>
-<p>Um ein Video hochzuladen wählen Sie dieses zuerst aus und klicken anschließend auf "Upload".</p>
+<p>Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
 <p>Wenn Sie <strong>Probleme mit dem Upload</strong> haben versuchen Sie die traditionelle <a href="{{ path('video_serverupload') }}?noflash=true">Upload-Methode</a>.</p>
 {% endblock %}

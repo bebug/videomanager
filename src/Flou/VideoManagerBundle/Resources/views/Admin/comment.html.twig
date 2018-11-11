@@ -1,0 +1,27 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Admin-Bereich betreten</h2>
+<hr/>
+<p>Der Admin-Bereich stellt für das gesamte System ein hohes Sicherheitsrisiko dar. Bitte loggen Sie sich nur über eine gesicherte Verbindung ein.</p>
+<p>Durch das Benutzen dieses Bereichs ohne einen triftigen Grund machen Sie sich strafbar im Sinne des <a href="http://www.gesetze-im-internet.de/tmg/" target=_blank>Telemedialgesetzes</a>. Weiterhin sind Sie im Sinne des <a href="http://www.gesetze-im-internet.de/tkg_2004/__88.html" target=_blank>Fernmeldegeheimnis</a> dazu verpflichtet mit den bereitgestellten Daten sorgfälltig umzugehen und diese nicht an Dritte weiterzugeben.
+<form action="" method="post" {{ form_enctype(form) }}>
+
+	<div class="formwrapper">
+	<fieldset>
+	<legend>Protokoll</legend>
+	{{ form_row(form.name) }}
+	{{ form_row(form.message) }}
+	</fieldset>
+	
+    {{ form_widget(form) }}
+
+    <input class="greenbutton" type="submit" />
+    </div>
+</form>
+{% endblock %}

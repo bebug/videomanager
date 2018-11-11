@@ -21,6 +21,11 @@ class Font
      * @ORM\Column(type="string", length=100)
      */
     private $name;
+    
+    /**
+     * @ORM\Column(type="string", length=300)
+     */
+    private $importtag;
 
     /**
      * Get id
@@ -55,5 +60,25 @@ class Font
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set importtag
+     *
+     * @param string $importtag
+     */
+    public function setImporttag($importtag)
+    {
+        $this->importtag = $importtag;
+    }
+
+    /**
+     * Get importtag
+     *
+     * @return string 
+     */
+    public function getImporttag()
+    {
+        return $this->importtag;
     }
 }

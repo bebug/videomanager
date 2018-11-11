@@ -1,0 +1,41 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Youtube&reg Video einbinden</h2>
+<hr/>
+
+<form action="" method="post" {{ form_enctype(form) }}>
+
+	<div class="formwrapper">
+	<fieldset>
+	<legend>Link</legend>
+	{{ form_row(form.link) }}
+	</fieldset>
+	<div class="clear"></div>
+	{{ form_widget(form) }}
+	    {% if app.user.channel.videos|length < app.user.channel.maxvideos %}
+    <input class="greenbutton" type="submit" />
+    {% endif %}
+    </div>
+</form>
+
+{% endblock %}
+
+{% block help %}
+<p>Sie können auf dieser Seite Youtube-Videos in Ihren Kanal aufnehmen. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
+{% endblock %}
+
+{% block specjavascripts %}
+{% endblock %}

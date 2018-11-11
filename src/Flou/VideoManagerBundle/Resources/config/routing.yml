@@ -14,6 +14,10 @@ admin_getuser:
     pattern:  /admin/getuser/
     defaults: { _controller: FlouVideoManagerBundle:Admin:getuser }
     
+admin_comment:
+    pattern:  /admin/comment/
+    defaults: { _controller: FlouVideoManagerBundle:Admin:comment }
+    
 page_edit:
     pattern:  /page/edit/{pageid}
     defaults: { _controller: FlouVideoManagerBundle:Page:edit }
@@ -33,18 +37,14 @@ video_delete:
 user_info:
     pattern:  /user/info/
     defaults: { _controller: FlouVideoManagerBundle:User:Info }
+
+fos_user_profile_show:
+    pattern:  /user/info/
+    defaults: { _controller: FlouVideoManagerBundle:User:Info }
    
 channel_edit:
     pattern:  /channel/edit/
     defaults: { _controller: FlouVideoManagerBundle:Channel:edit }
-    
-channel_head:
-    pattern:  /channel/head/
-    defaults: { _controller: FlouVideoManagerBundle:Channel:head }
-    
-channel_menu:
-    pattern:  /channel/menu/
-    defaults: { _controller: FlouVideoManagerBundle:Channel:menu }
     
 design_edit:
     pattern:  /design/edit/
@@ -73,11 +73,51 @@ video_s3return:
 video_list:
     pattern:  /video/list/
     defaults: { _controller: FlouVideoManagerBundle:Video:list }
+    
+video_picture:
+    pattern:  /video/picture/{videoid}
+    defaults: { _controller: FlouVideoManagerBundle:Video:picture }
 
 video_edit:
     pattern:  /video/edit/{videoid}
     defaults: { _controller: FlouVideoManagerBundle:Video:edit }
+
+video_ytlink:
+    pattern: /video/ytlink/
+    defaults: { _controller: FlouVideoManagerBundle:Video:ytlink }
+
+playlist_edit:
+    pattern: /playlist/edit/{playlistid}
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:edit }
     
+playlist_new:
+    pattern: /playlist/new/
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:new }
+    
+playlist_delete:
+    pattern: /playlist/delete/{playlistid}
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:delete }
+    
+playlist_videodelete:
+    pattern: /playlist/videodelete/{playlistid}/{videoid}
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:videodelete }
+    
+playlist_list:
+    pattern: /playlist/list/
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:list }
+
+playlist_embed:
+    pattern:  /playlist/embed/
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:embed }
+    
+playlist_videolist:
+    pattern: /playlist/list/{playlistid}
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:videolist }
+    
+playlist_picture:
+    pattern: /playlist/picture/{playlistid}
+    defaults: { _controller: FlouVideoManagerBundle:Playlist:picture }
+
 videoplayer_video:
     pattern:  /videoplayer/video/{id}
     defaults: { _controller: FlouVideoManagerBundle:Videoplayer:video }
@@ -86,18 +126,98 @@ videoplayer_channel:
     pattern:  /videoplayer/channel/{id}
     defaults: { _controller: FlouVideoManagerBundle:Videoplayer:channel }
     
+videoplayer_playlist:
+    pattern:  /videoplayer/playlist/{id}
+    defaults: { _controller: FlouVideoManagerBundle:Videoplayer:playlist }
+    
 tv_page:
     pattern:  /tv/page/{page}
     defaults: { _controller: FlouVideoManagerBundle:Tv:page }
+    
+tv_contact:
+    pattern:  /tv/contact
+    defaults: { _controller: FlouVideoManagerBundle:Tv:contact }
     
 tv_video:
     pattern:  /tv/video/{video}
     defaults: { _controller: FlouVideoManagerBundle:Tv:video }
     
+tv_gallery:
+    pattern:  /tv/gallery/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Tv:gallery }
+    
+tv_photo:
+    pattern:  /tv/photo/{photoid}
+    defaults: { _controller: FlouVideoManagerBundle:Tv:photo }
+    
 tv_playlist:
-    pattern:  /tv/playlist/
-    defaults: { _controller: FlouVideoManagerBundle:Tv:playlist }
+    pattern:  /tv/playlist/{playlistid}
+    defaults: { _controller: FlouVideoManagerBundle:Tv:playlist, playlistid:0 }
     
 tv_default:
     pattern:  /{language}
     defaults: { _controller: FlouVideoManagerBundle:Tv:default, language:de }
+    
+widget_list:
+    pattern:  /widget/list/
+    defaults: { _controller: FlouVideoManagerBundle:Widget:list }
+    
+widget_newlist:
+    pattern:  /widget/newlist/
+    defaults: { _controller: FlouVideoManagerBundle:Widget:newlist }
+    
+statistics_map:
+    pattern:  /statistics/map/
+    defaults: { _controller: FlouVideoManagerBundle:Statistics:map }
+    
+statistics_timegraph:
+    pattern:  /statistics/timegraph/
+    defaults: { _controller: FlouVideoManagerBundle:Statistics:timegraph }
+    
+statistics_source:
+    pattern:  /statistics/source/
+    defaults: { _controller: FlouVideoManagerBundle:Statistics:source }
+    
+statistics_pages:
+    pattern:  /statistics/pages/
+    defaults: { _controller: FlouVideoManagerBundle:Statistics:pages }
+    
+gallery_new:
+    pattern: /gallery/new/
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:new }
+    
+gallery_list:
+    pattern: /gallery/list/
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:list }
+    
+gallery_picture:
+    pattern: /gallery/picture/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:picture }
+    
+gallery_edit:
+    pattern: /gallery/edit/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:edit }
+    
+gallery_delete:
+    pattern: /gallery/delete/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:delete }
+    
+gallery_photolist:
+    pattern: /gallery/photolist/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:photolist }
+    
+gallery_newphoto:
+    pattern: /gallery/newphoto/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:newphoto }
+    
+gallery_newzipfile:
+    pattern: /gallery/newzipfile/{galleryid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:newzipfile }
+    
+gallery_deletephoto:
+    pattern: /gallery/deletephoto/{galleryid}/{photoid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:deletephoto }
+    
+gallery_editphoto:
+    pattern: /gallery/editphoto/{galleryid}/{photoid}
+    defaults: { _controller: FlouVideoManagerBundle:Gallery:editphoto }

@@ -1,0 +1,485 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ info.language }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  
+  <!--User Design -->
+  <style type="text/css" media="screen">
+  html, body{
+	text-align:center
+}
+
+p {
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+.mainwrapper{
+	text-align:left;
+	width:960px;
+	margin:auto;
+}
+
+
+
+#menu1{
+margin-bottom:5px;
+height: auto;
+}
+
+.widget2{
+	margin-top:5px;
+}
+
+.menu1singleitem, .menu1groupitem, .menu2singleitem, .menu2groupitem{
+float:left;
+position:relative;
+}
+
+#menu1 ul, #menu2 ul{
+list-style-type:none;
+list-style-image:none;
+margin:0px;
+padding:0px;
+display:block;
+}
+
+.menu1singleitem a, .menu1head, .menu2singleitem a, .menu2head{
+margin:0px;
+display:block;
+}
+
+.menu1signleitemspan{
+padding:10px 15px;
+display:block;
+}
+
+.menu2signleitemspan{
+	display:block;
+padding:5px 15px;
+}
+
+
+
+.menu1grouplist, .menu2grouplist{
+	visibility:hidden;
+	z-index:598;
+	position:absolute;
+	top:100%;
+}
+
+.menu1grouplistitem, .menu2grouplistitem{
+	width:250px;
+}
+
+.menu1grouplistitem a, .menu2grouplistitem a{
+	padding:5px;
+	display:block;
+}
+
+.menu1grouplistitem:first-child, .menu2grouplistitem:first-child{
+	margin-top:5px;
+}
+
+.menu1grouplistitem:last-child, .menu2grouplistitem:last-child, .contentwrapper{
+	margin-bottom:5px;
+}
+
+.menu1groupitem:hover > ul, .menu2groupitem:hover > ul{
+	visibility: visible;
+}
+
+.contentwrapper{
+	float:right;
+	width:500px;
+	padding:10px;
+	margin-top:5px;
+}
+
+.footer{
+	clear:both;
+}
+
+.menu4list{
+	margin:0px;
+	padding:0px;
+	list-style-type:none;
+list-style-image:none;
+}
+
+.menu4singleitem, .menu4groupitem{
+	float:left;
+	padding:5px 15px;
+}
+
+.menu4groupitem{
+	width:150px;
+}
+
+.menu4grouplist{
+	margin:5px 0px 0px 0px;
+	padding:0px;
+		list-style-type:none;
+list-style-image:none;
+}
+
+.copyright{
+	clear:both;
+	text-align:center;
+	padding-bottom:5px;
+	font-size:0.8em;
+}
+
+.leftmenu{
+	float:left;
+}
+
+#menu3, .widget3{
+	width:410px;
+	margin:15px;
+}
+
+.widget3 {
+	padding-bottom:10px;
+	border-bottom-style:dotted;
+	border-bottom-width:1px;
+}
+
+.widget4{
+	clear:both;
+}
+
+.widget3head{
+	font-size:1.3em;
+	margin-bottom:5px;
+}
+
+.menu3list, .menu3grouplist{
+	margin:0px;
+	padding:0px;
+	list-style-type:none;
+list-style-image:none;
+}
+
+.menu3groupitem, .menu3grouplist, .menu3groupitem, .menu3singleitem, .menu3grouplistitem{
+	float:left;
+}
+
+.menu3grouplistitem:after, .menu3singleitem:after{
+	content: ",\0000a0";
+}
+
+.menu3head, .widget4head, .widget1head, .widget2head{
+	display:none;
+}
+
+#langright{
+	float:right;
+	margin:3px;
+}
+
+#copyright{
+	position:relative;
+	font-size:0.8em;
+	padding:4px;
+}
+
+
+
+
+html, body {
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #dedab7 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#dedab7)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#dedab7 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#dedab7 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#dedab7 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#dedab7 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dedab7',GradientType=0 ); /* IE6-9 */
+}
+
+#menu1{
+background-color:#DEDAB7;
+}
+
+#menu2{
+background-color:#836E7D;
+
+}
+
+.footer{
+	background-color:#836E7D;
+}
+
+.contentwrapper{
+background-color:#DEDAB7;
+}
+
+.menu1singleitem:hover, .menu1groupitem:hover, .menu1grouplist{
+background-color:#CECAA7;
+}
+
+.menu2singleitem:hover, .menu2groupitem:hover, .menu2grouplist{
+background-color:#735E6D;
+}
+
+.innerwrapper{
+	background-color:#ffffff;
+}
+
+.widget3{
+	border-bottom-color:#735E6D;
+}
+
+#menu1 a, #menu1 a:hover, #menu2 a, #menu2 a:hover, .contentwrapper a, .contentwrapper a:hover, .footer a, .footer a:hover{
+	color:#735E6D;
+	text-decoration:none;
+}
+
+.menu1groupitem{
+	color:#735E6D;
+}
+
+.innerwrapper a, .innerwrapper a:hover{
+	color:#735E6D;
+}
+
+#menu2 a, .footer a, #menu2 a:hover, .footer a:hover{
+	color:#ffffff;
+}
+
+  </style>
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- Ab hier werden die Farben vom Benutzer verarbeitet -->
+  <style type="text/css" media="screen">
+  {% autoescape false %}
+  
+  html, body{
+  font-size:{{ design.fontsize }}px;
+  }
+  
+  {# COLOR1 #}
+  {% if design.color1 != '' %}
+  	html, body, .innerwrapper{
+  		background-color:#{{ design.color1 }};
+  	}
+  {% endif %}
+  {% if design.color1 != '' and design.hovercolor1 != '' %}
+  	html, body{
+  		{{ gradient({'0%':['#',design.color1]|join, '50%':['#',design.hovercolor1]|join, '100%':['#',design.color1]|join}) }}
+  	}
+  {% endif %}
+  
+  {# COLOR2 #}
+  {% if design.color2 != '' %}
+  	#menu1, .contentwrapper{
+  		background-color:#{{ design.color2 }};
+  	}
+  {% endif %}
+  
+  {# COLOR3 #}
+  {% if design.color3 != '' %}
+  	#menu2, .footer{
+  		background-color:#{{ design.color3 }};
+  	}
+  {% endif %}
+  
+  {# HOVERCOLOR1 #}
+  {% if design.hovercolor1 != '' %}
+  .widget3{
+	border-bottom-color:#{{ design.hovercolor1 }};
+}
+  {% endif %}
+  
+  {# HOVERCOLOR2 #}
+  {% if design.hovercolor2 != '' %}
+  .menu1singleitem:hover, .menu1groupitem:hover, .menu1grouplist{
+	background-color:#{{ design.hovercolor2 }};
+	}
+  {% endif %}
+  
+  {# HOVERCOLOR3 #}
+  {% if design.hovercolor3 != '' %}
+  .menu2singleitem:hover, .menu2groupitem:hover, .menu2grouplist{
+	background-color:#{{ design.hovercolor3 }};
+	}
+  {% endif %}
+  
+  {# HEADINGCOLOR #}
+  {% if design.headingcolor != '' %}
+  h1,h2,h3,h4,h5,h6{
+  	color:#{{ design.headingcolor }};
+  }
+  {% endif %}
+  
+  {# HEADINGFONT #}
+  {% if design.headingfont != '' %}
+  h1, h2, h3, h4, h5, h6, .widget3head, .playlistitem_title, .menu4head{
+  	font-family:{{ design.headingfont }};
+  }
+  {% endif %}
+  
+  {# FONT #}
+  {% if design.font != '' %}
+  .mainwrapper{
+  	font-family:{{ design.font }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR1 #}
+  {% if design.fontcolor1 != '' %}
+  .mainwrapper{
+  	color:#{{ design.fontcolor1 }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR2 #}
+  {% if design.fontcolor2 != '' %}
+    .contentwrapper{
+  	color:#{{ design.fontcolor2 }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR3 #}
+  {% if design.fontcolor3 != '' %}
+    .footer{
+  	color:#{{ design.fontcolor3 }};
+  }
+  {% endif %}
+  
+  {# HOVERFONTCOLOR1 #}
+  {% if design.hoverfontcolor1 != '' %}
+  {% endif %}
+  
+  {# HOVERFONTCOLOR2 #}
+  {% if design.hoverfontcolor2 != '' %}
+  {% endif %}
+  
+  {# HOVERFONTCOLOR3 #}
+  {% if design.hoverfontcolor3 != '' %}
+  {% endif %}
+  
+  {# LINKCOLOR1 #}
+  {% if design.linkcolor1 != '' %}
+  .innerwrapper a{
+	color:#{{ design.linkcolor1 }};
+}
+  {% endif %}
+  
+  {# LINKCOLOR2 #}
+  {% if design.linkcolor2 != '' %}
+  #menu1 a, .contentwrapper a, .menu1groupitem{
+	color:#{{ design.linkcolor2 }};
+	}
+  {% endif %}
+  
+  {# LINKCOLOR3 #}
+  {% if design.linkcolor3 != '' %}
+    #menu2 a, .menu2groupitem, .footer a{
+	color:#{{ design.linkcolor3 }};
+	}
+  {% endif %}
+  
+  {# HOVERLINKCOLOR1 #}
+  {% if design.hoverlinkcolor1 != '' %}
+  .innerwrapper a:hover{
+	color:#{{ design.hoverlinkcolor1 }};
+}
+  {% endif %}
+  
+  {# HOVERLINKCOLOR2 #}
+  {% if design.hoverlinkcolor2 != '' %}
+  	.menu1groupitem:hover .menu1head a span{
+  	color:#{{ design.hoverlinkcolor2 }};
+  	}
+  
+    #menu1 a:hover, .contentwrapper a:hover{
+	color:#{{ design.hoverlinkcolor2 }};
+	}
+	.menu1groupitem:hover{
+	color:#{{ design.hoverlinkcolor2 }};
+	}
+  {% endif %}
+  
+  {# HOVERLINKCOLOR3 #}
+  {% if design.hoverlinkcolor3 != '' %}
+      #menu2 a:hover, .menu2groupitem:hover, .footer a:hover{
+	color:#{{ design.hoverlinkcolor3 }};
+	}
+	
+	.menu2groupitem:hover .menu2head a span{
+  	color:#{{ design.hoverlinkcolor3 }};
+  	}
+  {% endif %}
+  
+  {% endautoescape %}
+  </style>
+  
+
+  {% block htmlhead %}
+  {% endblock %}
+
+</head>
+<body>
+{% block facebookid %}
+{% endblock %}
+<div class="mainwrapper">
+<div class="innerwrapper clearfix">
+	<div class="header">
+	</div>
+	{% block widget1 %}
+	{% endblock %}
+	{% block menu1 %}
+	{% endblock %}
+	{% block menu2 %}
+	{% endblock %}
+	{% block widget2 %}
+	{% endblock %}
+
+	{% set playerwidth = 960 %}
+	{% set playerheight = 540 %}
+	{% block video %}
+	{% endblock %}
+	<div class="contentwrapper clearfix">
+	
+	{% block content %}
+	{% endblock %}
+
+	</div>
+	<div class="leftmenu">
+	{% block widget3 %}
+	{% endblock %}
+	</div>
+	{% block widget4 %}
+	{% endblock %}
+	<div class="footer">
+	{% if channel.language_de or channel.language_en or channel.language_fr %}
+		{% block language %}
+		{% endblock %}
+	{% endif %} 
+	{% block menu4 %}
+	{% endblock %}
+	{% block copyright %}
+	{% endblock %}
+	</div>
+</div>
+</div>
+{% block scripts %}
+  {% endblock %}
+</body>
+</html>

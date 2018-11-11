@@ -44,8 +44,19 @@ class VideoplayerController extends Controller
 	public function channelAction($id)
 	{
 		$em = $this->getDoctrine()->getEntityManager();
+		$data['playlist'] = array();
+		$data['playlist']['videos'] = $em->getRepository('FlouVideoManagerBundle:Video')->findUnitedPlayinfoListByChannelId($id, $this->getLanguage());
+		$this->readgets($data);
+		
+		return $this->render('FlouVideoManagerBundle:Videoplayer:video.html.twig', $data
+		);
+	}
 	
-		$data['playlist'] = $em->getRepository('FlouVideoManagerBundle:Video')->findUnitedPlayinfoListByChannelId($id, $this->getLanguage());
+	public function playlistAction($id)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$data['playlist'] = array();
+		$data['playlist']['videos'] = $em->getRepository('FlouVideoManagerBundle:Video')->findUnitedPlayinfoListByPlaylistId($id, $this->getLanguage());
 		$this->readgets($data);
 		
 		return $this->render('FlouVideoManagerBundle:Videoplayer:video.html.twig', $data
@@ -55,5 +66,6 @@ class VideoplayerController extends Controller
 	public function readgets(&$data)
 	{
 		$data['autostart'] = $this->getRequest()->get('autostart');
+		$data['html5'] = $this->getRequest()->get('html5');
 	}
 }

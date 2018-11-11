@@ -3,8 +3,6 @@
 {% block sidemenu %}
 <ul id="sidemenulist">
 	<li><a href="{{ path('channel_edit') }}"><span class="label">Einstellungen</span></a></li>
-	<li><a href="{{ path('channel_head') }}"><span class="label">Kopfbereich</span></a></li>
-	<li><a href="{{ path('channel_menu') }}"><span class="label">Menübereich</span></a></li>
 	<li><a href="{{ path('design_color') }}"><span class="label">Farben</span></a></li>
 	<li><a href="{{ path('design_template') }}"><span class="label">Template</span></a></li>
 </ul>
@@ -27,6 +25,7 @@
 	
 	<fieldset>
 	<legend>Schrift</legend>
+	{{ form_row(form.fontsize) }}
 	{{ form_row(form.headingfont) }}
 	{{ form_row(form.headingcolor) }}
 	{{ form_row(form.font) }}
@@ -44,6 +43,37 @@
 	{{ form_row(form.hoverlinkcolor3) }}
 	</fieldset>
 	
+	<fieldset>
+	<legend>Vorschau</legend>
+	<div style="padding:10px; position:relative;" id="content1">
+		Text 1.
+		<a href="#" target="_blank" id="link1">Link 1</a>
+			<div style="width:50%; padding:10px; float:right;" id="hovercontent1">
+			Hover-Text 1.
+			<a href="#" target="_blank" id="hoverlink1">Hover-Link 1</a>
+			</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div style="padding:10px; position:relative;" id="content2">
+		Text 2.
+		<a href="#" target="_blank" id="link2">Link 2</a>
+			<div style="width:50%; padding:10px; float:right;" id="hovercontent2">
+			Hover-Text 2.
+			<a href="#" target="_blank" id="hoverlink2">Hover-Link 2</a>
+			</div>
+		<div style="clear:both;"></div>
+	</div>
+	<div style="padding:10px; position:relative;" id="content3">
+		Text 3.
+		<a href="#" target="_blank" id="link3">Link 3</a>
+			<div style="width:50%; padding:10px; float:right;" id="hovercontent3">
+			Hover-Text 3.
+			<a href="#" target="_blank" id="hoverlink3">Hover-Link 3</a>
+			</div>
+		<div style="clear:both;"></div>
+	</div>
+	</fieldset>
+	
     {{ form_widget(form) }}
 
     <input class="greenbutton" type="submit" />
@@ -52,26 +82,62 @@
 {% endblock %}
 
 {% block help %}
-<p>In diesem Menü können Sie die Farben der Designs anpassen. Achten Sie darauf, dass nicht alle Einstellungen in allen Designs Veränderungen verursachen. Nicht alle Designs benötigen den vollen Umfang an Farben.</p>
-<p>Die hier ausgewählte <strong>Schriftart</strong> wird für Ihre gesamte Seite übernommen. Falls Sie an einzelnen Stellen eine andere Schriftart bevorzugen, können Sie das direkt in den jeweiligen Seiten einstellen, oder Sie manipulieren über ein Stylesheet im <a href="{{ path('design_template') }}">HTML-Header</a> die Schriftart.</p>
-<p>Die Farben werden als RGB-Werte im HEX-Format gespeichert.
+<p>In diesem Menü können Sie die Farben der Designs anpassen. Achten Sie darauf, dass nicht alle Einstellungen in allen Designs Veränderungen verursachen. Nicht alle Designs benötigen den vollen Umfang an Farben. Weitere Infomrationen entnehmen Sie der Hilfe <a href="http://help.dif-webtv.de/tv/page/27">Hilfe</a></p>
 {% endblock %}
 
 {% block specjavascripts %}
-<link rel="stylesheet" href="{{ asset('bundles/flouvideomanager/colorpicker/css/colorpicker.css') }}" type="text/css" />
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/colorpicker/js/colorpicker.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('bundles/flouvideoasset/colorpicker/css/colorpicker.css') }}" type="text/css" />
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/colorpicker/js/colorpicker.js') }}"></script>
 <script type="text/javascript">
 $(' #{{ form.color1.vars.id }}, #{{ form.color2.vars.id }}, #{{ form.headingcolor.vars.id }}, #{{ form.color3.vars.id }}, #{{ form.hovercolor1.vars.id }}, #{{ form.hovercolor2.vars.id }}, #{{ form.hovercolor3.vars.id }}, #{{ form.fontcolor1.vars.id }}, #{{ form.fontcolor2.vars.id }}, #{{ form.fontcolor3.vars.id }}, #{{ form.hoverfontcolor1.vars.id }}, #{{ form.hoverfontcolor2.vars.id }}, #{{ form.hoverfontcolor3.vars.id }}, #{{ form.hoverlinkcolor1.vars.id }}, #{{ form.hoverlinkcolor2.vars.id }}, #{{ form.hoverlinkcolor3.vars.id }}, #{{ form.linkcolor1.vars.id }}, #{{ form.linkcolor2.vars.id }}, #{{ form.linkcolor3.vars.id }}').ColorPicker({
 	onSubmit: function(hsb, hex, rgb, el) {
 		$(el).val(hex);
 		$(el).ColorPickerHide();
+		changeColors(); // Needed for color changing
 	},
 	onBeforeShow: function () {
 		$(this).ColorPickerSetColor(this.value);
 	}
 })
 .bind('keyup', function(){
+	changeColors(); // Needed for color changing
 	$(this).ColorPickerSetColor(this.value);
+	
 });
+
+
+// Color changing functions
+function changeColors(){
+	$('#content1').css('background-color', '#'+$('#{{ form.color1.vars.id }}').val());
+	$('#content2').css('background-color', '#'+$('#{{ form.color2.vars.id }}').val());
+	$('#content3').css('background-color', '#'+$('#{{ form.color3.vars.id }}').val());
+	$('#hovercontent1').css('background-color', '#'+$('#{{ form.hovercolor1.vars.id }}').val());
+	$('#hovercontent2').css('background-color', '#'+$('#{{ form.hovercolor2.vars.id }}').val());
+	$('#hovercontent3').css('background-color', '#'+$('#{{ form.hovercolor3.vars.id }}').val());
+	$('#content1').css('color', '#'+$('#{{ form.fontcolor1.vars.id }}').val());
+	$('#content2').css('color', '#'+$('#{{ form.fontcolor2.vars.id }}').val());
+	$('#content3').css('color', '#'+$('#{{ form.fontcolor3.vars.id }}').val());
+	$('#hovercontent1').css('color', '#'+$('#{{ form.hoverfontcolor1.vars.id }}').val());
+	$('#hovercontent2').css('color', '#'+$('#{{ form.hoverfontcolor2.vars.id }}').val());
+	$('#hovercontent3').css('color', '#'+$('#{{ form.hoverfontcolor3.vars.id }}').val());
+	$('#link1').css('color', '#'+$('#{{ form.linkcolor1.vars.id }}').val());
+	$('#link2').css('color', '#'+$('#{{ form.linkcolor2.vars.id }}').val());
+	$('#link3').css('color', '#'+$('#{{ form.linkcolor3.vars.id }}').val());
+	$('#hoverlink1').css('color', '#'+$('#{{ form.hoverlinkcolor1.vars.id }}').val());
+	$('#hoverlink2').css('color', '#'+$('#{{ form.hoverlinkcolor2.vars.id }}').val());
+	$('#hoverlink3').css('color', '#'+$('#{{ form.hoverlinkcolor3.vars.id }}').val());
+	var number = $('#{{ form.fontsize.vars.id }}').val();
+	$('#content1').css('font-size', parseInt(number));
+	$('#content2').css('font-size', parseInt(number));
+	$('#content3').css('font-size', parseInt(number));
+}
+
+// callbacks
+$('#{{ form.fontsize.vars.id }}').change(function() {
+	changeColors();
+});
+
+changeColors();
+
 </script>
 {% endblock %}

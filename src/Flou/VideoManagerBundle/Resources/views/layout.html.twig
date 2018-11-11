@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}DIF Videomanager{% endblock %}
+{% block title %}Antaris Videomanager{% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/flouvideomanager/css/reset.css') }}"/>
@@ -8,11 +8,19 @@
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script> -->
+	
+	{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+	<style type="text/css">
+	body{
+		background-color:#F22129;
+	</style>
+	{% endif %}
+	
 {% endblock %}
 
 {% block body %}
 <div id="wrapper">
-		<div id="header" class="center">{% block header %}<img src="{{ asset('bundles/flouvideomanager/images/smalmovielogo.png') }}">  <span><h1 style="display:inline;">Videomanager</h1></span>{% endblock %}</div>
+		<div id="header" class="center">{% block header %}<img src="{{ asset('bundles/flouvideomanager/images/smalmovielogo.png') }}">  <span><h1 style="display:inline;"> Antaris Videomanager</h1></span>{% endblock %}</div>
 	<div id="topmenu" class="center clearfix">
 		{% block topmenu %}
 		{% endblock %}
@@ -45,6 +53,6 @@
 		
 		
 	</div>
-	
+<div class="copyright">Copyright 2012 by DIF</div>
 </div>
 {% endblock %}

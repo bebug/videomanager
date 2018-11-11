@@ -3,7 +3,7 @@
 namespace Flou\VideoManagerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -15,7 +15,7 @@ class ChannelHeadType extends AbstractType
 	{
 	}
 	
-	public function buildForm(FormBuilder $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->add('header', 'textarea', array(
 				'label'     => 'Kopf',

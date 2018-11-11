@@ -1,0 +1,43 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('widget_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('widget_newlist') }}"><span class="label">Neues Widget</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Widget-Liste</h2>
+<hr/>
+
+
+{% for widget in widgets %}
+	<div class="pagelistitem">
+	<div class="innerpagelistitem">
+		<div class="title">{{ widget.name('de') }}</div>
+		<div class="description">
+		<div class="descriptionitem">{{ widget.type }}</div>
+		<div class="descriptionitem">Position: {{ widget.position.position }}</div></div>
+	</div>
+	<a href="{{ path(widget.routePrefix~'_edit', { 'id': widget.id }) }}"><span class="editbutton">Ändern</span></a>
+	<a href="javascript:decision('Video wirklich löschen?','{{ path(widget.routePrefix~'_delete', { 'id': widget.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+	</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Liste werden alle von Ihnen entworfenen Widgets aufgelistet.  Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
+{% endblock %}

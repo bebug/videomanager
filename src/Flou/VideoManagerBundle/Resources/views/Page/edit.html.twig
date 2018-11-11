@@ -1,18 +1,37 @@
 {% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
 
 {% block specjavascripts %}
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/tiny_mce/tiny_mce.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/tiny_mce/tiny_mce.js') }}"></script>
+<iframe height="0" width="0" src="{{ asset('bundles/flouvideoasset/mceSessionWriter.php') }}"></iframe>
 <script type="text/javascript">
+
+function checkhyperlink() {
+	  var element = document.getElementById("playercontainer");
+	 
+	  if ($('#{{ form.hyperlink.vars.id }}').val() == '') {
+		  $('#{{ form.description.description_de.vars.id }}_parent').show();
+		  $('#{{ form.description.description_en.vars.id }}_parent').show();
+		  $('#{{ form.description.description_fr.vars.id }}_parent').show();
+	  }
+	  else{
+		  $('#{{ form.description.description_de.vars.id }}_parent').hide();
+		  $('#{{ form.description.description_en.vars.id }}_parent').hide();
+		  $('#{{ form.description.description_fr.vars.id }}_parent').hide();
+	  }
+	}
+
 tinyMCE.init({
         // General options
         width : "845",
         height: "400",
         mode : "textareas",
         relative_urls : false,
+        oninit : "checkhyperlink",
         remove_script_host : false,
-        verify_html : false,
+        //verify_html : false,
         theme : "advanced",
-        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+        language : "de",
+        plugins : "filemanager,autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
 
         // Theme options
         theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
@@ -46,6 +65,8 @@ tinyMCE.init({
 </script>
 
 <script>
+
+
 $(document).ready(function(){
 	//$('#tabs div').hide();
 	$('#german-tab').hide();
@@ -55,17 +76,22 @@ $(document).ready(function(){
 	$('#tabs ul li:first').addClass('active');
 	 
 	$('#tabs ul li a').click(function(){
-	$('#tabs ul li').removeClass('active');
-	$(this).parent().addClass('active');
-	var currentTab = $(this).attr('href');
-	$('#german-tab').hide();
-	$('#english-tab').hide();
-	$('#france-tab').hide();
-	$(currentTab).show();
+		$('#tabs ul li').removeClass('active');
+		$(this).parent().addClass('active');
+		var currentTab = $(this).attr('href');
+		$('#german-tab').hide();
+		$('#english-tab').hide();
+		$('#france-tab').hide();
+		$(currentTab).show();
 	return false;
 	});
-	});
-	
+});
+
+$('#{{ form.hyperlink.vars.id }}').keyup(function() {
+	checkhyperlink();
+});
+
+//checkhyperlink();
 </script>
 {% endblock %}
 
@@ -139,8 +165,5 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block help %}
-<p>Die <strong>Position</strong> der Seite gibt an ob wo sich diese Befindet. Je nach design liegen die Positionen an verschiedenen Orten. Allgemein bedeutet eine größere Nummer eine tiefere Position. Bei bedarf können Sie eine Seite auch <strong>ausblenden</strong>. Sie ist für Ihre Besucher nicht mehr sichtbar. Nur Sie können noch mit einem direkten Link dorthin verweisen.</p>
-<p>Die <strong>Anordnung</strong> gibt an in welcher Reihenfolge die Seite im Menü aufgelistet wird. Eine kleinere Nummer bedeutet, dass sich die Seite weiter vorne gelistet wird. So können Sie den Link auf Ihre Startseite beispielsweise ganz an den Anfang setzen.</p>
-<p>Der <strong>Name</strong> und die <strong>Beschreibung</strong> können für verschiedene Sprachen gewählt werden. Klicken Sie hierführ auf die <strong>Flaggen</strong> der jeweiligen Länder. Besucher aus dem gewählten Land bekommen so eine Seite in der eigenen Sprache zu sehen. Die Inhalte werden nicht automatisch übersetzt und müssen von Ihnen selbst eingetragen werden.</p>
-<p>Mit dem <strong>Hyperlink-Feld</strong> können Sie einen beliebigen Hyperlink in Ihrem Menü einbauen. Sie können somit auf andere Webseiten oder spezielle Videos verweisen. Um den Hyperlink zu <strong>deaktivieren</strong> lassen Sie den Eintrag leer.
+<p>Auf dieser Seite können Sie Seiten für Ihre Website generieren. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de/tv/page/37">Hilfe</a>.</p>
 {% endblock %}

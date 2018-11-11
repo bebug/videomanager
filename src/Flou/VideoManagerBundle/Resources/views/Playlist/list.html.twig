@@ -1,0 +1,60 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Playlisten</h2>
+<hr/>
+<form action="" method="post">
+<div class="formwrapper">
+{% for playlist in playlists %}
+
+	<div class="pagelistitem">
+	<div class="pageimage">
+		<img class="pageimage" src="{{ asset('uploads/playlists/' ~ playlist.channel.id ~ '/' ~ playlist.id ~ '_tiny.jpg')}}" alt="picture"/>
+	</div>
+	<div class="innerpagelistitem">
+		<div class="title">
+			{{ playlist.title.titlede }}
+		</div>
+		<div class="description">
+		<a href="{{ path('page_new', { 'hyperlink': path('tv_playlist', { 'playlistid': playlist.id }), 'titlede': playlist.title.titlede, 'titleen': playlist.title.titleen, 'titlefr': playlist.title.titlefr }) }}">Hyperlink erstellen</a>
+		</div>
+	</div>
+	<a href="{{ path('playlist_embed') }}?playlist={{ playlist.id }}"><span class="embedbutton">Embed</span></a>
+	<a href="{{ path('playlist_picture', { 'playlistid': playlist.id }) }}"><span class="imagebutton">Bild</span></a>
+	<a href="{{ path('playlist_videolist', { 'playlistid': playlist.id }) }}"><span class="listbutton">Videos</span></a>
+	<a href="{{ path('playlist_edit', { 'playlistid': playlist.id }) }}"><span class="editbutton">Ändern</span></a>
+	<a href="javascript:decision('Playlist wirklich löschen?','{{ path('playlist_delete', { 'playlistid': playlist.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+	</div>
+{% endfor %}
+
+</div>
+</form>
+
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Seite werden alle von Ihnen erstellten Playlisten aufgelistet.</p>
+{% endblock %}

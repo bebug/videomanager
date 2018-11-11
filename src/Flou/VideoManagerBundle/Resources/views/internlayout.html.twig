@@ -6,11 +6,20 @@
 	<li><a href="{{ path('channel_edit') }}"><span class="label">Kanal</span></a></li>
 	<li><a href="{{ path('video_list') }}"><span class="label">Videos</span></a></li>
 	<li><a href="{{ path('page_list') }}"><span class="label">Seiten</span></a></li>
+	<li><a href="{{ path('widget_list') }}"><span class="label">Widgets</span></a></li>
+	<li><a href="{{ path('gallery_list') }}"><span class="label">Galerien</span></a></li>
+	{% if app.user.channel.piwikid != 0 %}
+	<li><a href="{{ path('statistics_map') }}"><span class="label">Statistiken</span></a></li>
+	{% endif %}
 	<li><a href="{{ helpchannel }}" target="_blank"><span class="label">Hilfe</span></a></li>
 	{% if is_granted('ROLE_ADMIN') %}
-	<li><a href="{{ path('admin_getuser') }}"><span class="label">Administration</span></a></li>
+	<li><a href="{{ path('admin_comment') }}"><span class="label">Administration</span></a></li>
 	{% endif %}
+	{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+	<li><a href="{{ path('user_info') }}?_switch_user=_exit">Benutzerrolle verlassen</a></li>
+	{% else %}
 	<li><a href="{{ path('fos_user_security_logout') }}"><span class="label">Abmelden</span></a></li>
+	{% endif %}
 </ul>
 {% endblock %}
 

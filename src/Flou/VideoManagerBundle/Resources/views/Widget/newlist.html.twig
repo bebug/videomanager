@@ -1,0 +1,21 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('widget_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('widget_newlist') }}"><span class="label">Neues Widget</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Neues Widget erstellen</h2>
+<hr/>
+	{% for widgetinfo in widgetinfos %}
+	<li><a href="{{ path(widgetinfo.prefix~'_new') }}"><span class="label">{{ widgetinfo.name }}</span></a></li>
+{% endfor %}
+
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Liste werden alle von Ihnen entworfenen Widgets aufgelistet.  Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
+{% endblock %}

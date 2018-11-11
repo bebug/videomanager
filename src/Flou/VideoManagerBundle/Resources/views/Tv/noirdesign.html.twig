@@ -4,7 +4,7 @@
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ info.language }}"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,90 +19,192 @@
   
   <!--User Design -->
   <style type="text/css" media="screen">
-  html, body {
-  	{% if design.color1 != '' %}background-color:#{{ design.color1 }};{% endif %}
-  }
-  
-  .header, #outercontentwrapper{
-  	{% if design.fontcolor1 != '' %}color:#{{ design.fontcolor1 }};{% endif %}
-  	{% if design.font != '' %}font-family:{{ design.font }};{% endif %}
-  }
-  
-  .header a, .header a:hover, #outercontentwrapper a, #outercontentwrapper a:hover{
-  	{% if design.linkcolor1 != '' %}color:#{{ design.linkcolor1 }};{% endif %}
-  }
-  
-  #outercontentwrapper a:hover, .header a:hover{
-    {% if design.hoverlinkcolor1 != '' %}
-    	color:#{{ design.hoverlinkcolor1 }};
-    	text-decoration:none;
-    {% endif %}
-  }
-  
-  #outerribbon{
-  	{% autoescape false %}
-  	{% if design.color3 != '' %}
-  	{{ gradient({'0%':['#',darken(design.color3, 70)]|join,'10%':['#',design.color3]|join,'100%':['#',design.color3]|join}) }}
-  	{% endif %}
-  	{% endautoescape %}
-  }
-  
-  .outertopmenu, footer{
-	{% autoescape false %}
-	{% if design.color2 != '' %}
-	border-top:1px solid #{{ lighten(design.color2, 70) }};
-	{{ gradient({'0%':['#',lighten(design.color2, 10)]|join, '100%':['#',darken(design.color2, 25)]|join}) }}
-	{% endif %}
-  	{% endautoescape %}
-  	{% if design.fontcolor2 != '' %}color:#{{ design.fontcolor2 }};{% endif %}
-  }
-  
-  .outertopmenu, #footermenu, #copyright{
-    {% if design.fontcolor2 != '' %}color:#{{ design.fontcolor2 }};{% endif %}
-  }
-  
-  {% if design.hovercolor2 != '' %}
-  .menu1singleitem:hover, .menu1groupitem:hover{
-	background-color:#{{ design.hovercolor2 }};
-  }
-  
-  .menu1groupitem{
-  	{% if design.linkcolor2 != '' %}color:#{{ design.linkcolor2 }};{% endif %}
-  }
-  
-  .menu1grouplist{
   {% autoescape false %}
-  	{{ gradient({'0%':['#',design.hovercolor2]|join, '100%':['#',darken(design.hovercolor2, 30)]|join}) }}
-  	{% endautoescape %}
+  
+  {# COLOR1 #}
+  {% if design.color1 != '' %}
+  html, body {
+  	background-color:#{{ design.color1 }};
   }
   {% endif %}
   
-  #menu1 a, #menu1 a:hover, #menu4 a, #menu4 a:hover, .outertopmenu a, #copyright a, #copyright a:hover{
-    {% if design.linkcolor2 != '' %}color:#{{ design.linkcolor2 }};{% endif %}
+  html, body{
+  font-size:{{ design.fontsize }}px;
   }
   
-  #menu1 a:hover, #menu4 a:hover, .menu1groupitem:hover, #copyright a:hover{
-    {% if design.hoverlinkcolor2 != '' %}
-      color:#{{ design.hoverlinkcolor2 }};
-      text-decoration:none;
-    {% endif %}
-  }
+  {# COLOR2 #}
+  {% if design.color2 != '' %}
+	  .outertopmenu, footer{
+	  {% if design.color2 == design.color1 %}
+		background:none;
+		border:none;
+	  {% else %}
+		{{ gradient({'0%':['#',lighten(design.color2, 10)]|join, '100%':['#',darken(design.color2, 25)]|join}) }}
+	    border-top:1px solid #{{ lighten(design.color2, 70) }};
+	  {% endif %}
+	  }
+  {% endif %}
   
-  .menu3head{
-    {% if design.headingcolor != '' %}border-bottom:2px solid #{{ design.headingcolor }};{% endif %}
+  {# COLOR3 #}
+  {% if design.color3 != '' %}
+  .menu1grouplist, .menu2grouplist{
+  	{{ gradient({'0%':['#',design.color3]|join, '100%':['#',darken(design.color3, 30)]|join}) }}
+  	border-top:1px solid #{{ lighten(design.color3, 70) }};
   }
+  {% endif %}
   
-  .content_right, .content_left{
-  	{% if design.hovercolor1 != '' %}background-color:#{{ design.hovercolor1 }};{% endif %}
-  	{% if design.hovercolor1 != '' and design.hovercolor1 != design.color1  %}border:1px solid #{{ darken(design.hovercolor1, 30) }};{% endif %}
-  	{% if not info.menu3 %}width:auto; float:none;{% endif %}
-  }
+  {# HOVERCOLOR1 #}
+  {% if design.hovercolor1 != '' %}
+  	.content_right, .content_left, .widget3, .widget4{
+	  	background-color:#{{ design.hovercolor1 }};
+	  	{% if design.hovercolor1 != design.color1 %}
+	  	border:1px solid #{{ darken(design.hovercolor1, 30) }}
+	  	{% endif %}
+  	}
+  {% endif %}
   
+  {# HOVERCOLOR2 #}
+  {% if design.hovercolor2 != '' %}
+	.menu1singleitem a:hover, .menu2singleitem a:hover{
+		background-color:#{{ design.hovercolor2 }};
+	}
+	
+	.menu1groupitem:hover, .menu2groupitem:hover{
+		background-color:#{{ design.hovercolor2 }};
+	}
+  {% endif %}
+  
+  {# HOVERCOLOR3 #}
+  {% if design.hovercolor3 != '' %}
+	.menu1grouplistitem a:hover, .menu2grouplistitem a:hover{
+		background-color:#{{ design.hovercolor3 }};
+	}
+  {% endif %}
+  
+  {# HEADINGCOLOR #}
+  {% if design.headingcolor != '' %}
   h1, h2, h3, h4, h5, h6{
-  	{% if design.headingcolor != '' %}color:#{{ design.headingcolor }};{% endif %}
-  	{% if design.headingfont != '' %}font-family:{{ design.headingfont }};{% endif %}
+  	color:#{{ design.headingcolor }}
+  }
+  .menu3head, .widget3head{
+  	color:#{{ design.headingcolor }};
+  	border-color:#{{ design.headingcolor }};
   }
   
+  {% endif %}
+  
+  {# HEADINGFONT #}
+  {% if design.headingfont != '' %}
+  h1, h2, h3, h4, h5, h6, .menu3head, .menu4head, .widget3head{
+  	font-family:{{ design.headingfont }};
+  }
+  {% endif %}
+  
+  {# FONT #}
+  {% if design.font != '' %}
+  .header, #outercontentwrapper{
+  	font-family:{{ design.font }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR1 #}
+  {% if design.fontcolor1 != '' %}
+  .header{
+  	color:#{{ design.fontcolor1 }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR2 #}
+  {% if design.fontcolor2 != '' %}
+  #copyright, #footermenu{
+  	color:#{{ design.fontcolor2 }};
+  }
+  {% endif %}
+  
+  {# FONTCOLOR3 #}
+  {% if design.fontcolor3 != '' %}
+  {% endif %}
+  
+  {# HOVERFONTCOLOR1 #}
+  {% if design.hoverfontcolor1 != '' %}
+  .content_right, .content_left, .widget3, .widget4{
+  	color:#{{ design.hoverfontcolor1 }};
+  }
+  {% endif %}
+  
+  {# HOVERFONTCOLOR2 #}
+  {% if design.hoverfontcolor2 != '' %}
+  {% endif %}
+  
+  {# HOVERFONTCOLOR3 #}
+  {% if design.hoverfontcolor3 != '' %}
+  {% endif %}
+  
+  {# LINKCOLOR1 #}
+  {% if design.linkcolor1 != '' %}
+  .header a, .header a:hover{
+  	color:#{{ design.linkcolor1 }};
+  }
+  {% endif %}
+  
+  {# LINKCOLOR2 #}
+  {% if design.linkcolor2 != '' %}
+  .menu1groupitem a, .menu2groupitem a{
+  	color:#{{ design.linkcolor2 }};
+  }
+  .menu1groupitem, .menu2groupitem{
+  	color:#{{ design.linkcolor2 }};
+  }
+  #copyright a, #footermenu a{
+  	color:#{{ design.linkcolor2 }};
+  }
+  {% endif %}
+  
+  {# LINKCOLOR3 #}
+  {% if design.linkcolor3 != '' %}
+  .menu1grouplistitem a, .menu2grouplistitem a{
+  	color:#{{ design.linkcolor3 }};
+  }
+  {% endif %}
+  
+  {# HOVERLINKCOLOR1 #}
+  {% if design.hoverlinkcolor1 != '' %}
+  .content_right a, .content_right a:hover, .content_left a, .content_left a:hover, .widget3 a, .widget3 a:hover, .widget4 a, .widget4 a:hover{
+  	color:#{{ design.hoverlinkcolor1 }};
+  }
+  .menu3groupitem li{
+  	color:#{{ design.hoverlinkcolor1 }};
+  }
+  {% endif %}
+  
+  {# HOVERLINKCOLOR2 #}
+  {% if design.hoverlinkcolor2 != '' %}
+  .menu1groupitem:hover .menu1head a, .menu1head:hover a, .menu2groupitem:hover .menu2head a, .menu2head:hover a{
+  	color:#{{ design.hoverlinkcolor2 }};
+  }
+  .menu1groupitem:hover, .menu2groupitem:hover{
+  	color:#{{ design.hoverlinkcolor2 }};
+  }
+  #copyright a:hover, #footermenu a:hover{
+  	color:#{{ design.linkcolor2 }};
+  }
+  {% endif %}
+  
+  {# HOVERLINKCOLOR3 #}
+  {% if design.hoverlinkcolor3 != '' %}
+  .menu1grouplistitem a:hover, .menu2grouplistitem a:hover{
+  	color:#{{ design.hoverlinkcolor3 }};
+  }
+  {% endif %}
+  
+  {% if trigger.menu3 == false and trigger.widget3 == false %}
+  	.content_right, .content_left, .widget4{
+  	width:930px;
+  	float:left;
+  	}
+  {% endif %}
+  
+  {% endautoescape %}
   </style>
   
 
@@ -114,11 +216,13 @@
   <script src="{{ asset('bundles/flouvideomanager/js/libs/modernizr-2.5.3.min.js') }}"></script>
 </head>
 <body>
+{% block facebookid %}
+{% endblock %}
 <div id="wrap">
 
 		
 
-		{% if info.menu1 %}
+		{% if trigger.menu1 %}
 		<div class="outertopmenu">
 			<div class="innertopmenu center clearfix">
 			{% block menu1 %}
@@ -127,13 +231,13 @@
 		</div>
 		{% endif %}
 
-	<header class="center">
-	{% block header %}
+	<header class="header center">
+	{% block widget1 %}
  	{% endblock %}
 	</header>
-	<div id="main">
+	<div id="main" class="clearfix">
  		
- 		{% if info.menu2 %}
+ 		{% if trigger.menu2 %}
 		<div class="outertopmenu">
 			<div class="innertopmenu center clearfix">
 			{% block menu2 %}
@@ -142,7 +246,7 @@
 		</div>
 		{% endif %}
 		
-		{% if playlist is defined or video is defined %}
+		{% if trigger.playlist or trigger.video %}
 		<div id="outerribbon">
 			<div id="innerribbon" class="center clearfix">
 				<div id="outervideowrapper" class="precenter">
@@ -158,25 +262,19 @@
 		{% endif %}
 		
 		<div id="outercontentwrapper">
-			<div id="innercontentwrapper" class="center cleafix">
-				<div class="content_left" class="clearfix">
-					{% block page %}
+			<div id="innercontentwrapper" class="center clearfix">
+				<div style="float:left;">
+				<div class="content_left clearfix">
+					{% block widget2 %}
  					{% endblock %}
- 					{% block playlist %}
-	 				{% endblock %}
-	 				{% block videoinfo %}
+					{% block content %}
  					{% endblock %}
  				</div>
- 				{% if channel.socialnetworks %}
-				<div class="content_right" class="clearfix">
-				
-				{% block share %}
+ 				{% block widget4 %}
 				{% endblock %}
-				
 				</div>
-				{% endif %}
-				{% if info.menu3 %}
-				<div class="content_right" class="clearfix">
+				{% if trigger.menu3 %}
+				<div class="content_right clearfix">
 					
 					<div class="menublock">
 					{% block menu3 %}
@@ -186,12 +284,10 @@
 	 			</div>
 	 			{% endif %}
 	 			
-	 			{% if channel.menu != '' %}
-				<div class="content_right" class="clearfix">
-					{% block menucontent %}
-	 				{% endblock %}
-				</div>
-	 			{% endif %}
+	 			
+	 			{% block widget3 %}
+ 				{% endblock %}
+ 				
 			</div>
 		</div>
 	</div>
@@ -199,6 +295,7 @@
 
 <footer>
 <div id="footermenu" class="center clearfix">
+
 {% block menu4 %}
 {% endblock %}
 {% if channel.language_de or channel.language_en or channel.language_fr %}
@@ -206,11 +303,9 @@
 {% endblock %}
 
 {% endif %} 
-<div class="logincontainer">{% block login %}{% endblock %}</div>
 </div>
-<div id="copyright">
-Copyright &copy; 2012 DIF. All rights reserved. Templatedesign by F.Buchner
-</div>
+{% block copyright %}
+{% endblock %}
 </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
@@ -225,7 +320,7 @@ Copyright &copy; 2012 DIF. All rights reserved. Templatedesign by F.Buchner
 	  var el=$('footer');
 	  el.css('margin-top', (-footersize-1)+'px');
 	  var el2=$('#main');
-	  el2.css('padding-bottom', (footersize+1)+'px');
+	  el2.css('padding-bottom', (footersize+6)+'px');
 	});
 	</script>
 	  <!-- end scripts -->

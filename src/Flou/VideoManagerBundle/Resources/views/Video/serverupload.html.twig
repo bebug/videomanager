@@ -4,6 +4,11 @@
 <ul id="sidemenulist">
 	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
 	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
 </ul>
 {% endblock %}
 
@@ -33,17 +38,23 @@
 </form>
 {% else %}
 <form action="" method="post" {{ form_enctype(form) }}>
+<div style="font-size:0.8em; margin-bottom:8px;">
+	<strong>mp4</strong>, <strong>m4v</strong>, <strong>f4v</strong>, <strong>webm</strong> und <strong>flv</strong> mit 400 MB.
+	</div>
+	    {% if app.user.channel.videos|length < app.user.channel.maxvideos %}
     {{ form_widget(form) }}
+
     <input type="submit" />
+    {% endif %}
 </form>
 {% endif %}
 
 {% endblock %}
 
 {% block help %}
-<p>Dies ist die traditionelle Uploadmethode über eine Form. Sie können den Fortschritt des Uploads unten an ihrem Browserfenster beobachten. Eine weitaus komfortablere Lösung bietet unser <a href="{{ path('video_serverupload') }}">Flash-Upload</a>. Der Flash-Upload ist die empfohlene Methode um Videos hochzuladen. Sie sollten ihn bevorzugt verwenden.</p>
+<p>Dies ist die traditionelle Uploadmethode über eine Form. Sie können den Fortschritt des Uploads unten an ihrem Browserfenster beobachten.</p>
 <p>Je nach Uploadgeschwindigkeit, welche sich erheblich von der Downloadgeschwindigkeit unterscheiden kann, kann das Hochladen mehrere Stunden dauern.</p>
-<p>Um ein Video hochzuladen wählen Sie dieses zuerst aus und klicken anschließend auf "Upload".</p>
+<p>Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
 {% endblock %}
 
 {% block specjavascripts %}

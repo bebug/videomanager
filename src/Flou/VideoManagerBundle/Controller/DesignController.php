@@ -21,7 +21,8 @@ class DesignController extends Controller
 		// create new channel for user
 		$design = new Design();
 		$design->setFont($em->getRepository('FlouVideoManagerBundle:Font')->findOneBy(array()));
-		$design->setTemplate($em->getRepository('FlouVideoManagerBundle:Template')->findOneBy(array('template' => 'Noir')));
+		$design->setTemplate($em->getRepository('FlouVideoManagerBundle:Template')->findOneById(2));
+		$design->setFontsize(5);
 		
 		$channel->setDesign($design);
 		
@@ -155,6 +156,10 @@ class DesignController extends Controller
 			$form->bindRequest($request);
 	
 			if ($form->isValid()) {
+				
+				// replace symfony global variables
+				$design->setUsertemplate(str_replace('app.', '', $design->getUsertemplate()));
+				
 				$em->persist($design);
 				$em->persist($channel);
 				$em->flush();
@@ -221,9 +226,8 @@ class DesignController extends Controller
     
     function createTemplate($design, $channel)
     {
-    	echo 'hallo';
     	$myFile = $this->getUploadRootDir().'/template.'.$channel->getId().'.html.twig';
-    	$fh = fopen($myFile, 'w') or die("Error writing template");
+    	$fh = fopen($myFile, 'w');
     	fwrite($fh, $design->getUsertemplate());
     	fclose($fh);
     }

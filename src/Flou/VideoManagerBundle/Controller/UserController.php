@@ -21,13 +21,11 @@ class UserController extends Controller
 	{
 		// get em
 		$em = $this->getDoctrine()->getEntityManager();
-		
-		
-		
 		$user = $this->get('security.context')->getToken()->getUser();
 
 		$data['user'] = $user;
 		$data['channel'] = $user->getChannel();
+		$data['websites'] = $em->getRepository('FlouVideoManagerBundle:Domain')->findHostbyChannelId($user->getChannel()->getId());
 		
 		return $this->render('FlouVideoManagerBundle:User:info.html.twig', $data);
 	}

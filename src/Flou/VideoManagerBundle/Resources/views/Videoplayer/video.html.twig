@@ -14,7 +14,7 @@ overflow:hidden;
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="{{ asset('bundles/flouvideomanager/js/libs/jquery-1.7.1.min.js') }}"><\/script>')</script>
 
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/jwplayer/jwplayer.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/jwplayer/jwplayer.js') }}"></script>
 <script type="text/javascript">
 
 	document.addEventListener("fullscreenchange", backfromfullscreen, false);
@@ -58,9 +58,6 @@ overflow:hidden;
 	}
 </script>
 
-<script type="text/javascript">
-<script type='text/javascript' src='/jwplayer/jwplayer.js'></script>
-
 <div id='mediaplayer'></div>
 
 <script type="text/javascript">
@@ -71,45 +68,53 @@ overflow:hidden;
 			{% if autostart is defined and autostart %}
 			'autostart': true,
 			{% endif %}
-			modes: [
-				{ type: "flash", src: "{{ asset('bundles/flouvideomanager/jwplayer/player.swf') }}",
+			modes: [{% if not html5 %}
+				{ type: "flash", src: "{{ asset('bundles/flouvideoasset/jwplayer/player.swf') }}",
 					config: {
 						'playlist': [
 				
 							{% if playlist is defined %}
-							{% for item in playlist %}
+							{% for item in playlist.videos %}
 							{
-								'file': '{{ item.s3key }}',
-								'image': '{{ asset('uploads/videos/'~item.channel~'/'~item.id~'.png') }}',
 								'title': '{{ item.title }}',
+								'image': '{{ asset('uploads/videos/'~item.channel~'/'~item.id~'_big.jpg') }}',
 								'duration': '{{ item.duration }}',
-								'provider': 'rtmp',
-								'streamer': '{{ item.rtmp }}/cfx/st'
+								{% if item.rtmp != "" %}
+									'file': '{{ item.s3key }}',
+									'provider': 'rtmp',
+									'streamer': '{{ item.rtmp }}/cfx/st'
+								{% else %}
+									'file': '{{ item.http }}'
+								{% endif %}
 							},
 							{% endfor %}
 							{% endif %}
 						             
 							{% if video is defined %}
 							{
-								'file': '{{ video.s3key }}',
-								'image': '{{ asset('uploads/videos/'~video.channel~'/'~video.id~'.png') }}',
+								'image': '{{ asset('uploads/videos/'~video.channel~'/'~video.id~'_big.jpg') }}',
 								'title': '{{ video.title }}',
 								'duration': '{{ video.duration }}',
+								{% if video.rtmp != "" %}
+								'file': '{{ video.s3key }}',
 								'provider': 'rtmp',
 								'streamer': '{{ video.rtmp }}/cfx/st'
+								{% else %}
+								'file': '{{ video.http }}'
+								{% endif %}
 							},
 							{% endif %}
 						]
-						} },
+						} },{% endif %}
 				
 				{ type: "html5",
 					config: {
 						'playlist': [
 							{% if playlist is defined %}
-							{% for item in playlist %}
+							{% for item in playlist.videos %}
 								{
 								'file': '{{ item.http }}',
-								'image': '{{ asset('uploads/videos/'~item.channel~'/'~item.id~'.png') }}',
+								'image': '{{ asset('uploads/videos/'~item.channel~'/'~item.id~'_big.jpg') }}',
 								'title': '{{ item.title }}',
 								'duration': '{{ item.duration }}'
 								},
@@ -119,7 +124,7 @@ overflow:hidden;
 							{% if video is defined %}
 							{
 								'file': '{{ video.http }}',
-								'image': '{{ asset('uploads/videos/'~video.channel~'/'~video.id~'.png') }}',
+								'image': '{{ asset('uploads/videos/'~video.channel~'/'~video.id~'_big.jpg') }}',
 								'title': '{{ video.title }}',
 								'duration': '{{ video.duration }}'
 							},

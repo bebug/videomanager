@@ -1,0 +1,9 @@
+Nach git copy: bin/vendors install --reinstall
+
+ordner "web/uploads" und "app/logs" muss schreibbar sein.
+- Unterordner /videos, /playlists, /files, /temp
+
+php_curl, php_fileinfo, php_gd2 aktivieren
+
+Ersten Benutzer �ber app/console fos:user:create erstellen
+

@@ -1,0 +1,317 @@
+</html><!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ info.language }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  
+
+  
+<link rel="stylesheet" type="text/css" media="screen" href="/uploads/files/15/website/test.css"/>
+
+  <title>UMSCREIBUNG- PHOTOGRAPHY    -     ART     -     MOVIE      -      WWW.SASKIANATHALIEBETZ.COM      -     PHOTOGRAPHY     -     ART     -      MOVIE</title>
+  <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance.
+       Create your own custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="{{ asset('bundles/flouvideomanager/js/libs/modernizr-2.5.3.min.js') }}"></script>
+</head>
+<body>
+
+
+<div class="mainwrapper">
+<div class="blacklabel">
+	<img src="http://www.dif-webtv.de/uploads/files/15/website/blacklabel.png" title="copyright"></img>
+</div>
+<div class="innermainwrapper clearfix">
+<div class="wrapright"> 	  
+	    <div class="right" id="right">
+	    	
+	    				{% if trigger.gallery and gallery.photos|length > 0 %}
+	   						<div class="picturerollwrapper">
+	        	        		<div style="position:absolute; bottom:25px; left:30px; right:15px">
+	        	        		<div class="picturecenter">
+		        	        		<div id="buttonleft"></div>
+		        	        		<div id="buttonright"></div>
+		        	        		<!-- <a id="photolink" href="{{ path('tv_photo', { 'photoid': gallery.photos[0].id }) }}"> -->
+		        	        		<img id="rollpicture" src="{{ asset('uploads/galleries/'~info.channel~'/'~gallery.id~'/'~gallery.photos[0].id~'.jpg') }}"></img>
+	        	        			<!-- </a> -->
+	        	        		</div>
+	        	        		</div>
+	        	        	</div>
+	    				{% endif %}
+	    
+	        	        <div class="contentwrapper clearfix" id="contentwrapper">
+	        	       
+	        	       		{% if trigger.playlist %}
+	        	       		<div class="playlistwrapper clearfix">
+	        	       			{% for video in playlist.videos %}
+	        	       			<div class="videowrapper">
+	        	       			<iframe id="videoframe" width="380px" height="214px" frameBorder="0" src="http://www.dif-webtv.de{{ path('videoplayer_video', { 'id': video.id }) }}" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+	        	       			<div class="videotitle">{{ video.title }}</div>
+	        	       			</div>
+	        	       			{% endfor %}
+	        	       		</div>
+	        	       		{% endif %}
+	        	       
+	        	       		{% if trigger.photo %}
+	        	       		<div class="photowrapper clearfix">
+		        	        <div class="photoleft">
+		        	        
+							<img id="photo" src="{{ asset('uploads/galleries/'~info.channel~'/'~photo.gallery~'/'~photo.id~'.jpg') }}" title="{{ photo.title }}"></img>
+							
+							</div>
+							<div class="photoright">   	        
+								{% autoescape false %}
+								{{ photo.description }}
+								{% endautoescape %}
+							</div>
+							</div>
+							{% endif %}
+	        	       
+		        	        {% if trigger.page %}
+		        	        <div class="textcontent">
+								{% autoescape false %}
+								{{ page.description }}
+								{% endautoescape %}
+							</div>
+							{% endif %}
+						</div>
+	    </div>
+	</div>    
+	    <div class="left">
+	    {% if trigger.gallery and gallery.photos|length > 0 %}
+	    <div id="title">{{ gallery.photos[0].title }}</div>
+	    {% endif %}
+	    {% if trigger.photo %}
+	    <div id="title">{{ photo.title }}</div>
+	    {% endif %}
+	    
+	    <div id="buttonup"></div>
+	    <div id="buttondown"></div>
+	    <a href="http://www.saskianathaliebetz.com">
+	    <img src="http://www.dif-webtv.de/uploads/files/15/website/logo.png" title="logo"></img>
+	    </a>
+	    <div class="menuwrapper">
+			<div id="menu_photography">
+			<span class="menu_titlespan">PHOTOGRAPHY</span>
+				<div id="menu_photography_items">
+					{% block menu1 %}
+ 					{% endblock %}
+				</div>
+			</div>
+			<div id="menu_art">
+			<span class="menu_titlespan">ART</span>
+				<div id="menu_art_items">
+					{% block menu2 %}
+ 					{% endblock %}
+				</div>
+			</div>
+			<div id="menu_film">
+			<span class="menu_titlespan"><a href="/tv/page/175">MOVIE</a></span>
+				<div id="menu_film_items">
+					{% block menu3 %}
+ 					{% endblock %}
+				</div>
+			</div>
+			
+			<div id="menu_contact">
+			<span class="menu_titlespan"><a href="/tv/page/143">CONTACT</a></span>
+				<div id="menu_contact_items">
+				<a href="mailto:mail@saskianathaliebetz.com">
+				<img id="rollpicture" src="http://www.dif-webtv.de/uploads/files/15/website/address.png"></img>
+				</a>
+				</div>
+			</div>
+		</div>
+
+	    </div> 
+
+
+
+
+
+</div>
+
+</div>
+
+  {% block scripts %}
+  {% endblock %}
+
+  
+    <script type="text/javascript">
+    var contentmargin = 0;
+	var rollpicturepos = 0;
+
+	{% if trigger.gallery and gallery.photos|length > 0 %}
+	
+		var rollpictures = new Array(
+		{% for photo in gallery.photos %}
+		{% if photo  != gallery.photos[0] %},{% endif %}
+		new Array("{{ photo.title }}", {{ photo.id }}, "{{ path('tv_photo', { 'photoid': photo.id }) }}")
+		{% endfor %}
+		);
+
+		function setRollpicture(){
+			$(".picturecenter").fadeOut('fast', function() {
+			$("#title").text(rollpictures[rollpicturepos][0]);
+			$("#rollpicture").attr("src", "{{ asset('uploads/galleries/'~info.channel~'/'~gallery.id~'/')}}"+rollpictures[rollpicturepos][1]+".jpg");
+			//$("#photolink").attr("href", rollpictures[rollpicturepos][2]);
+			$(".picturecenter").fadeIn();
+			});
+		}
+
+		$("#buttonright").click(function(){
+			rollpicturepos = (rollpicturepos+1)%{{ gallery.photos|length }};
+			setRollpicture();
+    	});
+
+		$("#buttonleft").click(function(){
+			rollpicturepos = (rollpicturepos-1+{{ gallery.photos|length }})%{{ gallery.photos|length }};
+			setRollpicture();
+    	});
+		
+	{% endif %}
+
+	function expandsubcat(name){
+		$(name).each(function(index) {
+       		var l = $(this).text();
+   		    if($(this).text() == "{{ info.title }}"){
+   		    	$(this).css('color', '#7d7d7d');
+   		    	$(this).parent().parent().parent().show().parent().parent().parent().parent().show();
+   		    	return;
+       		}
+   		});
+    }
+
+	function expandcat(name){
+		$(name).each(function(index) {
+       		var l = $(this).text();
+   		    if($(this).text() == "{{ info.title }}"){
+   		    	$(this).css('color', '#7d7d7d');
+   		    	$(this).parent().parent().parent().parent().parent().parent().show();
+   		    	return;
+       		}
+   		});
+    }
+    
+    $(document).ready(function() {
+    	  contentmargin = 0;
+    	  checkSize();
+
+    	  if("{{ info.title }}" == "CONTACT"){
+    		  $("#menu_contact_items").slideDown("fast");
+       	  }else{
+
+       		  // subcategory
+       		expandsubcat('.menu1grouplistitemspan');
+       		expandsubcat('.menu2grouplistitemspan');
+       		expandsubcat('.menu3grouplistitemspan');
+       		// category
+       		expandcat('.menu1singleitemspan');
+       		expandcat('.menu2singleitemspan');
+       		expandcat('.menu3singleitemspan');
+
+          }    	  
+    });
+    
+    // Menu stuff
+    
+    $(".menu_titlespan").click(function () {
+      $("#menu_photography_items").slideUp("fast");
+      $("#menu_art_items").slideUp("fast");
+      $("#menu_film_items").slideUp("fast");
+      $("#menu_contact_items").slideUp("fast");
+      $(this).parent().children("div").slideDown("fast");
+    });
+    
+    /*
+    
+    
+    $("#menu_photography").click(function () {
+      $("#menu_photography_items").slideDown("fast");
+      $("#menu_art_items").slideUp("fast");
+      $("#menu_film_items").slideUp("fast");
+      $("#menu_contact_items").slideUp("fast");
+    });
+
+    $("#menu_art").click(function () {
+        $("#menu_photography_items").slideUp("fast");
+        $("#menu_art_items").slideDown("fast");
+        $("#menu_film_items").slideUp("fast");
+        $("#menu_contact_items").slideUp("fast");
+      });
+
+    $("#menu_film").click(function () {
+        $("#menu_photography_items").slideUp("fast");
+        $("#menu_art_items").slideUp("fast");
+        $("#menu_film_items").slideDown("fast");
+        $("#menu_contact_items").slideUp("fast");
+      });*/
+
+    //submenu
+    $(".menu1singleitemspan").click(function () {
+    	$(".menu1grouplist").slideUp("fast");
+    	$(this).parent().parent().find('.menu1grouplist').slideDown("fast");
+    });
+      $(".menu2singleitemspan").click(function () {
+      	$(".menu2grouplist").slideUp("fast");
+      	$(this).parent().parent().find('.menu2grouplist').slideDown("fast");
+      });
+      $(".menu3singleitemspan").click(function () {
+      	$(".menu3grouplist").slideUp("fast");
+      	$(this).parent().parent().find('.menu3grouplist').slideDown("fast");
+      });
+
+    $(".menu1grouplist").hide();
+    $(".menu2grouplist").hide();
+    $(".menu3grouplist").hide();
+    
+    // resize and scroll buttons
+
+    function checkSize(){
+
+		//$(window).height()
+        //$('#rollpicture').css('max-height', $(window).height()-35 + 'px');
+        /*
+    	if($("#right").height() < $("#contentwrapper").height()){
+    		$("#buttondown").fadeIn("slow");
+    		$("#buttonup").fadeIn("slow");
+    	}else{
+    		$("#buttondown").fadeOut("slow");
+    		$("#buttonup").fadeOut("slow");
+    		$("#contentwrapper").animate({
+    		    marginTop: 0
+    		  }, 1500 );
+    	}*/
+    }
+    
+    $(window).resize(function() {
+    	checkSize();
+	});
+
+    $("#buttonup").click(function(){
+			contentmargin = Math.min(0, contentmargin + 200);
+		  $("#contentwrapper").stop();
+    	  $("#contentwrapper").animate({
+    	    marginTop: contentmargin
+    	  }, 1500 );
+    	});
+
+    $("#buttondown").click(function(){
+		contentmargin = Math.max($("#right").height() - $("#contentwrapper").height(), contentmargin - 200);
+	  $("#contentwrapper").stop();
+	  $("#contentwrapper").animate({
+	    marginTop: contentmargin
+	  }, 1500 );
+	});
+    
+	</script>
+	  <!-- end scripts -->
+</body>
+</html>

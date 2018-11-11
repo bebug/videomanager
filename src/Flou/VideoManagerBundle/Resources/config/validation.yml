@@ -2,6 +2,29 @@ Flou\VideoManagerBundle\Entity\Video:
     properties:
         file:
             - File:
-                maxSize: 409600k
                 mimeTypes: [video/mp4, video/x-m4v, video/x-flv, video/webm, video/x-flv]
-                mimeTypesMessage: Please upload a valid video-format
+                mimeTypesMessage: Bitte ein gültiges Video-Format hochladen
+                
+Flou\VideoManagerBundle\Entity\Image:
+    properties:
+        file:
+            - File:
+                maxSize: 10600k
+                mimeTypes: [image/jpeg, image/png, image/gif]
+                mimeTypesMessage: Bitte ein gültiges Bild-Format hochladen
+                
+Flou\VideoManagerBundle\Entity\PhotoUpload:
+    properties:
+        file:
+            - File:
+                maxSize: 10600k
+                mimeTypes: [image/jpeg, image/png, image/gif]
+                mimeTypesMessage: Bitte ein gültiges Bild-Format hochladen
+                
+Flou\VideoManagerBundle\Entity\ZipFile:
+    properties:
+        file:
+            - File:
+                maxSize: 51200k
+                mimeTypes: [application/zip]
+                mimeTypesMessage: Bitte ein gültiges Bild-Format hochladen

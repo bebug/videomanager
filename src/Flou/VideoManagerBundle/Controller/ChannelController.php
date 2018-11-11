@@ -31,6 +31,12 @@ class ChannelController extends Controller
     	{
     		// create new channel for user
     		$channel = new Channel();
+    		$channel->setPlaylistEnabled(false);
+    		$channel->setContactemail("");
+    		$channel->setMaxVideos(5);
+    		$channel->setPiwikid(0);
+    		$channel->setUseHtml5(false);
+    		$channel->setUseHyphernate(false);
     		$user->setChannel($channel);
     		 
     		$em->persist($channel);
@@ -52,6 +58,8 @@ class ChannelController extends Controller
     		}
     	}
     	
+    	HelperController::initTinymce($this->container->getParameter('upload.dir.mce').'/files/'.$user->getId(), $this->container->getParameter('upload.dir.absolute').'/files/'.$user->getId(), $this->get("session"));
+
  		return $this->render('FlouVideoManagerBundle:Channel:edit.html.twig', array(
  				'form' => $form->createView(),
  		));
@@ -89,7 +97,10 @@ class ChannelController extends Controller
     		$em->persist($user);
     		$em->flush();
     	}
-    	 
+    	
+    	HelperController::initTinymce($this->container->getParameter('upload.dir.mce').'/files/'.$user->getId(), $this->container->getParameter('upload.dir.absolute').'/files/'.$user->getId());
+    	
+    	
     	return $this->render('FlouVideoManagerBundle:Channel:header.html.twig', array(
     			'form' => $form->createView(),
     	));
@@ -128,8 +139,11 @@ class ChannelController extends Controller
     		$em->flush();
     	}
     
+    	HelperController::initTinymce($this->container->getParameter('upload.dir.mce').'/files/'.$user->getId(), $this->container->getParameter('upload.dir.absolute').'/files/'.$user->getId());
+    	
     	return $this->render('FlouVideoManagerBundle:Channel:menu.html.twig', array(
     			'form' => $form->createView(),
     	));
     }
+
 }

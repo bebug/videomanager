@@ -4,11 +4,16 @@
 <ul id="sidemenulist">
 	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
 	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
 </ul>
 {% endblock %}
 
 {% block content %}
-<h2>Videoliste</h2>
+<h2>Videoliste</h2> {{ app.user.channel.videos|length }} von {{ app.user.channel.maxvideos }}
 <hr/>
 
 
@@ -17,7 +22,7 @@
 {% for video in videos %}
 	<div class="pagelistitem">
 	<div class="pageimage">
-		<img class="pageimage" src="../../../uploads/videos/{{ channel.id }}/{{ video.id }}.png" alt="picture"/>
+		<img class="pageimage" src="{{ asset('uploads/videos/' ~ video.channel.id ~ '/' ~ video.id ~ '_tiny.jpg')}}" alt="picture"/>
 	</div>
 	{% if not video.enabled %}
 		<div class="pageimageoverlay"></div>
@@ -25,8 +30,10 @@
 	<div class="innerpagelistitem">
 		
 		<div class="title">{{ video.title.titlede }}</div>
-		<div class="description">{{ video.duration }} 
-		{% if video.enabled %}
+		<div class="description">
+	 <a href="{{ path('page_new', { 'hyperlink': path('tv_video', { 'video': video.id }), 'titlede': video.title.titlede, 'titleen': video.title.titleen, 'titlefr': video.title.titlefr }) }}">Hyperlink erstellen</a><br/>
+	{{ video.duration }} 	
+	{% if video.enabled %}
 			Sichtbar
 		{% else %}
 			Unsichtbar
@@ -34,8 +41,9 @@
 		</div>
 	</div>
 	<a href="{{ path('video_embed') }}?video={{ video.id }}"><span class="embedbutton">Embed</span></a>
+	<a href="{{ path('video_picture', { 'videoid': video.id }) }}"><span class="imagebutton">Bild</span></a>
 	<a href="{{ path('video_edit', { 'videoid': video.id }) }}"><span class="editbutton">Ändern</span></a>
-	<a href="javascript:decision('Seite wirklich löschen?','{{ path('video_delete', { 'videoid': video.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<a href="javascript:decision('Video wirklich löschen?','{{ path('video_delete', { 'videoid': video.id }) }}')"><span class="deletebutton">Löschen</span></a>
 	<div class="clear"></div>
 	</div>
 {% endfor %}
@@ -45,7 +53,7 @@
 {% block help %}
 <p>In dieser Liste werden alle von Ihnen hochgeladenen Videos aufgelistet. Die Auflistung erfolgt in der Reihenfolge in der Sie die Videos hochgeladen haben.</p>
 <p>Unter den Namen der Videos wird die Sichtbarkeit angezeigt. Sie können so leicht erkennen welche Videos von Ihren Besuchern gesehen werden können.</p>
-<p>Um ein Video zu löschen oder zu bearbeiten klicken Sie auf die entsprechenden Icons.</p>
+<p>Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
 {% endblock %}
 
 {% block specjavascripts %}

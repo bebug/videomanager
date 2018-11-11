@@ -1,0 +1,18 @@
+	{% if widget.googleenabled %}
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+	<div class="g-plusone" {% if widget.bigsize %} data-size="tall"  {% else %} data-size="medium" {% endif %}></div>
+	{% endif %}
+
+	{% if widget.twitterenabled %}
+	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://{{ url }}" data-related="jasoncosta" data-lang="en" data-size="medium" {% if widget.bigsize %} data-count="vertical" {% else %} data-count="horizontal" {% endif %}>Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	{% endif %}
+	
+	{% if widget.facebookenabled %}
+	<div class="fb-like" data-href="http://{{ url }}" data-send="false" {% if widget.bigsize %} data-layout="box_count" {% else %} data-layout="button_count" {% endif %} data-width="100" data-show-faces="false"></div>
+	{% endif %}
+	
+	
+	
+	
+	

@@ -11,11 +11,14 @@
 {% block content %}
 <h2>Benutzerinformationen</h2>
 <hr/>
-<p>{{ user.username }}</p>
-<p>{{ user.email }}</p>
-{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-<p><a href="{{ path('user_info') }}?_switch_user=_exit">Benutzerrolle verlassen</a></p>
-{% endif %}
+<p>Benutzername: {{ user.username }}</p>
+<p>E-Mail: {{ user.email }}</p>
+<h2>Webseiten</h2>
+<hr/>
+{% for website in websites %}
+<p><a href="http://{{ website.name }}" target="_blank">http://{{ website.name }}</a></p>
+{% endfor %}
+
 {% endblock %}
 
 {% block help %}

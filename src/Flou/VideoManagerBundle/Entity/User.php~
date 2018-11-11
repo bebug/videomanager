@@ -20,7 +20,7 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\OneToOne(targetEntity="Channel", inversedBy="user")
+     * @ORM\ManyToOne(targetEntity="Channel", inversedBy="user")
      *
      */
     private $channel;
@@ -30,6 +30,16 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
         $this->videos = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -50,15 +60,5 @@ class User extends BaseUser
     public function getChannel()
     {
         return $this->channel;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

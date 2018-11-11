@@ -1,0 +1,36 @@
+{% if widget.bigsize %}
+{% set imagesize = '_big' %}
+{% else %}
+{% set imagesize = '_tiny' %}
+{% endif %}
+
+{% if widget.rendertype == constant('\\Flou\\VideoWidgetBundle\\Entity\\PlaylistWidget::HORIZONTAL') %}
+	<div class="horiplaylistwidget_wrapper clearfix">
+	<ul class="horiplaylistwidget_ul">
+	{% for item in playlists %}
+		<li class="horiplaylistwidget_li">
+		<a href="{{ path('tv_playlist', { 'playlistid': item.id }) }}">
+		<div>
+		<img class="horiplaylistwidget_image" src="{{ asset('uploads/playlists/'~channelid~'/'~item.id~imagesize~'.jpg') }}"/>
+		<span class="horiplaylistwidget_text">{{ item.title }}</span>
+		</div>
+		</a>
+		</li>
+	{% endfor %}
+	</ul>
+	</div>
+
+{% elseif widget.rendertype == constant('\\Flou\\VideoWidgetBundle\\Entity\\PlaylistWidget::VERTICAL') %}
+	<div class="vertplaylistwidget_wrapper">
+	<ul class="vertplaylistwidget_ul">
+	{% for item in playlists %}
+		<li class="vertplaylistwidget_li">
+		<a href="{{ path('tv_playlist', { 'playlistid': item.id }) }}">
+		<img class="vertplaylistwidget_image" src="{{ asset('uploads/playlists/'~channelid~'/'~item.id~imagesize~'.jpg') }}"/>
+		<span class="vertplaylistwidget_text">{{ item.title }}</span>
+		</a>
+		</li>
+	{% endfor %}
+	</ul>
+	</div>
+{% endif %}

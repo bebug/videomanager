@@ -1,0 +1,65 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>{{ playlist.title.titlede }}</h2>
+<hr/>
+{% for video in playlist.videos %}
+<div class="pagelistitem">
+	<div class="pageimage">
+		<img class="pageimage" src="{{ asset('uploads/videos/' ~ video.channel.id ~ '/' ~ video.id ~ '_tiny.jpg')}}" alt="picture"/>
+	</div>
+	{% if not video.enabled %}
+		<div class="pageimageoverlay"></div>
+	{% endif %}
+	<div class="innerpagelistitem">
+		<div class="title">
+			{{ video.title.titlede }}
+		</div>
+		<div class="description">
+		</div>
+	</div>
+	<a href="javascript:decision('Video wirklich aus Playlist löschen?','{{ path('playlist_videodelete', { 'videoid': video.id, 'playlistid':playlist.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+</div>
+
+{% endfor %}
+
+<form action="" method="post" {{ form_enctype(form) }}>
+<div class="formwrapper">
+	<fieldset>
+	<legend>Video hinzufügen</legend>
+	{{ form_widget(form) }}
+	</fieldset>
+	<div class="clear"></div>
+
+<input class="greenbutton" type="submit" />
+</div>
+</form>
+
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Seite werden alle Videos aufgelistet die sich in der Playlist befinden. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
+{% endblock %}

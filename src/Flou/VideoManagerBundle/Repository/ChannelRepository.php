@@ -17,13 +17,14 @@ class ChannelRepository extends EntityRepository
 		$query = $this->getEntityManager()
 		->createQuery('
 				SELECT	c.id,
-				c.socialnetworks,
-				c.showplaylist,
-				c.header,
-				c.menu,
+				c.channelname,
 				c.language_de,
 				c.language_en,
-				c.language_fr
+				c.language_fr,
+				c.use_html5,
+				c.piwikid,
+				c.fbid,
+				c.use_hyphernate
 				FROM FlouVideoManagerBundle:Channel c
 				WHERE c.id = :id'
 		)->setParameter('id', $id);

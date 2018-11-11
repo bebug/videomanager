@@ -12,6 +12,7 @@
 <hr/>
 <ul>
 {% for user in users %}
+
 <li><a href="{{ path('user_info') }}?_switch_user={{ user.username }}" >{{ user.username }}</a> ► {{ user.email }}</li>
 {% endfor %}
 </ul>

@@ -23,4 +23,17 @@ class DomainRepository extends EntityRepository
 	
 		return ($query->getSingleResult());
 	}
+	
+	public function findHostbyChannelId($channel)
+	{
+		$query = $this->getEntityManager()
+		->createQuery('
+				SELECT d.name
+				FROM FlouVideoManagerBundle:Domain d
+				JOIN d.channel c
+				WHERE c.id = :channel'
+		)->setParameter('channel', $channel);
+	
+		return ($query->getResult());
+	}
 }

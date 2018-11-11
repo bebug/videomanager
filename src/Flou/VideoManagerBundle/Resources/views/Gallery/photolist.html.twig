@@ -1,0 +1,55 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('gallery_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('gallery_new') }}"><span class="label">Neue Galerie</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Fotos in {{ gallery.title.titlede }}</h2>
+<hr/>
+<form action="" method="post">
+<div class="formwrapper">
+{% for photo in photos %}
+
+	<div class="pagelistitem">
+	<div class="pageimage">
+		<img class="pageimage" src="{{ asset('uploads/galleries/' ~ channel.id ~ '/' ~ gallery.id ~ '/' ~ photo.id ~ '_tiny.jpg')}}" alt="picture"/>
+	</div>
+	<div class="innerpagelistitem">
+		<div class="title">
+			{{ photo.title.titlede }}
+		</div>
+		<div class="description">
+		<div class="descriptionitem">Anordnung: {{ photo.orderrank }}</div>
+		<a href="{{ path('page_new', { 'hyperlink': path('tv_photo', { 'photoid': photo.id }), 'titlede': photo.title.titlede, 'titleen': photo.title.titleen, 'titlefr': photo.title.titlefr }) }}">Hyperlink erstellen</a><br/>
+		</div>
+	</div>
+	<a href="{{ path('gallery_editphoto', { 'galleryid': gallery.id, 'photoid': photo.id }) }}"><span class="editbutton">Ändern</span></a>
+	<a href="javascript:decision('Gallerie wirklich löschen?','{{ path('gallery_deletephoto', { 'galleryid': gallery.id, 'photoid': photo.id }) }}')"><span class="deletebutton">Löschen</span></a>
+	<div class="clear"></div>
+	</div>
+{% endfor %}
+</br>
+<span class="greenbutton"><a href="{{ path('gallery_newphoto', { 'galleryid': gallery.id }) }}">Neues Foto</a></span>
+<span class="greenbutton"><a href="{{ path('gallery_newzipfile', { 'galleryid': gallery.id }) }}">Zip-Upload</a></span>
+</div>
+</form>
+
+{% endblock %}
+
+{% block specjavascripts %}
+<script language="Javascript">
+<!---
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+// --->
+</script>
+{% endblock %}
+
+{% block help %}
+<p>Auf dieser Seite werden alle von Ihnen erstellten Fotos aufgelistet.</p>
+{% endblock %}

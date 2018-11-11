@@ -10,22 +10,24 @@
 {% block content %}
 <h2>Seitenliste</h2>
 <hr/>
-
+<form action="" method="post">
+<div class="formwrapper">
 {% for page in pages %}
+
 	<div class="pagelistitem">
-	
+	<div class="pagelistcheckbox"><input type="checkbox" name="selectedpage[]" value="{{ page.id }}"></input></div>
 	<div class="innerpagelistitem">
 		<div class="title">
 		{% if page.hyperlink != '' %}
-			<span class="hyperlinkbutton"></span><a href="{{ page.hyperlink }}" target="_blank">{{ page.title.titlede }}</a>
+			<span class="hyperlinkbutton"></span>{{ page.title.titlede }}
 		{% else %}
-			<a href="{{ path('tv_page', { 'page': page.id }) }}" target="_blank">{{ page.title.titlede }}</a>
+			{{ page.title.titlede }}
 		{% endif %}
 		</div>
 		<div class="description">
-			<div class="descriptionitem">Pos: {{ page.pageposition.position }}</div>
-			<div class="descriptionitem">Rank: {{ page.orderrank }}</div>
-			<div class="descriptionitem">Group: {{ page.group.titlede }}</div>
+			<div class="descriptionitem">Position: {{ page.pageposition.position }}</div>
+			<div class="descriptionitem">Anordnung: {{ page.orderrank }}</div>
+			<div class="descriptionitem">Gruppe: {{ page.group.titlede }}</div>
 		</div>
 	</div>
 	<a href="{{ path('page_edit', { 'pageid': page.id }) }}"><span class="editbutton">Ändern</span></a>
@@ -33,6 +35,24 @@
 	<div class="clear"></div>
 	</div>
 {% endfor %}
+
+
+	<fieldset>
+	<legend>Auswahl ändern</legend>
+	<div><label for="positionid">Positon <input type="checkbox" name="changeposition" value="1"></label>
+	<select name="positionid" id="positionid">
+	{% for position in positions %}
+	<option value="{{ position.id }}">{{ position.position }}</option>
+	{% endfor %}
+	</select>
+	</div>
+	<div><label for="groupname_de">Gruppe deutsch <input type="checkbox" name="changegroup_de" value="1"></label><input name="groupname_de" type="text" maxlength="30" id="groupname_de"></input></div>
+	<div><label for="groupname_en">Gruppe englisch <input type="checkbox" name="changegroup_en" value="1"></label><input name="groupname_en" type="text" maxlength="30" id="groupname_en"></input></div>
+	<div><label for="groupname_fr">Gruppe franzözisch <input type="checkbox" name="changegroup_fr" value="1"></label><input name="groupname_fr" type="text" maxlength="30" id="groupname_fr"></input></div>
+	</fieldset>
+</div>
+<input class="greenbutton" type="submit" />
+</form>
 
 {% endblock %}
 
@@ -48,6 +68,4 @@ if(confirm(message)) location.href = url;
 
 {% block help %}
 <p>In dieser Liste werden alle von Ihnen entworfenen Seiten aufgelistet.</p>
-<p>Seiten sind ein wichtiger Bestandteil, wenn Sie Ihren Besuchern zusätzliche <strong>Infomrationen</strong> zur Verfügung stellen wollen.</p>
-<p>Sie können beliebige Seiten erstellen. Achten Sie jedoch darauf, dass Sie eine Seite mit Ihrem <strong>Impressum</strong> immer auf dem aktuellen Stand halten. Dies ist in Deutschland verpflichtend.</p>
 {% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('gallery_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('gallery_new') }}"><span class="label">Neue Galerie</span></a></li>
+</ul>
+{% endblock %}
+
+{% block specjavascripts %}
+<script>
+$(document).ready(function(){
+	//$('#tabs div').hide();
+	$('#german-tab').hide();
+	$('#english-tab').hide();
+	$('#france-tab').hide();
+	$('#german-tab').show();
+	$('#tabs ul li:first').addClass('active');
+	 
+	$('#tabs ul li a').click(function(){
+	$('#tabs ul li').removeClass('active');
+	$(this).parent().addClass('active');
+	var currentTab = $(this).attr('href');
+	$('#german-tab').hide();
+	$('#english-tab').hide();
+	$('#france-tab').hide();
+	$(currentTab).show();
+	return false;
+	});
+	});
+	
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>Galerie bearbeiten</h2>
+<hr/>
+<form action="" method="post" {{ form_enctype(form) }}>
+<div class="formwrapper">
+
+	<div class="clear"></div>
+	
+<div id="tabs">
+	<ul>
+     <li><a href="#german-tab"><img src="{{ asset('bundles/flouvideomanager/images/flag_de_sw.png') }}" alt="Deutsch"></a></li>
+     <li><a href="#english-tab"><img src="{{ asset('bundles/flouvideomanager/images/flag_en_sw.png') }}" alt="Englisch"></a></li>
+     <li><a href="#france-tab"><img src="{{ asset('bundles/flouvideomanager/images/flag_fr_sw.png') }}" alt="Französisch"></a></li>
+   </ul>
+   <div class="clear"></div>
+
+   <div id="german-tab">
+   <fieldset>
+	<legend>Deutsch</legend>
+		{{ form_row(form.title.title_de) }}
+	</fieldset>
+	<div class="clear"></div>
+   </div>
+   
+   <div id="english-tab">
+   <fieldset>
+	<legend>Englisch</legend>
+		{{ form_row(form.title.title_en) }}
+	</fieldset>
+	<div class="clear"></div>
+   </div>
+   
+   <div id="france-tab">
+   <fieldset>
+	<legend>Französisch</legend>
+		{{ form_row(form.title.title_fr) }}
+	</fieldset>
+	<div class="clear"></div>
+   </div>
+</div>
+	
+
+
+
+{{ form_widget(form) }}
+
+<input class="greenbutton" type="submit" />
+</div>
+</form>
+{% endblock %}
+
+{% block help %}
+Auf dieser Seite können Sie Ihre Galerie bearbeiten. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.
+{% endblock %}

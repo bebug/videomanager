@@ -2,13 +2,19 @@
 
 {% block sidemenu %}
 <ul id="sidemenulist">
-	<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
+		<li><a href="{{ path('video_list') }}"><span class="label">Liste</span></a></li>
 	<li><a href="{{ path('video_serverupload') }}"><span class="label">Video hochladen</span></a></li>
+	<li><a href="{{ path('video_ytlink') }}"><span class="label">Youtube Video</span></a></li>
+	{% if app.user.channel.playlistenabled %}
+	<li><a href="{{ path('playlist_list') }}"><span class="label">Playlisten</span></a></li>
+	<li><a href="{{ path('playlist_new') }}"><span class="label">Neue Playlist</span></a></li>
+	{% endif %}
 </ul>
 {% endblock %}
 
 {% block specjavascripts %}
-<script type="text/javascript" src="{{ asset('bundles/flouvideomanager/tiny_mce/tiny_mce.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/tiny_mce/tiny_mce.js') }}"></script>
+<iframe height="0" width="0" src="{{ asset('bundles/flouvideoasset/mceSessionWriter.php') }}"></iframe>
 <script type="text/javascript">
 tinyMCE.init({
         // General options
@@ -17,10 +23,10 @@ tinyMCE.init({
         mode : "specific_textareas",
         editor_deselector : "mceNoEditor",
         relative_urls : false,
-        remove_script_host : false,
-        verify_html : false,
+        //remove_script_host : false,
+        //verify_html : false,
         theme : "advanced",
-        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+        plugins : "filemanager,autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
 
      	// Theme options
         theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
@@ -136,5 +142,5 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block help %}
-<p>Der <strong>Name</strong> und die <strong>Beschreibung</strong> können für verschiedene Sprachen gewählt werden. Klicken Sie hierführ auf die <strong>Flaggen</strong> der jeweiligen Länder. Besucher aus dem gewählten Land bekommen so eine Seite in der eigenen Sprache zu sehen. Die Inhalte werden nicht automatisch übersetzt und müssen von Ihnen selbst eingetragen werden.</p>
+<p>Auf dieser Seite können Sie die Eigenschaften und Texte Ihres Videos bearbeiten. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de">Hilfe</a>.</p>
 {% endblock %}

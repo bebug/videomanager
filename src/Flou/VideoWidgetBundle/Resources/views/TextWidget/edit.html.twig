@@ -1,0 +1,146 @@
+{% extends 'FlouVideoManagerBundle::internlayout.html.twig' %}
+
+{% block specjavascripts %}
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/tiny_mce/tiny_mce.js') }}"></script>
+<iframe height="0" width="0" src="{{ asset('bundles/flouvideoasset/mceSessionWriter.php') }}"></iframe>
+<script type="text/javascript">
+tinyMCE.init({
+        // General options
+        width : "845",
+        height: "400",
+        mode : "textareas",
+        relative_urls : false,
+        remove_script_host : false,
+        //verify_html : false,
+        theme : "advanced",
+        forced_root_block : false,
+        force_p_newlines : false,
+        language : "de",
+        plugins : "filemanager,autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+        // Theme options
+        theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : true,
+
+        // Skin options
+        skin : "o2k7",
+        skin_variant : "silver",
+
+        // Example content CSS (should be your site CSS)
+        content_css : "css/example.css",
+
+        // Drop lists for link/image/media/template dialogs
+        template_external_list_url : "js/template_list.js",
+        external_link_list_url : "js/link_list.js",
+        external_image_list_url : "js/image_list.js",
+        media_external_list_url : "js/media_list.js",
+
+        // Replace values for the template plugin
+        template_replace_values : {
+                username : "Some User",
+                staffid : "991234"
+        }
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	//$('#tabs div').hide();
+	$('#german-tab').hide();
+	$('#english-tab').hide();
+	$('#france-tab').hide();
+	$('#german-tab').show();
+	$('#tabs ul li:first').addClass('active');
+	 
+	$('#tabs ul li a').click(function(){
+	$('#tabs ul li').removeClass('active');
+	$(this).parent().addClass('active');
+	var currentTab = $(this).attr('href');
+	$('#german-tab').hide();
+	$('#english-tab').hide();
+	$('#france-tab').hide();
+	$(currentTab).show();
+	return false;
+	});
+	});
+	
+</script>
+{% endblock %}
+
+{% block sidemenu %}
+<ul id="sidemenulist">
+	<li><a href="{{ path('widget_list') }}"><span class="label">Liste</span></a></li>
+	<li><a href="{{ path('widget_newlist') }}"><span class="label">Neues Widget</span></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Text-Widget bearbeiten</h2>
+<hr/>
+<form action="" method="post" {{ form_enctype(form) }}>
+<div class="formwrapper">
+
+	<fieldset>
+	<legend>Widget-Einstellungen</legend>
+	{{ form_row(form.position) }}
+	{{ form_row(form.orderrank) }}
+	{{ form_row(form.showonvideo) }}
+	{{ form_row(form.showonpage) }}
+	{{ form_row(form.page) }}
+	</fieldset>
+	<div class="clear"></div>
+	
+<div id="tabs">
+	<ul>
+     <li><a href="#german-tab"><img src="{{ asset('bundles/flouvideomanager/images/flag_de_sw.png') }}" alt="Deutsch"></a></li>
+     <li><a href="#english-tab"><img src="{{ asset('bundles/flouvideomanager/images/flag_en_sw.png') }}" alt="Englisch"></a></li>
+     <li><a href="#france-tab"><img src="{{ asset('bundles/flouvideomanager/images/flag_fr_sw.png') }}" alt="Französisch"></a></li>
+   </ul>
+   <div class="clear"></div>
+
+   <div id="german-tab">
+   <fieldset>
+	<legend>Deutsch</legend>
+		{{ form_row(form.title.title_de) }}
+		{{ form_widget(form.description.description_de) }}
+	</fieldset>
+	<div class="clear"></div>
+   </div>
+   
+   <div id="english-tab">
+   <fieldset>
+	<legend>Englisch</legend>
+		{{ form_row(form.title.title_en) }}
+		{{ form_widget(form.description.description_en) }}
+	</fieldset>
+	<div class="clear"></div>
+   </div>
+   
+   <div id="france-tab">
+   <fieldset>
+	<legend>Französisch</legend>
+		{{ form_row(form.title.title_fr) }}
+		{{ form_widget(form.description.description_fr) }}
+	</fieldset>
+	<div class="clear"></div>
+   </div>
+</div>
+	
+
+
+
+{{ form_widget(form) }}
+
+<input class="greenbutton" type="submit" />
+</div>
+</form>
+{% endblock %}
+
+{% block help %}
+{% endblock %}

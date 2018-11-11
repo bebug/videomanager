@@ -3,8 +3,6 @@
 {% block sidemenu %}
 <ul id="sidemenulist">
 	<li><a href="{{ path('channel_edit') }}"><span class="label">Einstellungen</span></a></li>
-	<li><a href="{{ path('channel_head') }}"><span class="label">Kopfbereich</span></a></li>
-	<li><a href="{{ path('channel_menu') }}"><span class="label">Menübereich</span></a></li>
 	<li><a href="{{ path('design_color') }}"><span class="label">Farben</span></a></li>
 	<li><a href="{{ path('design_template') }}"><span class="label">Template</span></a></li>
 </ul>
@@ -17,9 +15,16 @@
 
 	<div class="formwrapper">
 	<fieldset>
+	<legend>Dateien</legend>
+	<a href="javascript:mcFileManager.open('example1','url');">[FileManager]</a>
+	</fieldset>
+	<fieldset>
 	<legend>Optionen</legend>
-	{{ form_row(form.socialnetworks) }}
-	{{ form_row(form.showplaylist) }}
+	{{ form_row(form.channelname) }}
+	{{ form_row(form.use_html5) }}
+	{{ form_row(form.use_hyphernate) }}
+	{{ form_row(form.fbid) }}
+	{{ form_row(form.contactemail) }}
 	</fieldset>
 	<fieldset>
 	<legend>Startseite</legend>
@@ -38,11 +43,17 @@
     <input class="greenbutton" type="submit" />
     </div>
 </form>
+<h2>Hyperlinks</h2>
+<hr/>
+TV: <a href="{{ path('page_new', { 'hyperlink': path('tv_playlist'), 'titlede': 'TV', 'titleen': 'TV', 'titlefr': 'TV' }) }}">Hyperlink erstellen</a><br/>
+Kontakt: <a href="{{ path('page_new', { 'hyperlink': path('tv_contact'), 'titlede': 'Kontakt' }) }}">Hyperlink erstellen</a>
+{% endblock %}
+
+{% block specjavascripts %}
+<iframe height="0" width="0" src="{{ asset('bundles/flouvideoasset/mceSessionWriter.php') }}"></iframe>
+<script type="text/javascript" src="{{ asset('bundles/flouvideoasset/tiny_mce/plugins/filemanager/js/mcfilemanager.js') }}"></script>
 {% endblock %}
 
 {% block help %}
-<p>In diesem Menü können Sie die Eigenschaften Ihres Kanals bearbeiten.</p>
-<p>In den <strong>Optionen</strong> können Sie allgemeine Einstellungen vornehmen.</p>
-<p>Die verfügbaren <strong>Sprachen</strong> können beliebig ausgewählt werden, um Ihre Seite an Besucher anderer Länder anzupassen.</p>
-<p>Die <strong>Startseite</strong> ist die Seite, die Ihre Besucher zuerst zu Gesicht bekommen, wenn sie Ihre Seite besuchen.</p>
+<p>In diesem Menü können Sie die Eigenschaften Ihres Kanals bearbeiten. Sie finden eine ausführliche Beschreibung in der <a href="http://help.dif-webtv.de/tv/page/43">Hilfe</a>.</p>
 {% endblock %}

@@ -1,0 +1,180 @@
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+.playlistitem, #videoinfo{
+	margin:0px 0px 5px 0px;
+}
+
+.playlistitem_text{
+width:100%;
+float:left;
+position:relative;
+}
+
+.playlistitem_title, .playlistitem_date, .playlistitem_description{
+position:relative;
+margin-left:170px;
+}
+
+.playlistitem_title{
+font-size:1.2em;
+}
+
+.playlistitem_date{
+font-size:0.8em;
+}
+
+.playlistitem_description{
+}
+
+.playlistitem_picture{
+width:170px;
+float:left;
+margin-left:-100%;
+position:relative;
+}
+
+.playlistimage{
+	width:160px;
+	height:90px;
+}
+
+.playlistitem_button{
+	width:160px;
+	height:90px;
+	position:absolute;
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	background-image:url(../images/playbutton_hovertile.png);
+	cursor:pointer;
+	left:0px;
+	top:0px;
+}
+
+.playlistitem_button:hover{
+	background-image:url(../images/playbutton_tile.png);
+}
+
+.playlistitem_duration{
+	background-color:#111111;
+	color:#dddddd;
+	padding:1px 5px;
+	position:absolute;
+	left:2px;
+	top:2px;
+	font-size:0.75em;
+	font-weight: bold;
+}
+
+.vertplaylistwidget_ul{
+	padding:0px;
+	list-style:none;
+}
+
+.vertplaylistwidget_li{
+	position:relative;
+}
+
+.vertplaylistwidget_li a{
+	color:#c2c2c2;
+	font-size:1.2em;
+}
+
+.vertplaylistwidget_li a:hover{
+	color:#ffffff;
+}
+
+.vertplaylistwidget_li{
+	position:relative;
+}
+
+.vertplaylistwidget_image{
+	width:100%;
+}
+
+.vertplaylistwidget_text{
+	position:absolute;
+	left:0px;
+	right:0px;
+	top:0px;
+	width:100%;
+	background-color:#121212;
+	background-color:rgba(0,0,0,0.5);
+	text-align:center;
+}
+
+.horiplaylistwidget_wrapper{
+	position:relative;
+}
+
+.horiplaylistwidget_ul{
+	list-style: none;
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+.horiplaylistwidget_li{
+	width: 100px;
+	height:200px;
+	/*do not change these */
+	display: block;
+	overflow: hidden;
+	padding: 0;
+}
+
+.horiplaylistwidget_li a{
+	position:relative;
+	height:100%;
+}
+
+.horiplaylistwidget_text{
+	display:none;
+}
+
+.vertplaylistwidget_ul{
+	margin:0px;
+}
+
+.widget1, .widget2, .widget3, .widget4{
+	position:relative;
+}
+
+.fb-comments, .fb-comments span, .fb-comments iframe {width: 100% !important;}
+
+.fb_ltr{
+	margin-top:-3px;
+}
+
+#contact label {
+    float:left;
+  width:20%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  clear:both;
+}
+
+#contact fieldset {
+	position:relative;
+	float: left;
+	clear: both;
+	width: 100%;
+	padding-left:3px;
+	margin: 0 0 0.3em 0;
+	padding: 3px 0 0.8em 3px ;
+}
+
+#contact textarea{
+	position:relative;
+	width:60%;
+	height:6em;
+	margin-right:auto;
+	margin-top:3px;
+}
+
+#contact input{
+	margin-top:3px;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Electrolize' rel='stylesheet' type='text/css'>
+    <title>{{ status_text }}</title>
+    <style type="text/css">
+	html,body{
+	font-family: 'Electrolize', sans-serif;}
+    </style>
+</head>
+<body>
+<div style="margin:0 auto; width:600px; text-align:center;">
+    <h1>Oops! Es gab einen Fehler.</h1>
+    <img alt="errorfant" src="{{ asset('bundles/flouvideomanager/images/errorfant.png') }}">
+    <h2>Statuscode "{{ status_code }} {{ status_text }}".</h2>
+    {% if is_granted('ROLE_USER') %}{{ exception.message }}{% else %}Wir werden den Fehler so schnell wie möglich beheben.{% endif %}   
+    </div> 
+</body>
+</html>

@@ -1,0 +1,59 @@
+textwidget_new:
+    pattern:  /textwidget/new/
+    defaults: { _controller: FlouVideoWidgetBundle:TextWidget:new }
+    
+textwidget_delete:
+    pattern:  /textwidget/delete/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:TextWidget:delete }
+    
+textwidget_edit:
+    pattern:  /textwidget/edit/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:TextWidget:edit }
+    
+playlistwidget_new:
+    pattern:  /playlistwidget/new/
+    defaults: { _controller: FlouVideoWidgetBundle:PlaylistWidget:new }
+    
+playlistwidget_delete:
+    pattern:  /playlistwidget/delete/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:PlaylistWidget:delete }
+    
+playlistwidget_edit:
+    pattern:  /playlistwidget/edit/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:PlaylistWidget:edit }
+    
+fbcommentwidget_new:
+    pattern:  /fbcommentwidget/new/
+    defaults: { _controller: FlouVideoWidgetBundle:FbCommentWidget:new }
+    
+fbcommentwidget_delete:
+    pattern:  /fbcommentwidget/delete/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:FbCommentWidget:delete }
+    
+fbcommentwidget_edit:
+    pattern:  /fbcommentwidget/edit/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:FbCommentWidget:edit }
+    
+followwidget_new:
+    pattern:  /followwidget/new/
+    defaults: { _controller: FlouVideoWidgetBundle:FollowWidget:new }
+    
+followwidget_delete:
+    pattern:  /followwidget/delete/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:FollowWidget:delete }
+    
+followwidget_edit:
+    pattern:  /followwidget/edit/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:FollowWidget:edit }
+    
+likebuttonwidget_new:
+    pattern:  /likebuttonwidget/new/
+    defaults: { _controller: FlouVideoWidgetBundle:LikebuttonWidget:new }
+    
+likebuttonwidget_delete:
+    pattern:  /likebuttonwidget/delete/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:LikebuttonWidget:delete }
+    
+likebuttonwidget_edit:
+    pattern:  /likebuttonwidget/edit/{id}
+    defaults: { _controller: FlouVideoWidgetBundle:LikebuttonWidget:edit }
